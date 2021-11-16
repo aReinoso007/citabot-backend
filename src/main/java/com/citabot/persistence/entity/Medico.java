@@ -13,10 +13,11 @@ public class Medico extends Usuario{
     private String profesion;
     private String photoUrl;
     private String descripcion;
-    @OneToMany( cascade = CascadeType.ALL, mappedBy = "medico" )
-    private Set<MedicoClinica> clinicas;
 
-    public Medico(Integer usuarioId, String username, String name, String lastName, String email, String recoveryEmail, String password, String gender, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt, String slogan, String profesion, String photoUrl, String descripcion, Set<MedicoClinica> clinicas) {
+    @OneToMany( cascade = CascadeType.ALL, mappedBy = "medico" )
+    private Set<RegistroClinica> clinicas;
+
+    public Medico(Integer usuarioId, String username, String name, String lastName, String email, String recoveryEmail, String password, String gender, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt, String slogan, String profesion, String photoUrl, String descripcion, Set<RegistroClinica> clinicas) {
         super(usuarioId, username, name, lastName, email, recoveryEmail, password, gender, telephoneNumber, cellphoneNumber, createdAt, updatedAt);
         this.slogan = slogan;
         this.profesion = profesion;
@@ -61,11 +62,11 @@ public class Medico extends Usuario{
         this.descripcion = descripcion;
     }
 
-    public Set<MedicoClinica> getClinicas() {
+    public Set<RegistroClinica> getClinicas() {
         return clinicas;
     }
 
-    public void setClinicas(Set<MedicoClinica> clinicas) {
+    public void setClinicas(Set<RegistroClinica> clinicas) {
         this.clinicas = clinicas;
     }
 }

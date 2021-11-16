@@ -3,7 +3,7 @@ package com.citabot.persistence.entity;
 import javax.persistence.*;
 
 @Entity
-public class MedicoClinica {
+public class RegistroClinica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
