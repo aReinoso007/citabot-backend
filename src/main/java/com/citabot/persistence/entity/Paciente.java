@@ -15,10 +15,12 @@ public class Paciente extends Usuario{
     private String emergencyContactName;
     private String contactPhoneNumber;
     private String contactRelationship;
-    @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
-    private Direccion direccion;
 
     public Paciente(Integer usuarioId, String username, String name, String lastName, String email, String recoveryEmail, String password, String gender, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt) {
         super(usuarioId, username, name, lastName, email, recoveryEmail, password, gender, telephoneNumber, cellphoneNumber, createdAt, updatedAt);
+    }
+
+    public Paciente() {
+        super();
     }
 }

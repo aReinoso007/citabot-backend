@@ -1,8 +1,6 @@
 package com.citabot.persistence.entity;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -36,6 +34,10 @@ public class Usuario {
         this.cellphoneNumber = cellphoneNumber;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public Usuario() {
+
     }
 
     public Integer getUsuarioId() {

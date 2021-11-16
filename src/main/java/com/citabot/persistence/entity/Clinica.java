@@ -1,10 +1,13 @@
 package com.citabot.persistence.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class Clinica {
+public class Clinica implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +20,7 @@ public class Clinica {
     @JoinColumn
     private Direccion direccion;
 
-    @OneToMany(mappedBy = "clinica")
+    @OneToMany(mappedBy = "direccion")
     private Set<MedicoClinica> medicosRegistrados;
 
 
