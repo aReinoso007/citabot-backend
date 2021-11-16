@@ -11,6 +11,7 @@ public class MedicoClinica {
     @ManyToOne
     @JoinColumn
     private Medico medico;
+
     @ManyToOne
     @JoinColumn
     private Clinica clinica;

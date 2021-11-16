@@ -16,8 +16,7 @@ public class Clinica implements Serializable {
     private String contacto;
     private String photoUrl;
 
-    @OneToOne(mappedBy = "clinica", cascade = CascadeType.ALL)
-    @JoinColumn
+
     private Direccion direccion;
 
     @OneToMany(mappedBy = "direccion")

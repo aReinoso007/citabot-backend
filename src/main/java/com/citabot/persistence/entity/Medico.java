@@ -16,10 +16,6 @@ public class Medico extends Usuario{
     @OneToMany( cascade = CascadeType.ALL, mappedBy = "medico" )
     private Set<MedicoClinica> clinicas;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "medico")
-    private MedicoEducacion educacion;
-
-
     public Medico(Integer usuarioId, String username, String name, String lastName, String email, String recoveryEmail, String password, String gender, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt, String slogan, String profesion, String photoUrl, String descripcion, Set<MedicoClinica> clinicas) {
         super(usuarioId, username, name, lastName, email, recoveryEmail, password, gender, telephoneNumber, cellphoneNumber, createdAt, updatedAt);
         this.slogan = slogan;
@@ -27,6 +23,10 @@ public class Medico extends Usuario{
         this.photoUrl = photoUrl;
         this.descripcion = descripcion;
         this.clinicas = clinicas;
+    }
+
+    public Medico() {
+        super();
     }
 
     public String getSlogan() {

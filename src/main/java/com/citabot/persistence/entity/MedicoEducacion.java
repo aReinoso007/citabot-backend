@@ -12,8 +12,6 @@ public class MedicoEducacion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer educacionId;
 
-    @ManyToOne()
-    @JoinColumn()
     private Medico medico;
 
 
