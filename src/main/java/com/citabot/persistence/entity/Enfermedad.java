@@ -16,6 +16,9 @@ public class Enfermedad implements Serializable {
     private String tipo;
     private String descripcion;
 
+    public Enfermedad() {
+    }
+
     public Enfermedad(String tipo, String descripcion) {
         this.tipo = tipo;
         this.descripcion = descripcion;
