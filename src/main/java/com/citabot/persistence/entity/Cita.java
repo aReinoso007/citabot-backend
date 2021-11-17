@@ -1,10 +1,11 @@
 package com.citabot.persistence.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 @Entity
 public class Cita implements Serializable {
@@ -13,5 +14,18 @@ public class Cita implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private Timestamp createdAt;
+    private Timestamp updateAt;
+    private Date fechaCita;
+    private Time horaInicio;
+    private Time horaFin;
+    private String motivoConsulta;
+    private String sintomas;
+    private BigDecimal precioConsulta;
+    private String estado;
+    @ManyToOne
+    private Paciente paciente;
+    @ManyToOne
+    private RegistroClinica clinicaMedico;
 
 }
