@@ -3,6 +3,7 @@ package com.citabot.persistence.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -17,8 +18,16 @@ public class Medico extends Usuario{
     @OneToMany( cascade = CascadeType.ALL, mappedBy = "medico" )
     private Set<RegistroClinica> clinicas;
 
-    public Medico(Integer usuarioId, String username, String name, String lastName, String email, String recoveryEmail, String password, String gender, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt, String slogan, String profesion, String photoUrl, String descripcion, Set<RegistroClinica> clinicas) {
-        super(usuarioId, username, name, lastName, email, recoveryEmail, password, gender, telephoneNumber, cellphoneNumber, createdAt, updatedAt);
+    public Medico(String username, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt, String slogan, String profesion, String photoUrl, String descripcion, Set<RegistroClinica> clinicas) {
+        super(username, nombre, apellido, email, recoveryEmail, password, numeroContacto, createdAt, updatedAt);
+        this.slogan = slogan;
+        this.profesion = profesion;
+        this.photoUrl = photoUrl;
+        this.descripcion = descripcion;
+        this.clinicas = clinicas;
+    }
+
+    public Medico(String slogan, String profesion, String photoUrl, String descripcion, Set<RegistroClinica> clinicas) {
         this.slogan = slogan;
         this.profesion = profesion;
         this.photoUrl = photoUrl;

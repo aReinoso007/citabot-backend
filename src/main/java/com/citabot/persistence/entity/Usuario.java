@@ -1,6 +1,7 @@
 package com.citabot.persistence.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -8,27 +9,25 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer usuarioId;
+    private Integer id;
     private String username;
-    private String name;
-    private String lastName;
+    private String nombre;
+    private String apellido;
     private String email;
     private String recoveryEmail;
     private String password;
-    private String telephoneNumber;
-    private String cellphoneNumber;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String numeroContacto;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-    public Usuario(String username, String name, String lastName, String email, String recoveryEmail, String password, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Usuario(String username, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt) {
         this.username = username;
-        this.name = name;
-        this.lastName = lastName;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.email = email;
         this.recoveryEmail = recoveryEmail;
         this.password = password;
-        this.telephoneNumber = telephoneNumber;
-        this.cellphoneNumber = cellphoneNumber;
+        this.numeroContacto = numeroContacto;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -37,12 +36,12 @@ public class Usuario {
 
     }
 
-    public Integer getUsuarioId() {
-        return usuarioId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUsuarioId(Integer usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -53,20 +52,20 @@ public class Usuario {
         this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public String getEmail() {
@@ -93,35 +92,27 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getTelephoneNumber() {
-        return telephoneNumber;
+    public String getNumeroContacto() {
+        return numeroContacto;
     }
 
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
+    public void setNumeroContacto(String numeroContacto) {
+        this.numeroContacto = numeroContacto;
     }
 
-    public String getCellphoneNumber() {
-        return cellphoneNumber;
-    }
-
-    public void setCellphoneNumber(String cellphoneNumber) {
-        this.cellphoneNumber = cellphoneNumber;
-    }
-
-    public LocalDateTime getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
