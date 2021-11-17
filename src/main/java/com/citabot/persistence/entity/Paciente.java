@@ -60,10 +60,6 @@ public class Paciente extends Usuario implements Serializable {
         this.citas = citas;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getPhotoUrl() {
         return photoUrl;
     }

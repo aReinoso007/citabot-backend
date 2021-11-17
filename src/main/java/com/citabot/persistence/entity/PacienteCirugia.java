@@ -25,10 +25,6 @@ public class PacienteCirugia implements Serializable {
         this.cirugia = cirugia;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public Integer getId() {
         return id;
     }

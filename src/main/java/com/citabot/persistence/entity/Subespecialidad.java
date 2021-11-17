@@ -1,25 +1,26 @@
 package com.citabot.persistence.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Subespecialidad {
-
+public class Subespecialidad implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer subespecialidadId;
     private String nombre;
+    @ManyToOne
+    @JoinColumn
+    private Especialidad especialidad;
 
     public Subespecialidad() {
     }
 
-    public Subespecialidad(Integer subespecialidadId, String nombre) {
-        this.subespecialidadId = subespecialidadId;
+    public Subespecialidad(String nombre, Especialidad especialidad) {
         this.nombre = nombre;
+        this.especialidad = especialidad;
     }
 
     public Integer getSubespecialidadId() {
@@ -38,11 +39,11 @@ public class Subespecialidad {
         this.nombre = nombre;
     }
 
-    @Override
-    public String toString() {
-        return "Subespecialidad{" +
-                "subespecialidadId=" + subespecialidadId +
-                ", nombre='" + nombre + '\'' +
-                '}';
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
     }
 }

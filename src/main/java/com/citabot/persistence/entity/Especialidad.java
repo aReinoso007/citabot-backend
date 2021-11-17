@@ -1,10 +1,8 @@
 package com.citabot.persistence.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class Especialidad implements Serializable {
@@ -15,13 +13,19 @@ public class Especialidad implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer especialidadId;
     private String nombre;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "especialidad")
+    private Set<Subespecialidad> subespecialidades;
 
     public Especialidad() {
     }
 
-    public Especialidad(Integer especialidadId, String nombre) {
-        this.especialidadId = especialidadId;
+    public Especialidad(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Especialidad(String nombre, Set<Subespecialidad> subespecialidades) {
+        this.nombre = nombre;
+        this.subespecialidades = subespecialidades;
     }
 
     public Integer getEspecialidadId() {
@@ -40,11 +44,11 @@ public class Especialidad implements Serializable {
         this.nombre = nombre;
     }
 
-    @Override
-    public String toString() {
-        return "Especialidad{" +
-                "especialidadId=" + especialidadId +
-                ", nombre='" + nombre + '\'' +
-                '}';
+    public Set<Subespecialidad> getSubespecialidades() {
+        return subespecialidades;
+    }
+
+    public void setSubespecialidades(Set<Subespecialidad> subespecialidades) {
+        this.subespecialidades = subespecialidades;
     }
 }

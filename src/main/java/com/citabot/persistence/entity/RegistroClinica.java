@@ -1,11 +1,13 @@
 package com.citabot.persistence.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class RegistroClinica {
+public class RegistroClinica implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -15,9 +17,9 @@ public class RegistroClinica {
     @ManyToOne
     @JoinColumn
     private Clinica clinica;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "registroClinica")
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Cita>   citas;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "registroClinica")
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Horario> horarios;
 
     public RegistroClinica() {
