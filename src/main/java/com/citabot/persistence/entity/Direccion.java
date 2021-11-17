@@ -19,10 +19,28 @@ public class Direccion implements Serializable {
     private String ciudad;
     private String callePrincipal;
     private String calleSecundaria;
-    private String numero;
     private String referencia;
     private String longitud;
     private String latitud;
+
+    public Direccion() {
+    }
+
+    public Direccion(Integer id, String pais, String provincia, String ciudad, String callePrincipal, String calleSecundaria, String referencia, String longitud, String latitud) {
+        this.id = id;
+        this.pais = pais;
+        this.provincia = provincia;
+        this.ciudad = ciudad;
+        this.callePrincipal = callePrincipal;
+        this.calleSecundaria = calleSecundaria;
+        this.referencia = referencia;
+        this.longitud = longitud;
+        this.latitud = latitud;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Integer getId() {
         return id;
@@ -70,14 +88,6 @@ public class Direccion implements Serializable {
 
     public void setCalleSecundaria(String calleSecundaria) {
         this.calleSecundaria = calleSecundaria;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
     }
 
     public String getReferencia() {

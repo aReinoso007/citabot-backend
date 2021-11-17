@@ -15,21 +15,18 @@ public class Usuario {
     private String email;
     private String recoveryEmail;
     private String password;
-    private String gender;
     private String telephoneNumber;
     private String cellphoneNumber;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Usuario(Integer usuarioId, String username, String name, String lastName, String email, String recoveryEmail, String password, String gender, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.usuarioId = usuarioId;
+    public Usuario(String username, String name, String lastName, String email, String recoveryEmail, String password, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.username = username;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.recoveryEmail = recoveryEmail;
         this.password = password;
-        this.gender = gender;
         this.telephoneNumber = telephoneNumber;
         this.cellphoneNumber = cellphoneNumber;
         this.createdAt = createdAt;
@@ -95,15 +92,7 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
+    
     public String getTelephoneNumber() {
         return telephoneNumber;
     }
