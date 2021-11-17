@@ -16,8 +16,8 @@ public class Paciente extends Usuario{
     private String contactPhoneNumber;
     private String contactRelationship;
 
-    public Paciente(Integer usuarioId, String username, String name, String lastName, String email, String recoveryEmail, String password, String gender, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        super(usuarioId, username, name, lastName, email, recoveryEmail, password, gender, telephoneNumber, cellphoneNumber, createdAt, updatedAt);
+    public Paciente(String username, String name, String lastName, String email, String recoveryEmail, String password, String gender, String telephoneNumber, String cellphoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        super(username, name, lastName, email, recoveryEmail, password, telephoneNumber, cellphoneNumber, createdAt, updatedAt);
     }
 
     public Paciente() {
