@@ -19,7 +19,6 @@ public class Cita implements Serializable {
     private Date fechaCita;
     private Time horaInicio;
     private Time horaFin;
-    private String motivoConsulta;
     private String sintomas;
     private BigDecimal precioConsulta;
     private String estado;
@@ -33,13 +32,12 @@ public class Cita implements Serializable {
     public Cita() {
     }
 
-    public Cita(Timestamp createdAt, Timestamp updateAt, Date fechaCita, Time horaInicio, Time horaFin, String motivoConsulta, String sintomas, BigDecimal precioConsulta, String estado, Paciente paciente, RegistroClinica clinicaMedico) {
+    public Cita(Timestamp createdAt, Timestamp updateAt, Date fechaCita, Time horaInicio, Time horaFin, String sintomas, BigDecimal precioConsulta, String estado, Paciente paciente, RegistroClinica clinicaMedico) {
         this.createdAt = createdAt;
         this.updateAt = updateAt;
         this.fechaCita = fechaCita;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.motivoConsulta = motivoConsulta;
         this.sintomas = sintomas;
         this.precioConsulta = precioConsulta;
         this.estado = estado;
@@ -97,14 +95,6 @@ public class Cita implements Serializable {
 
     public void setHoraFin(Time horaFin) {
         this.horaFin = horaFin;
-    }
-
-    public String getMotivoConsulta() {
-        return motivoConsulta;
-    }
-
-    public void setMotivoConsulta(String motivoConsulta) {
-        this.motivoConsulta = motivoConsulta;
     }
 
     public String getSintomas() {
