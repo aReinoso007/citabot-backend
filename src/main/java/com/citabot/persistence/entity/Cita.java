@@ -24,10 +24,10 @@ public class Cita implements Serializable {
     private BigDecimal precioConsulta;
     private String estado;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
     private Paciente paciente;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "registro_clinica_id", insertable = false, updatable = false)
     private RegistroClinica clinicaMedico;
 
     public Cita() {

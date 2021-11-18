@@ -12,13 +12,15 @@ public class RegistroClinica implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name ="medico_id", insertable = false, updatable = false)
     private Medico medico;
-    @ManyToOne
-    @JoinColumn
+    @ManyToOne /*Esto nos dice que no vamos a insertar una nueva clinica desde el registro del medico */
+    @JoinColumn(name ="clinica_id", insertable = false, updatable = false)
     private Clinica clinica;
+    /*En estas no se agrega eso puesto que crean aqui las citas */
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Cita>   citas;
+    /*En estas no se agrega eso puesto que crean aqui los horarios */
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Horario> horarios;
 

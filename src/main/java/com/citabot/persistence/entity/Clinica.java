@@ -18,6 +18,8 @@ public class Clinica implements Serializable {
     private String photoUrl;
     @OneToMany(mappedBy = "clinica")
     private Set<DireccionClinica> direccionClinicas;
+    @OneToMany(mappedBy = "clinica")
+    private Set<RegistroClinica> registroClinicas;
 
     public Clinica() {
     }
