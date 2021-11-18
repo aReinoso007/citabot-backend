@@ -2,9 +2,12 @@ package com.citabot.persistence;
 
 import com.citabot.persistence.crud.CitaCRUDRepository;
 import com.citabot.persistence.entity.Cita;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
+@Repository
 public class CitaRepository {
 
     private CitaCRUDRepository citaCRUDRepository;
@@ -13,4 +16,11 @@ public class CitaRepository {
         return (List<Cita>) citaCRUDRepository.findAll();
     }
 
+    public List<Cita> getByPaciente(int idPaciente){
+        return citaCRUDRepository.findByIdPacienteOrderByFechaCitaAsc(idPaciente);
+    }
+
+    public Optional<List<Cita>> getCitasDoctorPorEstado(int idClinicaMedico, String estado){
+        return citaCRUDRepository.findCitaByClinicaMedicoAndEstado(idClinicaMedico, estado);
+    }
 }
