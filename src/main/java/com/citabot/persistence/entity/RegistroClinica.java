@@ -2,6 +2,7 @@ package com.citabot.persistence.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,10 +19,10 @@ public class RegistroClinica implements Serializable {
     @JoinColumn(name ="clinica_id", insertable = false, updatable = false)
     private Clinica clinica;
     /*En estas no se agrega eso puesto que crean aqui las citas */
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Cita>   citas;
+    @OneToMany(mappedBy = "registroClinica")
+    private List<Cita> citas;
     /*En estas no se agrega eso puesto que crean aqui los horarios */
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinicaMedico", cascade = CascadeType.ALL)
     private Set<Horario> horarios;
 
     public RegistroClinica() {
@@ -35,7 +36,7 @@ public class RegistroClinica implements Serializable {
     }
 
     /*Para registrar citas medicas */
-    public RegistroClinica(Set<Cita> citas) {
+    public RegistroClinica(List<Cita> citas) {
         this.citas = citas;
     }
 
@@ -63,11 +64,11 @@ public class RegistroClinica implements Serializable {
         this.clinica = clinica;
     }
 
-    public Set<Cita> getCitas() {
+    public List<Cita> getCitas() {
         return citas;
     }
 
-    public void setCitas(Set<Cita> citas) {
+    public void setCitas(List<Cita> citas) {
         this.citas = citas;
     }
 

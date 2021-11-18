@@ -2,7 +2,7 @@ package com.citabot.persistence.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Especialidad implements Serializable {
@@ -14,7 +14,7 @@ public class Especialidad implements Serializable {
     private Integer especialidadId;
     private String nombre;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "especialidad")
-    private Set<Subespecialidad> subespecialidades;
+    private List<Subespecialidad> subespecialidades;
 
     public Especialidad() {
     }
@@ -23,7 +23,7 @@ public class Especialidad implements Serializable {
         this.nombre = nombre;
     }
 
-    public Especialidad(String nombre, Set<Subespecialidad> subespecialidades) {
+    public Especialidad(String nombre, List<Subespecialidad> subespecialidades) {
         this.nombre = nombre;
         this.subespecialidades = subespecialidades;
     }
@@ -44,11 +44,11 @@ public class Especialidad implements Serializable {
         this.nombre = nombre;
     }
 
-    public Set<Subespecialidad> getSubespecialidades() {
+    public List<Subespecialidad> getSubespecialidades() {
         return subespecialidades;
     }
 
-    public void setSubespecialidades(Set<Subespecialidad> subespecialidades) {
+    public void setSubespecialidades(List<Subespecialidad> subespecialidades) {
         this.subespecialidades = subespecialidades;
     }
 }

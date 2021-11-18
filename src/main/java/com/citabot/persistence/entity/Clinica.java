@@ -19,21 +19,20 @@ public class Clinica implements Serializable {
     @OneToMany(mappedBy = "clinica")
     private Set<DireccionClinica> direccionClinicas;
     @OneToMany(mappedBy = "clinica")
-    private Set<RegistroClinica> registroClinicas;
+    private List<RegistroClinica> registroClinicas;
 
     public Clinica() {
     }
 
-    public Clinica(Integer id, String nombreClinica, String contacto, String photoUrl, Set<DireccionClinica> direccionClinicas) {
-        this.id = id;
+    public Clinica(String nombreClinica, String contacto, String photoUrl, Set<DireccionClinica> direccionClinicas) {
         this.nombreClinica = nombreClinica;
         this.contacto = contacto;
         this.photoUrl = photoUrl;
         this.direccionClinicas = direccionClinicas;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Clinica(List<RegistroClinica> registroClinicas) {
+        this.registroClinicas = registroClinicas;
     }
 
     public Integer getId() {
@@ -74,5 +73,13 @@ public class Clinica implements Serializable {
 
     public void setDireccionClinicas(Set<DireccionClinica> direccionClinicas) {
         this.direccionClinicas = direccionClinicas;
+    }
+
+    public List<RegistroClinica> getRegistroClinicas() {
+        return registroClinicas;
+    }
+
+    public void setRegistroClinicas(List<RegistroClinica> registroClinicas) {
+        this.registroClinicas = registroClinicas;
     }
 }
