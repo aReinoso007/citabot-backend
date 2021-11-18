@@ -13,7 +13,7 @@ public class Especialidad implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer especialidadId;
     private String nombre;
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "especialidad")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidad")
     private List<Subespecialidad> subespecialidades;
 
     public Especialidad() {

@@ -19,10 +19,10 @@ public class RegistroClinica implements Serializable {
     @JoinColumn(name ="clinica_id", insertable = false, updatable = false)
     private Clinica clinica;
     /*En estas no se agrega eso puesto que crean aqui las citas */
-    @OneToMany(mappedBy = "registroClinica")
+    @OneToMany
     private List<Cita> citas;
     /*En estas no se agrega eso puesto que crean aqui los horarios */
-    @OneToMany(mappedBy = "clinicaMedico", cascade = CascadeType.ALL)
+    @OneToMany()
     private Set<Horario> horarios;
 
     public RegistroClinica() {

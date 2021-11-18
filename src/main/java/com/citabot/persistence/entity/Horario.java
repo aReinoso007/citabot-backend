@@ -29,4 +29,52 @@ public class Horario implements Serializable {
         this.inicio = inicio;
         this.fin = fin;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public RegistroClinica getRegistroClinica() {
+        return registroClinica;
+    }
+
+    public void setRegistroClinica(RegistroClinica registroClinica) {
+        this.registroClinica = registroClinica;
+    }
+
+    public Time getDuracionCita() {
+        return duracionCita;
+    }
+
+    public void setDuracionCita(Time duracionCita) {
+        this.duracionCita = duracionCita;
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public Time getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(Time inicio) {
+        this.inicio = inicio;
+    }
+
+    public Time getFin() {
+        return fin;
+    }
+
+    public void setFin(Time fin) {
+        this.fin = fin;
+    }
 }

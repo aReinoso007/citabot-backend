@@ -29,4 +29,44 @@ public class MedicoSubespecialidad implements Serializable {
         this.medico = medico;
         this.subespecialidad = subespecialidad;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    public Subespecialidad getSubespecialidad() {
+        return subespecialidad;
+    }
+
+    public void setSubespecialidad(Subespecialidad subespecialidad) {
+        this.subespecialidad = subespecialidad;
+    }
 }
