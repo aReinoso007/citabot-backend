@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class EnfermedadService implements IEnfermedadService {
     @Autowired
@@ -20,6 +22,11 @@ public class EnfermedadService implements IEnfermedadService {
     @Override
     public List<Enfermedad> listarByNombre(String nombre) {
         return (List<Enfermedad>) data.findEnfermedadByNombre(nombre);
+    }
+
+    @Override
+    public Optional<Enfermedad> findById(int id) {
+        return (Optional<Enfermedad>) data.findById(id);
     }
 
     @Override
@@ -45,14 +52,16 @@ public class EnfermedadService implements IEnfermedadService {
     }
 
     @Override
-    public String delete(int id) {
-        String message = "SUCCESS";
+    public Boolean delete(int id) {
+        boolean b = true;
         try{
             data.deleteById(id);
-        }catch (Error error){
-            System.out.printf("Error deleting: ", error.getMessage());
-            message = "FAILED";
+            return b;
+        }catch(Exception error){
+            System.out.printf("Error deleting Clinic: ", error.getMessage());
+            b= false;
+
         }
-        return message;
+        return b;
     }
 }

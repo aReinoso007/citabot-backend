@@ -1,10 +1,8 @@
 package com.citabot.controller;
 
-import com.citabot.interfaceService.IClinicaService;
-import com.citabot.model.Clinica;
+import com.citabot.interfaceService.IEnfermedadService;
+import com.citabot.model.Enfermedad;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,36 +10,33 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8090")
 @RestController
-@RequestMapping("/clinica")
-public class ClinicaController {
+@RequestMapping("/enfermedad")
+public class EnfermedadController {
 
     @Autowired
-    IClinicaService service;
-    
-    /* Funciona */
+    IEnfermedadService service;
+
     @GetMapping(produces = "application/json")
-    public List<Clinica> listar(){
+    public List<Enfermedad> listar(){
         return service.listar();
     }
 
-    /* Funciona */
     @GetMapping("/query")
-    public List<Clinica> getByNombre(@RequestParam String nombre){
+    public List<Enfermedad> getByNombre(@RequestParam String nombre){
         return service.listarByNombre(nombre);
     }
 
-    @GetMapping( path = "/{id}")
-    public Optional<Clinica> getById(@PathVariable("id") int id){
+    @GetMapping(path = "/{id}")
+    Optional<Enfermedad> getById(@PathVariable("id") int id){
         return service.findById(id);
     }
 
-    /*Funciona */
     @PostMapping
-    public Clinica guardarClinica(@RequestBody Clinica clinica){
-        return service.save(clinica);
+    public Enfermedad guardarEnfermedad(@RequestBody Enfermedad enfermedad){
+        return service.save(enfermedad);
     }
 
-    @DeleteMapping( path = "/{id}")
+    @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") int id){
         boolean ok = service.delete(id);
         if(ok){
@@ -50,9 +45,5 @@ public class ClinicaController {
             return "Failed";
         }
     }
-
-
-
-
 
 }
