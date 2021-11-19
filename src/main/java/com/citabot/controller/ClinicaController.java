@@ -22,8 +22,8 @@ public class ClinicaController {
     public List<Clinica> listar(){
         return service.listar();
     }
-    /* Probar */
-    @GetMapping("/clinica/query")
+    /* Funciona */
+    @GetMapping("/query")
     public List<Clinica> getByNombre(@RequestParam String nombre){
         return service.listarByNombre(nombre);
     }
