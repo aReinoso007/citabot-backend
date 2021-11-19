@@ -13,19 +13,29 @@ public class Enfermedad implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer enfermedadId;
+    private String nombre;
     private String tipo;
     private String descripcion;
 
     public Enfermedad() {
     }
 
-    public Enfermedad(String tipo, String descripcion) {
+    public Enfermedad(String tipo, String nombre, String descripcion) {
         this.tipo = tipo;
+        this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
     public Integer getEnfermedadId() {
         return enfermedadId;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void setEnfermedadId(Integer enfermedadId) {
