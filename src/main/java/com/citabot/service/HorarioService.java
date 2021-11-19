@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class HorarioService implements IHorarioService {
+
     @Autowired
     private IHorario data;
     @Autowired
