@@ -4,9 +4,10 @@ import com.citabot.interfaceService.IEspecialidadService;
 import com.citabot.interfaces.IEspecialidad;
 import com.citabot.model.Especialidad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class EspecialidadService implements IEspecialidadService {
     @Autowired
     private IEspecialidad data;

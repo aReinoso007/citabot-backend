@@ -4,9 +4,11 @@ import com.citabot.interfaceService.ICirugiaService;
 import com.citabot.interfaces.ICirugia;
 import com.citabot.model.Cirugia;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CirugiaService implements ICirugiaService {
 
     @Autowired
