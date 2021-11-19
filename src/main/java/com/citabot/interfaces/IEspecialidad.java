@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface InterfaceEspecialidad extends CrudRepository<Especialidad, Integer> {
+public interface IEspecialidad extends CrudRepository<Especialidad, Integer> {
 
     List<Especialidad> findByNombre(String nombre);
 

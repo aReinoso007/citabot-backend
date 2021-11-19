@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface InterfaceCita extends CrudRepository<Cita, Integer> {
+public interface ICita extends CrudRepository<Cita, Integer> {
 
 
     /*Encontrar citas de paciente */
