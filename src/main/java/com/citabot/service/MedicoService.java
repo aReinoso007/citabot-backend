@@ -4,9 +4,10 @@ import com.citabot.interfaceService.IMedicoService;
 import com.citabot.interfaces.IMedico;
 import com.citabot.model.Medico;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class MedicoService implements IMedicoService {
 
     @Autowired
@@ -24,7 +25,7 @@ public class MedicoService implements IMedicoService {
 
     @Override
     public Medico findById(int id) {
-        return data.findMedicoById(id);
+        return data.findMedicoByUsuarioId(id);
     }
 
     @Override

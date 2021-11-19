@@ -5,9 +5,10 @@ import com.citabot.interfaces.ISubespecialidad;
 import com.citabot.model.Especialidad;
 import com.citabot.model.Subespecialidad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class SubespecialidadService implements ISubespecialidadService {
 
     @Autowired

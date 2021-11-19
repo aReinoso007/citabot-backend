@@ -6,9 +6,10 @@ import com.citabot.interfaces.IRegistroClinica;
 import com.citabot.model.Horario;
 import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class HorarioService implements IHorarioService {
 
     @Autowired

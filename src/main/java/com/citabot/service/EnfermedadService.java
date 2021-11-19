@@ -4,9 +4,10 @@ import com.citabot.interfaceService.IEnfermedadService;
 import com.citabot.interfaces.IEnfermedad;
 import com.citabot.model.Enfermedad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class EnfermedadService implements IEnfermedadService {
     @Autowired
     private IEnfermedad data;
