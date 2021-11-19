@@ -8,7 +8,7 @@ import java.util.List;
 public interface ISubespecialidadService {
     public List<Subespecialidad> listar();
     public List<Subespecialidad> listarByNombre(String n);
-    public List<Subespecialidad> listarByEspecialidadId(int id);
+    public List<Subespecialidad> listarByEspecialidad(String nombre);
     public Subespecialidad save(Subespecialidad subespecialidad, Especialidad especialidad);
     public String delete(int id);
 }
