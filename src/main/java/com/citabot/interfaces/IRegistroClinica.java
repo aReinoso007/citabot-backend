@@ -8,4 +8,5 @@ import java.util.List;
 public interface IRegistroClinica extends CrudRepository<RegistroClinica, Integer> {
 
     List<RegistroClinica> findRegistroClinicaByMedico(int id);
+    RegistroClinica findRegistroClinicaByRegistroClinicaId(int id);
 }
