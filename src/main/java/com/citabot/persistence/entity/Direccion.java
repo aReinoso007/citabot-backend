@@ -13,7 +13,7 @@ public class Direccion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer direccionId;
     private String pais;
     private String provincia;
     private String ciudad;
@@ -26,8 +26,7 @@ public class Direccion implements Serializable {
     public Direccion() {
     }
 
-    public Direccion(Integer id, String pais, String provincia, String ciudad, String callePrincipal, String calleSecundaria, String referencia, String longitud, String latitud) {
-        this.id = id;
+    public Direccion(String pais, String provincia, String ciudad, String callePrincipal, String calleSecundaria, String referencia, String longitud, String latitud) {
         this.pais = pais;
         this.provincia = provincia;
         this.ciudad = ciudad;
@@ -38,16 +37,12 @@ public class Direccion implements Serializable {
         this.latitud = latitud;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Integer getDireccionId() {
+        return direccionId;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDireccionId(Integer direccionId) {
+        this.direccionId = direccionId;
     }
 
     public String getPais() {

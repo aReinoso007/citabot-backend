@@ -11,7 +11,7 @@ public class RegistroClinica implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer registroClinicaId;
     @ManyToOne
     @JoinColumn(name ="medico_id", insertable = false, updatable = false)
     private Medico medico;
@@ -40,12 +40,12 @@ public class RegistroClinica implements Serializable {
         this.citas = citas;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getRegistroClinicaId() {
+        return registroClinicaId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRegistroClinicaId(Integer registroClinicaId) {
+        this.registroClinicaId = registroClinicaId;
     }
 
     public Medico getMedico() {

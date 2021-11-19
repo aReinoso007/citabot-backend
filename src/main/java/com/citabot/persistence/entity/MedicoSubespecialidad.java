@@ -10,7 +10,7 @@ public class MedicoSubespecialidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer medicoSubespecialidadId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     @ManyToOne
@@ -30,12 +30,12 @@ public class MedicoSubespecialidad implements Serializable {
         this.subespecialidad = subespecialidad;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getMedicoSubespecialidadId() {
+        return medicoSubespecialidadId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setMedicoSubespecialidadId(Integer medicoSubespecialidadId) {
+        this.medicoSubespecialidadId = medicoSubespecialidadId;
     }
 
     public Timestamp getCreatedAt() {

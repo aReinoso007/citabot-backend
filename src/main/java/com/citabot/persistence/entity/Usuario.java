@@ -9,7 +9,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer usuarioId;
     private String username;
     private String nombre;
     private String apellido;
@@ -37,11 +37,11 @@ public class Usuario {
     }
 
     public Integer getId() {
-        return id;
+        return usuarioId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public String getUsername() {

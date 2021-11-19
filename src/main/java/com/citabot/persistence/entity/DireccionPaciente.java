@@ -8,7 +8,7 @@ public class DireccionPaciente implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer direccionPacienteId;
     private String tipo;
     @ManyToOne
     @JoinColumn
@@ -26,12 +26,12 @@ public class DireccionPaciente implements Serializable {
         this.direccion = direccion;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getDireccionPacienteId() {
+        return direccionPacienteId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDireccionPacienteId(Integer direccionPacienteId) {
+        this.direccionPacienteId = direccionPacienteId;
     }
 
     public String getTipo() {

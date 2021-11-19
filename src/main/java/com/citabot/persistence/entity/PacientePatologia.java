@@ -8,7 +8,7 @@ public class PacientePatologia implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer pacientePatologiaId;
     private String tipo;
     @ManyToOne
     @JoinColumn
@@ -26,16 +26,12 @@ public class PacientePatologia implements Serializable {
         this.enfermedad = enfermedad;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Integer getPacientePatologiaId() {
+        return pacientePatologiaId;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPacientePatologiaId(Integer pacientePatologiaId) {
+        this.pacientePatologiaId = pacientePatologiaId;
     }
 
     public String getTipo() {

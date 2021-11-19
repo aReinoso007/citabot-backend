@@ -12,7 +12,7 @@ public interface CitaCRUDRepository extends CrudRepository<Cita, Integer> {
 
     /*Encontrar citas de paciente */
     /*@Query(value = "SELECT * FROM cita WHERE paciente_id =?", nativeQuery = true)*/
-    List<Cita> findByIdPacienteOrderByFechaCitaAsc(int idPaciente);
+    //List<Cita> findCitaByPacienteAndClinicaMedicoOrderByAsc(int pacienteId, int clinicaMedico);
 
     Optional<List<Cita>> findCitaByClinicaMedicoAndEstado(int idClinica, String estado);
 }

@@ -13,7 +13,7 @@ public class Cita implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer citaId;
     private Timestamp createdAt;
     private Timestamp updateAt;
     private Date fechaCita;
@@ -23,10 +23,10 @@ public class Cita implements Serializable {
     private BigDecimal precioConsulta;
     private String estado;
     @ManyToOne
-    @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
+    @JoinColumn(insertable = false, updatable = false)
     private Paciente paciente;
     @ManyToOne
-    @JoinColumn(name = "registro_clinica_id", insertable = false, updatable = false)
+    @JoinColumn(insertable = false, updatable = false)
     private RegistroClinica clinicaMedico;
 
     public Cita() {
@@ -45,16 +45,12 @@ public class Cita implements Serializable {
         this.clinicaMedico = clinicaMedico;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Integer getCitaId() {
+        return citaId;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCitaId(Integer citaId) {
+        this.citaId = citaId;
     }
 
     public Timestamp getCreatedAt() {

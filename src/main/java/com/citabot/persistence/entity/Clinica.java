@@ -12,7 +12,7 @@ public class Clinica implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer clinicaId;
     private String nombreClinica;
     private String contacto;
     private String photoUrl;
@@ -35,12 +35,12 @@ public class Clinica implements Serializable {
         this.registroClinicas = registroClinicas;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getClinicaId() {
+        return clinicaId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setClinicaId(Integer clinicaId) {
+        this.clinicaId = clinicaId;
     }
 
     public String getNombreClinica() {

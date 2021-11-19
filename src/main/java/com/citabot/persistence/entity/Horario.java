@@ -10,7 +10,7 @@ public class Horario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer horarioId;
     @ManyToOne
     @JoinColumn
     private RegistroClinica registroClinica;
@@ -30,12 +30,12 @@ public class Horario implements Serializable {
         this.fin = fin;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getHorarioId() {
+        return horarioId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setHorarioId(Integer horarioId) {
+        this.horarioId = horarioId;
     }
 
     public RegistroClinica getRegistroClinica() {

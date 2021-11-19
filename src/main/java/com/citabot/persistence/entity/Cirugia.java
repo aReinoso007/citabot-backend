@@ -13,7 +13,7 @@ public class Cirugia implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer cirugiaId;
     private Date fechaProcedimiento;
     private String descripcion;
 
@@ -25,16 +25,12 @@ public class Cirugia implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Integer getCirugiaId() {
+        return cirugiaId;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCirugiaId(Integer cirugiaId) {
+        this.cirugiaId = cirugiaId;
     }
 
     public Date getFechaProcedimiento() {

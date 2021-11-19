@@ -12,7 +12,7 @@ public class Enfermedad implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer enfermedadId;
     private String tipo;
     private String descripcion;
 
@@ -24,16 +24,12 @@ public class Enfermedad implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Integer getEnfermedadId() {
+        return enfermedadId;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEnfermedadId(Integer enfermedadId) {
+        this.enfermedadId = enfermedadId;
     }
 
     public String getTipo() {

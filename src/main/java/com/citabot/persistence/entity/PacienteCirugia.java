@@ -9,7 +9,7 @@ public class PacienteCirugia implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer pacienteCirugiaId;
     @ManyToOne
     @JoinColumn
     private Paciente paciente;
@@ -25,12 +25,12 @@ public class PacienteCirugia implements Serializable {
         this.cirugia = cirugia;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getPacienteCirugiaId() {
+        return pacienteCirugiaId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPacienteCirugiaId(Integer pacienteCirugiaId) {
+        this.pacienteCirugiaId = pacienteCirugiaId;
     }
 
     public Paciente getPaciente() {

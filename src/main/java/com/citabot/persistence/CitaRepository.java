@@ -16,9 +16,7 @@ public class CitaRepository {
         return (List<Cita>) citaCRUDRepository.findAll();
     }
 
-    public List<Cita> getByPaciente(int idPaciente){
-        return citaCRUDRepository.findByIdPacienteOrderByFechaCitaAsc(idPaciente);
-    }
+
 
     public Optional<List<Cita>> getCitasDoctorPorEstado(int idClinicaMedico, String estado){
         return citaCRUDRepository.findCitaByClinicaMedicoAndEstado(idClinicaMedico, estado);
