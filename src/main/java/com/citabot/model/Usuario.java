@@ -1,5 +1,7 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -11,17 +13,25 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer usuarioId;
     private String username;
+    private String estado;
     private String nombre;
     private String apellido;
     private String email;
+    @JsonIgnore
     private String recoveryEmail;
+    @JsonIgnore
     private String password;
     private String numeroContacto;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    public Usuario(String username, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt) {
+    public Usuario() {
+
+    }
+
+    public Usuario(String username, String estado, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt) {
         this.username = username;
+        this.estado = estado;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -30,10 +40,6 @@ public class Usuario {
         this.numeroContacto = numeroContacto;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    public Usuario() {
-
     }
 
     public Integer getId() {
@@ -50,6 +56,14 @@ public class Usuario {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getNombre() {

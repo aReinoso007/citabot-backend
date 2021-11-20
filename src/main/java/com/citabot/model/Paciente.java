@@ -29,8 +29,8 @@ public class Paciente extends Usuario implements Serializable {
         super();
     }
 
-    public Paciente(String username, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt, String photoUrl, String tipoSangre, Date fechaNacimiento, String contactPhoneNumber, String genero, Set<PacientePatologia> pacientePatologias, Set<PacienteCirugia> pacienteCirugias, Set<Cita> citas) {
-        super(username, nombre, apellido, email, recoveryEmail, password, numeroContacto, createdAt, updatedAt);
+    public Paciente(String username, String estado, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt, String photoUrl, String tipoSangre, Date fechaNacimiento, String contactPhoneNumber, String genero, Set<PacientePatologia> pacientePatologias, Set<PacienteCirugia> pacienteCirugias, Set<Cita> citas) {
+        super(username, estado, nombre, apellido, email, recoveryEmail, password, numeroContacto, createdAt, updatedAt);
         this.photoUrl = photoUrl;
         this.tipoSangre = tipoSangre;
         this.fechaNacimiento = fechaNacimiento;
