@@ -29,13 +29,13 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public List<Cita> listarById(int id) {
-        return (List<Cita>) data.findById(id).get();
+    public Optional<Cita> listarById(int id) {
+        return data.findById(id);
     }
 
     @Override
-    public List<Cita> listarByPacienteId(int id) {
-        return (List<Cita>) data.findCitaByPaciente(id);
+    public Optional<Cita> listarByPacienteId(int id) {
+        return data.findCitaByPaciente(id);
     }
 
     @Override
@@ -51,12 +51,17 @@ public class CitaService implements ICitaService {
 
     @Override
     public String delete(int citaId) {
-        Cita c;
+        Cita c = new Cita();
         String message = "SUCCESS";
         try{
-            c = data.findById(citaId).get();
-            c.setEstado("CANCELADO");
-            data.save(c);
+            if(data.existsById(citaId)){
+                c = data.findById(citaId).get();
+                c.setEstado("CANCELADO");
+                data.save(c);
+            }else{
+                return "Cita no existe";
+            }
+
         }catch(Error error){
             System.out.printf("Error cancelling appointment: ", error.getMessage());
             message = "FAILED";
@@ -66,7 +71,7 @@ public class CitaService implements ICitaService {
 
     @Override
     public Cita update(int citaId, String estado) {
-        Cita c;
+        Cita c = new Cita();
         try {
             if(data.existsById(citaId)){
                 c = data.findById(citaId).get();
@@ -84,6 +89,6 @@ public class CitaService implements ICitaService {
 
     @Override
     public Optional<Cita> getCitasByPacienteIdAndEstado(int pId, String estado) {
-        return Optional.empty();
+        return data.findByPacienteAndEstado(pId, estado);
     }
 }

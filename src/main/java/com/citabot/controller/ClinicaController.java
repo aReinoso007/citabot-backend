@@ -43,12 +43,8 @@ public class ClinicaController {
 
     @DeleteMapping( path = "/{id}")
     public String deleteById(@PathVariable("id") int id){
-        boolean ok = service.delete(id);
-        if(ok){
-            return "Success";
-        }else {
-            return "Failed";
-        }
+        String resp = service.delete(id);
+        return resp;
     }
 
 

@@ -21,12 +21,12 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public List<Paciente> listarByNombre(String n) {
-        return (List<Paciente>) data.findPacientesByNombre(n);
+    public Optional<Paciente> listarByNombre(String n) {
+        return data.findPacientesByNombre(n);
     }
 
     @Override
-    public Paciente findById(int id) {
+    public Optional<Paciente> findById(int id) {
         return data.findPacienteByUsuarioId(id);
     }
 

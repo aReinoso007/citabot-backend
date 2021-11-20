@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface IPacienteService {
     public List<Paciente> listar();
-    public List<Paciente> listarByNombre(String n);
-    public Paciente findById(int id);
+    public Optional<Paciente> listarByNombre(String n);
+    public Optional<Paciente> findById(int id);
     public Paciente save(Paciente paciente);
     public Paciente edit(Paciente paciente);
     public String delete(int id);

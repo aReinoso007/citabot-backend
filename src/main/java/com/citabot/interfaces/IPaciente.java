@@ -10,9 +10,9 @@ import java.util.Optional;
 @Repository
 public interface IPaciente extends CrudRepository<Paciente, Integer> {
 
-    List<Paciente> findPacientesByNombre(String nombre);
+    Optional<Paciente> findPacientesByNombre(String nombre);
     Optional<Paciente> findPacientesByNombreOrApellido(String nombre, String apellido);
     @Query(value = "SELECT * FROM paciente WHERE usuario_id= :usuarioId", nativeQuery = true)
-    Paciente findPacienteByUsuarioId(int usuarioId);
+    Optional<Paciente> findPacienteByUsuarioId(int usuarioId);
 
 }

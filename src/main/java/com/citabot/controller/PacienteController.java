@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/paciente")
@@ -22,13 +23,17 @@ public class PacienteController {
         return service.listar();
     }
 
-    //@GetMapping("/patients/{id}")
+    @GetMapping(path = "/{id}")
+    public Optional<Paciente> getById(@PathVariable("id") int id){
+        return service.findById(id);
+    }
 
     @PostMapping
     public Paciente save(@RequestBody Paciente p){
-
         return service.save(p);
     }
+
+
 
 
 }
