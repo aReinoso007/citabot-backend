@@ -1,5 +1,7 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -18,8 +20,10 @@ public class Medico extends Usuario implements Serializable {
 
     @OneToMany( cascade = CascadeType.ALL, mappedBy = "medico" )
     private Set<RegistroClinica> clinicas;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medico")
     private Set<MedicoEspecialidad> especialidades;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medico")
     private Set<MedicoSubespecialidad> subespecialidades;
 

@@ -41,11 +41,11 @@ public class RegistroClinicaService implements IRegistroClinicaService {
         RegistroClinica regc = new RegistroClinica();
         try{
             c = cliData.findById(1).get();
-            System.out.printf(" Clinic retrieved: " + c.getNombreClinica());
+            System.out.printf(" Clinic retrieved: " + c.toString());
             registroClinica.setClinica(c);
 
             m = medData.findById(1).get();
-            System.out.printf(" Medic retrieved: "+ m);
+            System.out.printf(" Medic retrieved: "+ m.toString());
             registroClinica.setMedico(m);
 
             regc = data.save(registroClinica);

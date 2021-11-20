@@ -1,7 +1,10 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -12,11 +15,15 @@ public class RegistroClinica implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer registroClinicaId;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
     @ManyToOne
-    @JoinColumn(name ="medico_id", insertable = false, updatable = false)
+    @JsonIgnore
+    @JoinColumn(name ="medico_id")
     private Medico medico;
     @ManyToOne /*Esto nos dice que no vamos a insertar una nueva clinica desde el registro del medico */
-    @JoinColumn(name ="clinica_id", insertable = false, updatable = false)
+    @JsonIgnore
+    @JoinColumn(name ="clinica_id")
     private Clinica clinica;
     /*En estas no se agrega eso puesto que crean aqui las citas */
     @OneToMany
@@ -29,15 +36,35 @@ public class RegistroClinica implements Serializable {
     }
 
     /*Asignacion incial de clinica a medico y el horario*/
-    public RegistroClinica(Medico medico, Clinica clinica, Set<Horario> horarios) {
+
+    public RegistroClinica(Timestamp createdAt, Timestamp updatedAt, Medico medico, Clinica clinica, List<Cita> citas, Set<Horario> horarios) {
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.medico = medico;
         this.clinica = clinica;
+        this.citas = citas;
         this.horarios = horarios;
     }
 
     /*Para registrar citas medicas */
     public RegistroClinica(List<Cita> citas) {
         this.citas = citas;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Integer getRegistroClinicaId() {
