@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MedicoService implements IMedicoService {
 
@@ -24,12 +26,13 @@ public class MedicoService implements IMedicoService {
     }
 
     @Override
-    public Medico findById(int id) {
-        return data.findMedicoByUsuarioId(id);
+    public Optional<Medico> findById(int id) {
+        return data.findById(id);
     }
 
     @Override
     public Medico save(Medico medico) {
+        /*Add encryption */
         return data.save(medico);
     }
 
@@ -48,5 +51,10 @@ public class MedicoService implements IMedicoService {
             message = "FAILED";
         }
         return message;
+    }
+
+    @Override
+    public Medico buscarPorId(int id) {
+        return (Medico) data.findMedicoByUsuarioId(id);
     }
 }

@@ -18,8 +18,7 @@ public class CitaService implements ICitaService {
     private ICita data;
     @Autowired
     private IPaciente pacienteData;
-    @Autowired
-    private IRegistroClinica registroClinicaData;
+
 
 
     @Override

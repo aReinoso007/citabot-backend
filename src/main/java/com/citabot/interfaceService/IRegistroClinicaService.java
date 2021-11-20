@@ -1,12 +1,16 @@
 package com.citabot.interfaceService;
 
-import com.citabot.model.Clinica;
-import com.citabot.model.Medico;
 import com.citabot.model.RegistroClinica;
 
-public interface IRegistroClinicaService {
+import java.util.List;
+import java.util.Optional;
 
-    public RegistroClinica save(Clinica clinica, Medico medico);
+public interface IRegistroClinicaService {
+    public List<RegistroClinica> findAll();
+    public Optional<RegistroClinica> findById(int id);
+    public RegistroClinica save(int idCLinica, int idMedico);
     public RegistroClinica edit(RegistroClinica registroClinica);
     public String delete(int id);
+    public Optional<RegistroClinica> findByMedico(int id);
+    public Optional<RegistroClinica> finByClinicaAndMedico(int cliId, int medId);
 }

@@ -12,4 +12,5 @@ public interface IClinicaService {
     public Clinica save(Clinica clinica);
     public Boolean delete(int id);
     public Optional<Clinica> findById(int id);
+    public Clinica buscarPorId(int id);
 }
