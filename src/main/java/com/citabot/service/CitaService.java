@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CitaService implements ICitaService {
 
@@ -48,17 +50,40 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public String delete(int citaId, String estado) {
-        Cita c = new Cita();
+    public String delete(int citaId) {
+        Cita c;
         String message = "SUCCESS";
         try{
             c = data.findById(citaId).get();
             c.setEstado("CANCELADO");
-
+            data.save(c);
         }catch(Error error){
             System.out.printf("Error cancelling appointment: ", error.getMessage());
             message = "FAILED";
         }
         return message;
+    }
+
+    @Override
+    public Cita update(int citaId, String estado) {
+        Cita c;
+        try {
+            if(data.existsById(citaId)){
+                c = data.findById(citaId).get();
+                c.setEstado(estado);
+                data.save(c);
+                return  c;
+            }else{
+                return null;
+            }
+        }catch (Error e){
+            System.out.printf("Error updating: ", e.getMessage());
+        }
+        return c;
+    }
+
+    @Override
+    public Optional<Cita> getCitasByPacienteIdAndEstado(int pId, String estado) {
+        return Optional.empty();
     }
 }

@@ -10,6 +10,8 @@ import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,16 +39,17 @@ public class RegistroClinicaService implements IRegistroClinicaService {
     public RegistroClinica save(int idClinica, int idMedico) {
         Medico m = new Medico();
         Clinica c = new Clinica();
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
         RegistroClinica registroClinica = new RegistroClinica();
         RegistroClinica regc = new RegistroClinica();
         try{
             c = cliData.findById(1).get();
-            System.out.printf(" Clinic retrieved: " + c.toString());
             registroClinica.setClinica(c);
-
             m = medData.findById(1).get();
-            System.out.printf(" Medic retrieved: "+ m.toString());
             registroClinica.setMedico(m);
+            registroClinica.setCreatedAt(ts);
+            registroClinica.setUpdatedAt(ts);
 
             regc = data.save(registroClinica);
 
@@ -64,7 +67,19 @@ public class RegistroClinicaService implements IRegistroClinicaService {
 
     @Override
     public String delete(int id) {
-        return null;
+        String message = "SUCCESS";
+        try {
+            if(!data.existsById(id)){
+                message = "Registro no existe";
+            }else{
+                data.deleteById(id);
+            }
+
+        }catch (Error error){
+            System.out.printf("Error deleting: ", error.getMessage());
+            message = "FAILED";
+        }
+        return message;
     }
 
     @Override
@@ -76,27 +91,5 @@ public class RegistroClinicaService implements IRegistroClinicaService {
     public Optional<RegistroClinica> finByClinicaAndMedico(int cliId, int medId) {
         return data.getRegistroClinicaByClinicaAndMedico(cliId, medId);
     }
-
-    /*
-    @Override
-    public RegistroClinica save(RegistroClinica registroClinica, int clinicaId, int medicoId) {
-        Medico m = new Medico();
-        Clinica c = new Clinica();
-        RegistroClinica regc = new RegistroClinica();
-        try{
-            m = medData.findById(medicoId).get();
-            System.out.printf("Medic retrieved:", m);
-            c = cliData.findById(clinicaId).get();
-            System.out.printf("Clinic retrieved:", c);
-            registroClinica.setClinica(c);
-            registroClinica.setMedico(m);
-            regc = data.save(registroClinica);
-        }catch(Exception e){
-            System.out.printf("Error registering clinic: ", e.getMessage());
-        }
-
-        return regc;
-    }
-     */
 
 }

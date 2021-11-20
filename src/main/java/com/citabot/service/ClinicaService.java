@@ -41,17 +41,15 @@ public class ClinicaService implements IClinicaService {
     }
 
     @Override
-    public Boolean delete(int id) {
-        boolean b = true;
-        try{
+    public String delete(int id) {
+        String message = "SUCCESS";
+        try {
             data.deleteById(id);
-            return b;
-        }catch(Exception error){
-            System.out.printf("Error deleting Clinic: ", error.getMessage());
-            b= false;
-
+        }catch (Error error){
+            System.out.printf("Error deleting: ", error.getMessage());
+            message = "FAILED";
         }
-        return b;
+        return message;
     }
 
     @Override

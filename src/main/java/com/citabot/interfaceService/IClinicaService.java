@@ -10,7 +10,7 @@ public interface IClinicaService {
     public List<Clinica> listar();
     public List<Clinica> listarByNombre(String nombre);
     public Clinica save(Clinica clinica);
-    public Boolean delete(int id);
+    public String delete(int id);
     public Optional<Clinica> findById(int id);
     public Clinica buscarPorId(int id);
 }

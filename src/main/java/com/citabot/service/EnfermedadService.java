@@ -44,7 +44,13 @@ public class EnfermedadService implements IEnfermedadService {
     public Enfermedad edit(Enfermedad enfermedad) {
         Enfermedad e = new Enfermedad();
         try{
-            e = data.save(enfermedad);
+            if(data.existsById(enfermedad.getEnfermedadId())){
+                e = data.save(enfermedad);
+                return e;
+            }else{
+                return null;
+            }
+
         }catch (Error error){
             System.out.printf("Error updating EnfermedadService: ", error.getMessage());
         }
@@ -52,16 +58,19 @@ public class EnfermedadService implements IEnfermedadService {
     }
 
     @Override
-    public Boolean delete(int id) {
-        boolean b = true;
-        try{
-            data.deleteById(id);
-            return b;
-        }catch(Exception error){
-            System.out.printf("Error deleting Clinic: ", error.getMessage());
-            b= false;
+    public String delete(int id) {
+        String message = "SUCCESS";
+        try {
+            if(!data.existsById(id)){
+                message = "Registro no existe";
+            }else{
+                data.deleteById(id);
+            }
 
+        }catch (Error error){
+            System.out.printf("Error deleting: ", error.getMessage());
+            message = "FAILED";
         }
-        return b;
+        return message;
     }
 }

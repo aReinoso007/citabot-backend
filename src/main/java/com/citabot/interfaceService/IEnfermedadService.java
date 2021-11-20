@@ -12,5 +12,5 @@ public interface IEnfermedadService {
     public Optional<Enfermedad> findById(int id);
     public Enfermedad save(Enfermedad enfermedad);
     public Enfermedad edit(Enfermedad enfermedad);
-    public Boolean delete(int id);
+    public String delete(int id);
 }
