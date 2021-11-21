@@ -1,5 +1,7 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -14,10 +16,12 @@ public class MedicoEspecialidad implements Serializable {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     @ManyToOne
-    @JoinColumn
+    @JsonIgnore
+    @JoinColumn(name = "medico_id")
     private Medico medico;
     @ManyToOne
-    @JoinColumn
+    @JsonIgnore
+    @JoinColumn(name = "especialidad_id")
     private Especialidad especialidad;
 
     public MedicoEspecialidad() {

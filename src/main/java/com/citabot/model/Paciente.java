@@ -18,7 +18,7 @@ public class Paciente extends Usuario implements Serializable {
     private Date fechaNacimiento;
     private String contactPhoneNumber;
     private String genero;
-    @OneToMany(mappedBy = "paciente")
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private Set<PacientePatologia> pacientePatologias;
     @OneToMany(mappedBy = "paciente")
     private Set<PacienteCirugia> pacienteCirugias;
