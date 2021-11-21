@@ -13,4 +13,5 @@ public interface IClinicaService {
     public String delete(int id);
     public Optional<Clinica> findById(int id);
     public Clinica buscarPorId(int id);
+    public Clinica addDireccion(int dirId, int cliId);
 }

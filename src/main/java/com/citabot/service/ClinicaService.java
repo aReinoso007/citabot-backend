@@ -3,7 +3,10 @@ package com.citabot.service;
 import com.citabot.interfaceService.IClinicaService;
 
 import com.citabot.interfaces.IClinica;
+import com.citabot.interfaces.IDireccion;
 import com.citabot.model.Clinica;
+import com.citabot.model.Direccion;
+import com.citabot.model.DireccionClinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +18,8 @@ import java.util.Optional;
 public class ClinicaService implements IClinicaService {
     @Autowired
     private IClinica data;
+    @Autowired
+    private IDireccion direccionData;
 
     @Override
     @Transactional(readOnly = true)
@@ -62,5 +67,24 @@ public class ClinicaService implements IClinicaService {
     @Transactional(readOnly = true)
     public Clinica buscarPorId(int id) {
         return (Clinica) data.findClinicaByClinicaId(id);
+    }
+
+    @Override
+    public Clinica addDireccion(int dirId, int cliId) {
+        DireccionClinica direccionClinica = new DireccionClinica();
+        Direccion direccion = new Direccion();
+        Clinica clinica = new Clinica();
+        try{
+            direccion = direccionData.findById(dirId).get();
+            clinica = data.findClinicaByClinicaId(cliId);
+            direccionClinica.setDireccion(direccion);
+            direccionClinica.setClinica(clinica);
+            clinica.getDireccionClinicas().add(direccionClinica);
+            data.save(clinica);
+
+        }catch (Error error){
+            System.out.printf("Error adding direccion: ", error.getMessage());
+        }
+        return clinica;
     }
 }
