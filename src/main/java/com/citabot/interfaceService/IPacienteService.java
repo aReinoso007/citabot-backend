@@ -13,4 +13,6 @@ public interface IPacienteService {
     public Paciente edit(Paciente paciente);
     public String delete(int id);
     public Optional<Paciente> listarByNombreYApellido(String n);
+    public Paciente addPatologia(String tipo, int enfermedadId, int pacId);
+    public Paciente addCirugia(String tipo, int cirugiaId, int pacId);
 }

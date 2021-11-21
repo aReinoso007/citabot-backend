@@ -12,21 +12,34 @@ public class PacienteCirugia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pacienteCirugiaId;
+
+    private String tipo;
+
     @ManyToOne()
     @JsonIgnore
     @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
     private Paciente paciente;
+
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
+    @JoinColumn(name = "cirugia_id", insertable = false, updatable = false)
     private Cirugia cirugia;
 
     public PacienteCirugia() {
     }
 
-    public PacienteCirugia(Paciente paciente, Cirugia cirugia) {
+    public PacienteCirugia(String tipo, Paciente paciente, Cirugia cirugia) {
+        this.tipo = tipo;
         this.paciente = paciente;
         this.cirugia = cirugia;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Integer getPacienteCirugiaId() {

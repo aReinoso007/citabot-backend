@@ -31,6 +31,7 @@ public class RegistroClinicaController {
     public Optional<RegistroClinica> listarById(@PathVariable("id") int id){
         return service.findById(id);
     }
+
     /*Arreglar aqui, en el front ya se recupera los is por seleccion, esto es solo de prueba */
     @PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public RegistroClinica guardarRegistro(@RequestParam("idCli") int idCli, @RequestParam("idMed") int idMed){

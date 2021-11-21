@@ -12,6 +12,7 @@ public interface IPaciente extends CrudRepository<Paciente, Integer> {
 
     Optional<Paciente> findPacientesByNombre(String nombre);
     Optional<Paciente> findPacientesByNombreOrApellido(String nombre, String apellido);
+
     @Query(value = "SELECT * FROM paciente WHERE usuario_id= :usuarioId", nativeQuery = true)
     Optional<Paciente> findPacienteByUsuarioId(int usuarioId);
 
