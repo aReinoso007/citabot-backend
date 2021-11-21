@@ -1,4 +1,11 @@
 package com.citabot.interfaces;
 
-public interface IDireccion {
+import com.citabot.model.Direccion;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface IDireccion extends CrudRepository<Direccion, Integer> {
+
+
 }
