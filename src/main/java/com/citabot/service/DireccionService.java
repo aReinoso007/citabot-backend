@@ -53,7 +53,7 @@ public class DireccionService implements IDireccionService {
                 data.deleteById(id);
 
             }else{
-                message = "FAILED: NO RECORD MATCHES THE PROVIDE ID";
+                message = "FAILED: NO RECORD MATCHES THE PROVIDED ID";
             }
         }catch (Error error){
             System.out.printf("Error deleting: ", error.getMessage());
