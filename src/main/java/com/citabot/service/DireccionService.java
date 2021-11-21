@@ -5,8 +5,10 @@ import com.citabot.interfaces.IDireccion;
 import com.citabot.model.Direccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DireccionService implements IDireccionService {
@@ -38,11 +40,18 @@ public class DireccionService implements IDireccionService {
     public Direccion update(Direccion direccion) {
         Direccion d = new Direccion();
         try{
+            d = data.findById(direccion.getDireccionId()).get();
             d = data.save(direccion);
         }catch (Error error){
             System.out.printf("Error updating: ", error.getMessage());
         }
         return d;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Direccion> findById(int id) {
+        return (Optional<Direccion>) data.findById(id);
     }
 
     @Override

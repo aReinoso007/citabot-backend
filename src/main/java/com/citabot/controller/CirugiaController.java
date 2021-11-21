@@ -22,11 +22,6 @@ public class CirugiaController {
         return service.listar();
     }
 
-    @GetMapping("/query")
-    public Optional<Cirugia> getByDate(@RequestParam Date date){
-        return service.findByDate(date);
-    }
-
     @GetMapping(path = "/{id}")
     public Optional<Cirugia> getById(@PathVariable("id") int id){
         return service.findById(id);
