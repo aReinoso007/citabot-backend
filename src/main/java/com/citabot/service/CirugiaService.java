@@ -6,7 +6,9 @@ import com.citabot.model.Cirugia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CirugiaService implements ICirugiaService {
@@ -46,15 +48,26 @@ public class CirugiaService implements ICirugiaService {
     }
 
     @Override
-    public String delete(int id) {
-        Cirugia c = new Cirugia();
-        String message = "Sucess";
+    public Boolean delete(int id) {
+        boolean b = true;
         try{
             data.deleteById(id);
-        }catch (Error e){
-            System.out.printf("Error deleting: ", e.getMessage());
-            message = "Failed to delete: " + data.findById(id);
+            return b;
+        }catch(Exception error){
+            System.out.printf("Error deleting Surgery: ", error.getMessage());
+            b= false;
+
         }
-        return message;
+        return b;
+    }
+
+    @Override
+    public Optional<Cirugia> findById(int id) {
+        return data.findById(id);
+    }
+
+    @Override
+    public Optional<Cirugia> findByDate(Date date) {
+        return data.findCirugiasByFechaProcedimiento(date);
     }
 }

@@ -1,5 +1,7 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -17,19 +19,34 @@ public class Medico extends Usuario implements Serializable {
     private String descripcion;
 
     @OneToMany( cascade = CascadeType.ALL, mappedBy = "medico" )
-    private Set<RegistroClinica> clinicas;
+    private List<RegistroClinica> clinicas = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medico")
-    private Set<MedicoEspecialidad> especialidades;
+    private List<MedicoEspecialidad> especialidades = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medico")
-    private Set<MedicoSubespecialidad> subespecialidades;
+    private List<MedicoSubespecialidad> subespecialidades = new ArrayList<>();
 
 
-    public Medico(String username, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt, String slogan, String profesion, String photoUrl, String descripcion) {
-        super(username, nombre, apellido, email, recoveryEmail, password, numeroContacto, createdAt, updatedAt);
+    public Medico(String slogan, String profesion, String photoUrl, String descripcion, List<RegistroClinica> clinicas, List<MedicoEspecialidad> especialidades, List<MedicoSubespecialidad> subespecialidades) {
         this.slogan = slogan;
         this.profesion = profesion;
         this.photoUrl = photoUrl;
         this.descripcion = descripcion;
+        this.clinicas = clinicas;
+        this.especialidades = especialidades;
+        this.subespecialidades = subespecialidades;
+    }
+
+    public Medico(String username, String estado, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt, String slogan, String profesion, String photoUrl, String descripcion, List<RegistroClinica> clinicas, List<MedicoEspecialidad> especialidades, List<MedicoSubespecialidad> subespecialidades) {
+        super(username, estado, nombre, apellido, email, recoveryEmail, password, numeroContacto, createdAt, updatedAt);
+        this.slogan = slogan;
+        this.profesion = profesion;
+        this.photoUrl = photoUrl;
+        this.descripcion = descripcion;
+        this.clinicas = clinicas;
+        this.especialidades = especialidades;
+        this.subespecialidades = subespecialidades;
     }
 
     public Medico(String slogan, String profesion, String photoUrl, String descripcion) {
@@ -39,7 +56,7 @@ public class Medico extends Usuario implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Medico(Set<RegistroClinica> clinicas, Set<MedicoEspecialidad> especialidades, Set<MedicoSubespecialidad> subespecialidades) {
+    public Medico(List<RegistroClinica> clinicas, List<MedicoEspecialidad> especialidades, List<MedicoSubespecialidad> subespecialidades) {
         this.clinicas = clinicas;
         this.especialidades = especialidades;
         this.subespecialidades = subespecialidades;
@@ -81,27 +98,27 @@ public class Medico extends Usuario implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Set<RegistroClinica> getClinicas() {
+    public List<RegistroClinica> getClinicas() {
         return clinicas;
     }
 
-    public void setClinicas(Set<RegistroClinica> clinicas) {
+    public void setClinicas(List<RegistroClinica> clinicas) {
         this.clinicas = clinicas;
     }
 
-    public Set<MedicoEspecialidad> getEspecialidades() {
+    public List<MedicoEspecialidad> getEspecialidades() {
         return especialidades;
     }
 
-    public void setEspecialidades(Set<MedicoEspecialidad> especialidades) {
+    public void setEspecialidades(List<MedicoEspecialidad> especialidades) {
         this.especialidades = especialidades;
     }
 
-    public Set<MedicoSubespecialidad> getSubespecialidades() {
+    public List<MedicoSubespecialidad> getSubespecialidades() {
         return subespecialidades;
     }
 
-    public void setSubespecialidades(Set<MedicoSubespecialidad> subespecialidades) {
+    public void setSubespecialidades(List<MedicoSubespecialidad> subespecialidades) {
         this.subespecialidades = subespecialidades;
     }
 }

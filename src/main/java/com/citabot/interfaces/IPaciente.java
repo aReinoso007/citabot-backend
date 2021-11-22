@@ -1,6 +1,7 @@
 package com.citabot.interfaces;
 
 import com.citabot.model.Paciente;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +10,10 @@ import java.util.Optional;
 @Repository
 public interface IPaciente extends CrudRepository<Paciente, Integer> {
 
-    List<Paciente> findPacientesByNombre(String nombre);
+    Optional<Paciente> findPacientesByNombre(String nombre);
     Optional<Paciente> findPacientesByNombreOrApellido(String nombre, String apellido);
-    Paciente findPacienteByUsuarioId(int usuarioId);
+
+    @Query(value = "SELECT * FROM paciente WHERE usuario_id= :usuarioId", nativeQuery = true)
+    Optional<Paciente> findPacienteByUsuarioId(int usuarioId);
 
 }
