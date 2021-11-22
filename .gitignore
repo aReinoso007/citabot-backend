@@ -8,3 +8,11 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+.idea/artifacts/citabot_backend_war.xml
+.idea/artifacts/citabot_backend_war_exploded.xml
+.idea/misc.xml
+.idea/runConfigurations.xml
+citabot-backend.iml
+src/main/resources/application-dev.properties
+.idea/artifacts/citabot_backend_war.xml
+src/main/resources/application-dev.properties
