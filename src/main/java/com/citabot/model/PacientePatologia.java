@@ -18,7 +18,6 @@ public class PacientePatologia implements Serializable {
     @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
     private Paciente paciente;
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "enfermedad_id", insertable = false, updatable = false)
     private Enfermedad enfermedad;
 
