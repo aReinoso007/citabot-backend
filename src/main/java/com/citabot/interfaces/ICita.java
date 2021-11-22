@@ -1,6 +1,7 @@
 package com.citabot.interfaces;
 
 import com.citabot.model.Cita;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,9 +12,8 @@ import java.util.Optional;
 public interface ICita extends CrudRepository<Cita, Integer> {
 
 
-    /*Encontrar citas de paciente */
-    /*@Query(value = "SELECT * FROM cita WHERE paciente_id =?", nativeQuery = true)*/
-    //List<Cita> findCitaByPacienteAndClinicaMedicoOrderByAsc(int pacienteId, int clinicaMedico);
 
-    List<Cita> findCitaByPaciente(int id);
+    @Query(value = "SELECT * FROM cita WHERE paciente_usuario_id=:pacienteId and estado=:estado", nativeQuery = true)
+    Optional<Cita> findByPacienteAndEstado(int pacienteId, String estado);
+    Optional<Cita> findCitaByPaciente(int id);
 }

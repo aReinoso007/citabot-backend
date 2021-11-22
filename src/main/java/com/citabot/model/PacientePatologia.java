@@ -1,5 +1,7 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
@@ -10,11 +12,13 @@ public class PacientePatologia implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pacientePatologiaId;
     private String tipo;
+
     @ManyToOne
-    @JoinColumn
+    @JsonIgnore
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "enfermedad_id")
     private Enfermedad enfermedad;
 
     public PacientePatologia() {

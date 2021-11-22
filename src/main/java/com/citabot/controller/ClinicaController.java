@@ -5,6 +5,9 @@ import com.citabot.model.Clinica;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +20,13 @@ public class ClinicaController {
 
     @Autowired
     IClinicaService service;
+    
     /* Funciona */
     @GetMapping(produces = "application/json")
     public List<Clinica> listar(){
         return service.listar();
     }
+
     /* Funciona */
     @GetMapping("/query")
     public List<Clinica> getByNombre(@RequestParam String nombre){
@@ -41,16 +46,22 @@ public class ClinicaController {
 
     @DeleteMapping( path = "/{id}")
     public String deleteById(@PathVariable("id") int id){
-        boolean ok = service.delete(id);
-        if(ok){
-            return "Success";
-        }else {
-            return "Failed";
+        String resp;
+        return service.delete(id);
+    }
+
+    @PutMapping(value = "/add_direccion/{id}",  consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<?> addClinicaDireccion(@PathVariable("id") int id, @RequestParam("idDir") int idDir){
+        Clinica clinica = null;
+        clinica = service.findById(id).get();
+        if(clinica!=null){
+            service.addDireccion(idDir, id);
+            return new ResponseEntity<>(clinica, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
     }
 
-
-
-
+    //@PutMapping()
 
 }

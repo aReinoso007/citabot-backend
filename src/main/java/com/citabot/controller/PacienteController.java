@@ -4,15 +4,16 @@ import com.citabot.interfaceService.IPacienteService;
 import com.citabot.model.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:8090")
 @RestController
 @RequestMapping("/paciente")
 public class PacienteController {
@@ -25,12 +26,14 @@ public class PacienteController {
         return service.listar();
     }
 
-    //@GetMapping("/patients/{id}")
+    @GetMapping(path = "/{id}")
+    public Optional<Paciente> getById(@PathVariable("id") int id){
+        return service.findById(id);
+    }
 
-    @PostMapping("pacientes/")
-    public String save(@Validated Paciente p, Model model){
-        service.save(p);
-        return "redirect:/pacientes";
+    @PostMapping
+    public Paciente save(@RequestBody Paciente p){
+        return service.save(p);
     }
 
 

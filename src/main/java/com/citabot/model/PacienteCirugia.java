@@ -1,7 +1,10 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+
 @Entity
 public class PacienteCirugia implements Serializable {
 
@@ -10,17 +13,24 @@ public class PacienteCirugia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pacienteCirugiaId;
-    @ManyToOne
+
+    private String tipo;
+
+    @ManyToOne()
+    @JsonIgnore
     @JoinColumn
     private Paciente paciente;
+
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "cirugia_id")
     private Cirugia cirugia;
 
     public PacienteCirugia() {
     }
 
-    public PacienteCirugia(Paciente paciente, Cirugia cirugia) {
+    public PacienteCirugia(Integer pacienteCirugiaId, String tipo, Paciente paciente, Cirugia cirugia) {
+        this.pacienteCirugiaId = pacienteCirugiaId;
+        this.tipo = tipo;
         this.paciente = paciente;
         this.cirugia = cirugia;
     }
@@ -31,6 +41,14 @@ public class PacienteCirugia implements Serializable {
 
     public void setPacienteCirugiaId(Integer pacienteCirugiaId) {
         this.pacienteCirugiaId = pacienteCirugiaId;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Paciente getPaciente() {

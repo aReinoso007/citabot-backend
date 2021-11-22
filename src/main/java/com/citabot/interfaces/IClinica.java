@@ -10,4 +10,5 @@ import java.util.List;
 public interface IClinica extends CrudRepository<Clinica, Integer> {
 
     List<Clinica> findClinicaByNombreClinica(String nombre);
+    Clinica findClinicaByClinicaId(int clinicaId);
 }

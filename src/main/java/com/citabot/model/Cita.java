@@ -1,5 +1,7 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -23,10 +25,12 @@ public class Cita implements Serializable {
     private BigDecimal precioConsulta;
     private String estado;
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false)
+    @JsonIgnore
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false)
+    @JsonIgnore
+    @JoinColumn(name = "registro_clinica_id")
     private RegistroClinica clinicaMedico;
 
     public Cita() {

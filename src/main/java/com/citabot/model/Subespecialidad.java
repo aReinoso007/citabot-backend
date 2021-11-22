@@ -12,7 +12,7 @@ public class Subespecialidad implements Serializable {
     private Integer subespecialidadId;
     private String nombre;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "especialidad_id")
     private Especialidad especialidad;
 
     public Subespecialidad() {

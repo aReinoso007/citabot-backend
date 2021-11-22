@@ -3,6 +3,8 @@ package com.citabot.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 @Entity
 public class Horario implements Serializable {
@@ -14,15 +16,15 @@ public class Horario implements Serializable {
     @ManyToOne
     @JoinColumn
     private RegistroClinica registroClinica;
-    private Time duracionCita;
+    private Duration duracionCita;
     private String dia;
-    private Time inicio;
-    private Time fin;
+    private LocalDateTime inicio;
+    private LocalDateTime fin;
 
     public Horario() {
     }
 
-    public Horario(RegistroClinica registroClinica, Time duracionCita, String dia, Time inicio, Time fin) {
+    public Horario(RegistroClinica registroClinica, Duration duracionCita, String dia, LocalDateTime inicio, LocalDateTime fin) {
         this.registroClinica = registroClinica;
         this.duracionCita = duracionCita;
         this.dia = dia;
@@ -46,11 +48,11 @@ public class Horario implements Serializable {
         this.registroClinica = registroClinica;
     }
 
-    public Time getDuracionCita() {
+    public Duration getDuracionCita() {
         return duracionCita;
     }
 
-    public void setDuracionCita(Time duracionCita) {
+    public void setDuracionCita(Duration duracionCita) {
         this.duracionCita = duracionCita;
     }
 
@@ -62,19 +64,19 @@ public class Horario implements Serializable {
         this.dia = dia;
     }
 
-    public Time getInicio() {
+    public LocalDateTime getInicio() {
         return inicio;
     }
 
-    public void setInicio(Time inicio) {
+    public void setInicio(LocalDateTime inicio) {
         this.inicio = inicio;
     }
 
-    public Time getFin() {
+    public LocalDateTime getFin() {
         return fin;
     }
 
-    public void setFin(Time fin) {
+    public void setFin(LocalDateTime fin) {
         this.fin = fin;
     }
 }

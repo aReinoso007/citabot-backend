@@ -5,8 +5,11 @@ import com.citabot.interfaces.IMedico;
 import com.citabot.model.Medico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MedicoService implements IMedicoService {
 
@@ -14,22 +17,26 @@ public class MedicoService implements IMedicoService {
     private IMedico data;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Medico> listar() {
         return (List<Medico>) data.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Medico> listarByName(String name) {
         return (List<Medico>) data.findMedicoByNombre(name);
     }
 
     @Override
-    public Medico findById(int id) {
-        return data.findMedicoByUsuarioId(id);
+    @Transactional(readOnly = true)
+    public Optional<Medico> findById(int id) {
+        return data.findById(id);
     }
 
     @Override
     public Medico save(Medico medico) {
+        /*Add encryption */
         return data.save(medico);
     }
 
@@ -48,5 +55,11 @@ public class MedicoService implements IMedicoService {
             message = "FAILED";
         }
         return message;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Medico buscarPorId(int id) {
+        return (Medico) data.findMedicoByUsuarioId(id);
     }
 }
