@@ -22,7 +22,6 @@ public class PacienteCirugia implements Serializable {
     private Paciente paciente;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "cirugia_id")
     private Cirugia cirugia;
 
