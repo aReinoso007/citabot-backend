@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ICirugia extends CrudRepository<Cirugia, Integer> {
+
     Optional<Cirugia> findCirugiasByFechaProcedimiento(Date date);
 
 }

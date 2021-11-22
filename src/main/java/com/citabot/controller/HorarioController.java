@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8090")
@@ -30,11 +29,11 @@ public class HorarioController {
 
     /*Este post se realiza enviando el id del registro por la url */
     @PostMapping(path = "/guardar/{id}")
-    public Horario guardarHorario(@PathVariable("id") int id, @Req{
+    public Horario guardarHorario(@PathVariable("id") int id, @RequestParam String duracion, @RequestParam String dia, @RequestParam String inicio, @RequestParam String fin){
         Horario h = new Horario();
-        System.out.printf("Duracion: "+json.get("duracion")+", dia: "+json.get("dia")+", inicio: "+json.get("inicio")+", fin: "+json.get("fin")+". id: "+id);
+        System.out.printf("Duracion: "+duracion+", dia: "+dia+", inicio: "+inicio+", fin: "+fin+". id: "+id);
         try{
-            h = service.save(json.get("duracion"),json.get("dia"), json.get("inicio"), json.get("fin"), id);
+            h = service.save(duracion,dia, inicio, fin, id);
         }catch (Error error){
             System.out.printf("Error processing post request: ", error.getMessage());
         }

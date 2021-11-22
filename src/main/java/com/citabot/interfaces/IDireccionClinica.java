@@ -13,4 +13,5 @@ public interface IDireccionClinica extends CrudRepository<DireccionClinica, Inte
     @Query(value = "SELECT * FROM direccion_clinica WHERE clinica_id=:id", nativeQuery = true)
     public Optional<DireccionClinica> listarDireccionesByClinicaId(int id);
 
+
 }
