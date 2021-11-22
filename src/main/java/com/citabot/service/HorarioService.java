@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class HorarioService implements IHorarioService {
 
@@ -28,13 +30,23 @@ public class HorarioService implements IHorarioService {
     }
 
     @Override
-    public Horario save(Horario horario, int id) {
+    public Optional<Horario> listarById(int id) {
+        return data.findById(id);
+    }
+
+    @Override
+    public Horario save(Horario horario, int idRegistroClinica) {
         Horario h = new Horario();
+        RegistroClinica registroClinica = new RegistroClinica();
         RegistroClinica rc = new RegistroClinica();
         try{
+            /* Obtengo el registro de clincica para insertar */
+            registroClinica = dataRC.findById(idRegistroClinica).get();
+            /*le asigno al horario que se esta pasando */
+            horario.setRegistroClinica(registroClinica);
+            /*Se guarda en la db el horario */
             h = data.save(horario);
-            rc = dataRC.findRegistroClinicaByRegistroClinicaId(id);
-            h.setRegistroClinica(rc);
+            return h;
         }catch (Error e){
             System.out.printf("Error saving: ", e.getMessage());
         }

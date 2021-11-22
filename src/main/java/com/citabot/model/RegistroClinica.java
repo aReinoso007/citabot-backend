@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class RegistroClinica implements Serializable {
@@ -31,14 +31,14 @@ public class RegistroClinica implements Serializable {
 
     /*En estas no se agrega eso puesto que crean aqui los horarios */
     @OneToMany()
-    private Set<Horario> horarios;
+    private List<Horario> horarios;
 
     public RegistroClinica() {
     }
 
     /*Asignacion incial de clinica a medico y el horario*/
 
-    public RegistroClinica(Timestamp createdAt, Timestamp updatedAt, Medico medico, Clinica clinica, List<Cita> citas, Set<Horario> horarios) {
+    public RegistroClinica(Timestamp createdAt, Timestamp updatedAt, Medico medico, Clinica clinica, List<Cita> citas, List<Horario> horarios) {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.medico = medico;
@@ -100,11 +100,11 @@ public class RegistroClinica implements Serializable {
         this.citas = citas;
     }
 
-    public Set<Horario> getHorarios() {
+    public List<Horario> getHorarios() {
         return horarios;
     }
 
-    public void setHorarios(Set<Horario> horarios) {
+    public void setHorarios(List<Horario> horarios) {
         this.horarios = horarios;
     }
 }
