@@ -37,31 +37,4 @@ public class PacienteController {
     }
 
 
-    @PutMapping(value = "/add_patologia/{id}", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> addPacientePatologia(@PathVariable(value = "id") int id,@RequestParam("tipo") String tipo,@RequestParam("idEnf") int idEnf){
-        Paciente paciente = null;
-        paciente = service.findById(id).get();
-        if(paciente != null){
-            service.addPatologia(tipo, idEnf, id);
-            return new ResponseEntity<>(paciente, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PutMapping(value = "/add_cirugia/{id}", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> addPacienteCirugia(@PathVariable(value = "id") int id,@RequestParam("tipo") String tipo,@RequestParam("idCirugia") int idCirugia){
-        Paciente paciente = null;
-        paciente = service.findById(id).get();
-        if(paciente != null){
-            service.addCirugia(tipo, idCirugia, id);
-            return new ResponseEntity<>(paciente, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-
-
-
 }

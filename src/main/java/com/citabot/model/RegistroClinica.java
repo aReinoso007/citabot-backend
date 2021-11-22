@@ -28,6 +28,7 @@ public class RegistroClinica implements Serializable {
     /*En estas no se agrega eso puesto que crean aqui las citas */
     @OneToMany
     private List<Cita> citas;
+
     /*En estas no se agrega eso puesto que crean aqui los horarios */
     @OneToMany()
     private Set<Horario> horarios;
