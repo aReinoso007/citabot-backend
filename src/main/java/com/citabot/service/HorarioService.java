@@ -8,6 +8,7 @@ import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +36,9 @@ public class HorarioService implements IHorarioService {
     }
 
     @Override
-    public Horario save(Horario horario, int idRegistroClinica) {
+    public Horario save(String duracion, String dia, String inicio, String fin, int idRegistroClinica) {
         Horario h = new Horario();
+        Horario horario = new Horario();
         RegistroClinica registroClinica = new RegistroClinica();
         RegistroClinica rc = new RegistroClinica();
         try{
@@ -44,6 +46,8 @@ public class HorarioService implements IHorarioService {
             registroClinica = dataRC.findById(idRegistroClinica).get();
             /*le asigno al horario que se esta pasando */
             horario.setRegistroClinica(registroClinica);
+            horario.setDia(dia);
+            horario.setDuracionCita(Duration.parse(duracion));
             /*Se guarda en la db el horario */
             h = data.save(horario);
             return h;

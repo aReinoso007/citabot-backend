@@ -11,7 +11,7 @@ public interface IHorarioService {
     public List<Horario> listar();
     public List<Horario> listarByClinicaRegistro(int id);
     public Optional<Horario> listarById(int id);
-    public Horario save(Horario horario, int idRegistroClinica);
+    public Horario save(String duracion, String dia, String inicio, String fin, int idRegistroClinica);
     public String delete(int id);
 
 
