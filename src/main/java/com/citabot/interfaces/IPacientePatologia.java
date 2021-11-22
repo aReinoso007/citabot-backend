@@ -5,13 +5,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface IPacientePatologia extends CrudRepository<PacientePatologia, Integer> {
 
     @Query(value = "SELECT * FROM paciente_patologia WHERE paciente_id=:id", nativeQuery = true)
-    public Optional<PacientePatologia> listarByPacienteId(int id);
+    public List<PacientePatologia> listarByPacienteId(int id);
     
 
 

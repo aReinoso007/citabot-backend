@@ -15,10 +15,10 @@ public class PacientePatologia implements Serializable {
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
     @ManyToOne
-    @JoinColumn(name = "enfermedad_id", insertable = false, updatable = false)
+    @JoinColumn(name = "enfermedad_id")
     private Enfermedad enfermedad;
 
     public PacientePatologia() {

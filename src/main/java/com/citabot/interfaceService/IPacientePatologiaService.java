@@ -8,7 +8,9 @@ import java.util.Optional;
 public interface IPacientePatologiaService {
 
     public List<PacientePatologia> listar();
-    public Optional<PacientePatologia> listarByPacienteId(int id);
+    public List<PacientePatologia> listarByPacienteId(int id);
+    public Optional<PacientePatologia> listarById(int id);
     public String delete(int id);
+    public PacientePatologia save(String tipo, int pacienteId, int enfermedadId);
 
 }
