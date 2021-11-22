@@ -12,13 +12,14 @@ public class PacientePatologia implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pacientePatologiaId;
     private String tipo;
+
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
     private Paciente paciente;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "enfermedad_id")
+    @JoinColumn(name = "enfermedad_id", insertable = false, updatable = false)
     private Enfermedad enfermedad;
 
     public PacientePatologia() {

@@ -21,8 +21,10 @@ public class Paciente extends Usuario implements Serializable {
     private String genero;
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<PacientePatologia> pacientePatologias = new ArrayList<>();
-    @OneToMany(mappedBy = "paciente")
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<PacienteCirugia> pacienteCirugias = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
     private List<Cita> citas = new ArrayList<>();
 
@@ -52,6 +54,7 @@ public class Paciente extends Usuario implements Serializable {
         this.pacienteCirugias = pacienteCirugias;
         this.citas = citas;
     }
+
     /*Para agregar patologia, cirugias y citas */
     public Paciente(List<PacientePatologia> pacientePatologias, List<PacienteCirugia> pacienteCirugias, List<Cita> citas) {
         this.pacientePatologias = pacientePatologias;

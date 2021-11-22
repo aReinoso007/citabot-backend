@@ -4,14 +4,12 @@ import com.citabot.interfaceService.IPacienteService;
 import com.citabot.interfaces.ICirugia;
 import com.citabot.interfaces.IEnfermedad;
 import com.citabot.interfaces.IPaciente;
-import com.citabot.interfaces.IPacientePatologia;
 import com.citabot.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -103,29 +101,36 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Paciente addCirugia(String tipo, int cirugiaId, int pacId) {
+        System.out.printf("paciente ID: ", pacId);
+        System.out.printf("Tipo: ", tipo);
+        System.out.printf("cirugia ID: ", cirugiaId);
         PacienteCirugia pacienteCirugia = new PacienteCirugia();
+
         Cirugia cirugia = new Cirugia();
         Paciente paciente = new Paciente();
         /*Para actualizar el updated_at */
+
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
-        if(cirugiaData.existsById(cirugiaId) && data.existsById(pacId)){
-            try{
-                cirugia = cirugiaData.findById(cirugiaId).get();
-                paciente = data.findPacienteByUsuarioId(pacId).get();
+
+        try{
+                cirugia = cirugiaData.findById(3).get();
+                System.out.printf("cirugia recuperada: ", cirugia);
+                paciente = data.findPacienteByUsuarioId(2).get();
+                System.out.printf("paciente recuperada: ", paciente);
+
                 /*Actualizo al registro de paciente_cirugia */
                 pacienteCirugia.setCirugia(cirugia);
                 pacienteCirugia.setPaciente(paciente);
-                pacienteCirugia.setTipo(tipo);
+                pacienteCirugia.setTipo("personal");
+
                 /*Agrego a la lista de paciente_cirugia */
                 paciente.getPacienteCirugias().add(pacienteCirugia);
                 paciente.setUpdatedAt(ts);
                 data.save(paciente);
-            }catch (Error error){
-                System.out.printf("ERROR ADDING SURGERY TO PATIENT: ", error.getMessage());
-            }
-        }else {
-            return null;
+
+        }catch (Error error){
+            System.out.printf("ERROR ADDING SURGERY TO PATIENT: ", error.getMessage());
         }
         return paciente;
     }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:8090")
 @RestController
 @RequestMapping("/paciente")
 public class PacienteController {
@@ -35,6 +36,7 @@ public class PacienteController {
         return service.save(p);
     }
 
+
     @PutMapping(value = "/add_patologia/{id}", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<?> addPacientePatologia(@PathVariable(value = "id") int id,@RequestParam("tipo") String tipo,@RequestParam("idEnf") int idEnf){
         Paciente paciente = null;
@@ -48,16 +50,18 @@ public class PacienteController {
     }
 
     @PutMapping(value = "/add_cirugia/{id}", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> addPacienteCirugia(@PathVariable(value = "id") int id, @RequestParam("tipo") String tipo, @RequestParam("idCir") int idCir){
+    public ResponseEntity<?> addPacienteCirugia(@PathVariable(value = "id") int id,@RequestParam("tipo") String tipo,@RequestParam("idCirugia") int idCirugia){
         Paciente paciente = null;
         paciente = service.findById(id).get();
-        if(paciente !=null){
-            service.addCirugia(tipo, idCir, id);
+        if(paciente != null){
+            service.addCirugia(tipo, idCirugia, id);
             return new ResponseEntity<>(paciente, HttpStatus.OK);
-        }else {
+        }else{
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
     }
+
+
 
 
 }

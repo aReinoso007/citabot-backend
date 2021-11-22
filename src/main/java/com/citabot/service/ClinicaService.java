@@ -72,15 +72,24 @@ public class ClinicaService implements IClinicaService {
     @Override
     public Clinica addDireccion(int dirId, int cliId) {
         DireccionClinica direccionClinica = new DireccionClinica();
+
         Direccion direccion = new Direccion();
         Clinica clinica = new Clinica();
+
         try{
-            direccion = direccionData.findById(dirId).get();
-            clinica = data.findClinicaByClinicaId(cliId);
-            direccionClinica.setDireccion(direccion);
-            direccionClinica.setClinica(clinica);
-            clinica.getDireccionClinicas().add(direccionClinica);
-            data.save(clinica);
+            if(direccionData.existsById(dirId)){
+                direccion = direccionData.findById(dirId).get();
+                clinica = data.findClinicaByClinicaId(cliId);
+
+                direccionClinica.setDireccion(direccion);
+                direccionClinica.setClinica(clinica);
+
+                clinica.getDireccionClinicas().add(direccionClinica);
+
+                data.save(clinica);
+            }else {
+                return null;
+            }
 
         }catch (Error error){
             System.out.printf("Error adding direccion: ", error.getMessage());

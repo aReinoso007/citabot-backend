@@ -2,8 +2,9 @@ package com.citabot.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Clinica implements Serializable {
@@ -17,21 +18,22 @@ public class Clinica implements Serializable {
     private String contacto;
     private String photoUrl;
     @OneToMany(mappedBy = "clinica")
-    private Set<DireccionClinica> direccionClinicas;
+    private List<DireccionClinica> direccionClinicas = new ArrayList<>();
     @OneToMany(mappedBy = "clinica")
-    private List<RegistroClinica> registroClinicas;
+    private List<RegistroClinica> registroClinicas = new ArrayList<>();
 
     public Clinica() {
     }
 
-    public Clinica(String nombreClinica, String contacto, String photoUrl, Set<DireccionClinica> direccionClinicas) {
+    public Clinica(String nombreClinica, String contacto, String photoUrl, List<DireccionClinica> direccionClinicas) {
         this.nombreClinica = nombreClinica;
         this.contacto = contacto;
         this.photoUrl = photoUrl;
         this.direccionClinicas = direccionClinicas;
     }
 
-    public Clinica(List<RegistroClinica> registroClinicas) {
+    public Clinica(List<DireccionClinica> direccionClinicas, List<RegistroClinica> registroClinicas) {
+        this.direccionClinicas = direccionClinicas;
         this.registroClinicas = registroClinicas;
     }
 
@@ -67,11 +69,11 @@ public class Clinica implements Serializable {
         this.photoUrl = photoUrl;
     }
 
-    public Set<DireccionClinica> getDireccionClinicas() {
+    public List<DireccionClinica> getDireccionClinicas() {
         return direccionClinicas;
     }
 
-    public void setDireccionClinicas(Set<DireccionClinica> direccionClinicas) {
+    public void setDireccionClinicas(List<DireccionClinica> direccionClinicas) {
         this.direccionClinicas = direccionClinicas;
     }
 

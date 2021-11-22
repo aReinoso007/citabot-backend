@@ -3,6 +3,7 @@ package com.citabot.controller;
 import com.citabot.interfaceService.IMedicoService;
 import com.citabot.model.Medico;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,11 @@ public class MedicoController {
     @GetMapping(path = "/{id}")
     public Optional<Medico> getById(@PathVariable("id") int id){
         return service.findById(id);
+    }
+
+    @PostMapping
+    public Medico save(@RequestBody Medico medico){
+        return service.save(medico);
     }
 
 }

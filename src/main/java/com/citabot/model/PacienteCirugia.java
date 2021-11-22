@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 @Entity
 public class PacienteCirugia implements Serializable {
 
@@ -17,29 +18,22 @@ public class PacienteCirugia implements Serializable {
 
     @ManyToOne()
     @JsonIgnore
-    @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "cirugia_id", insertable = false, updatable = false)
+    @JoinColumn(name = "cirugia_id")
     private Cirugia cirugia;
 
     public PacienteCirugia() {
     }
 
-    public PacienteCirugia(String tipo, Paciente paciente, Cirugia cirugia) {
+    public PacienteCirugia(Integer pacienteCirugiaId, String tipo, Paciente paciente, Cirugia cirugia) {
+        this.pacienteCirugiaId = pacienteCirugiaId;
         this.tipo = tipo;
         this.paciente = paciente;
         this.cirugia = cirugia;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public Integer getPacienteCirugiaId() {
@@ -48,6 +42,14 @@ public class PacienteCirugia implements Serializable {
 
     public void setPacienteCirugiaId(Integer pacienteCirugiaId) {
         this.pacienteCirugiaId = pacienteCirugiaId;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Paciente getPaciente() {

@@ -44,9 +44,9 @@ public class RegistroClinicaService implements IRegistroClinicaService {
         RegistroClinica registroClinica = new RegistroClinica();
         RegistroClinica regc = new RegistroClinica();
         try{
-            c = cliData.findById(1).get();
+            c = cliData.findById(idClinica).get();
             registroClinica.setClinica(c);
-            m = medData.findById(1).get();
+            m = medData.findById(idMedico).get();
             registroClinica.setMedico(m);
             registroClinica.setCreatedAt(ts);
             registroClinica.setUpdatedAt(ts);
