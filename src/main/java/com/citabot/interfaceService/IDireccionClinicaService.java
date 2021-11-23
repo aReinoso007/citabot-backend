@@ -13,7 +13,6 @@ public interface IDireccionClinicaService {
     public Optional<DireccionClinica> listarById(int id);
     public DireccionClinica update(DireccionClinica direccionClinica);
     public String delete(int id);
-    public Optional<DireccionClinica> listarByClinicaId(int id);
 
 
 }

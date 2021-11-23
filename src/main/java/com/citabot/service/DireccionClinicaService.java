@@ -87,9 +87,4 @@ public class DireccionClinicaService implements IDireccionClinicaService {
         }
         return message;
     }
-    /*Retorna el registro por el ID de la clinica */
-    @Override
-    public Optional<DireccionClinica> listarByClinicaId(int cliId) {
-        return data.listarDireccionesByClinicaId(cliId);
-    }
 }
