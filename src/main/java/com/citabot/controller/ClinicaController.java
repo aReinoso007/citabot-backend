@@ -23,6 +23,7 @@ public class ClinicaController {
     
     /* Funciona */
     @GetMapping(produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
     public List<Clinica> listar(){
         return service.listar();
     }
@@ -40,28 +41,32 @@ public class ClinicaController {
 
     /*Funciona */
     @PostMapping
-    public Clinica guardarClinica(@RequestBody Clinica clinica){
-        return service.save(clinica);
+    public ResponseEntity<?> guardarClinica(@RequestBody Clinica clinica){
+        Clinica clinicaDb = null;
+        clinicaDb = service.save(clinica);
+        if(clinicaDb!=null){
+            return new ResponseEntity<>(clinicaDb, HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+
     }
 
     @DeleteMapping( path = "/{id}")
     public String deleteById(@PathVariable("id") int id){
-        String resp;
         return service.delete(id);
     }
 
-    @PutMapping(value = "/add_direccion/{id}",  consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> addClinicaDireccion(@PathVariable("id") int id, @RequestParam("idDir") int idDir){
-        Clinica clinica = null;
-        clinica = service.findById(id).get();
-        if(clinica!=null){
-            service.addDireccion(idDir, id);
-            return new ResponseEntity<>(clinica, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateClinica(@PathVariable("id") int id, @RequestBody Clinica clinica){
+        Clinica clinicaDB = null;
+        clinicaDB = service.findById(id).get();
+        if(clinicaDB!=null){
+            clinicaDB.setNombreClinica(clinica.getNombreClinica());
+            service.update(clinicaDB);
+            return new ResponseEntity<>(clinicaDB, HttpStatus.OK);
         }
+        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
-
-    //@PutMapping()
 
 }
