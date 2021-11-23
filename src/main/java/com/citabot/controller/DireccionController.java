@@ -25,18 +25,31 @@ public class DireccionController {
     }
 
     @GetMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Optional<Direccion> getById(@PathVariable("id") int id){
         return service.findById(id);
     }
 
     @PostMapping
-    public Direccion guardarDireccion(@RequestBody Direccion direccion){
-        return  service.save(direccion);
+    public ResponseEntity<?> guardarDireccion(@RequestBody Direccion direccion){
+        Direccion direccionDB = null;
+        direccionDB = service.save(direccion);
+        if(direccionDB!=null){
+            return new ResponseEntity<>(direccionDB, HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
     }
 
     @DeleteMapping(path = "/{id}")
-    public String deleteById(@PathVariable("id") int id){
-        return service.delete(id);
+    public ResponseEntity<?> deleteById(@PathVariable("id") int id){
+        String message = null;
+        message=service.delete(id);
+        if(message.equals("SUCCESS")){
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

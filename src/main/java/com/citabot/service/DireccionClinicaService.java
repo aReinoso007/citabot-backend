@@ -77,13 +77,14 @@ public class DireccionClinicaService implements IDireccionClinicaService {
         try {
             if(!data.existsById(id)){
                 message = "RECORD DOES NOT EXIST";
+                return message;
             }else{
                 data.deleteById(id);
+                return message;
             }
 
         }catch (Error error){
             System.out.printf("ERROR DELETING RECORD: ", error.getMessage());
-            message = "FAILED";
         }
         return message;
     }

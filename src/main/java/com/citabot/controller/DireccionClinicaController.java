@@ -44,8 +44,14 @@ public class DireccionClinicaController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public String deleteById(@PathVariable("id") int id){
-        return service.delete(id);
+    public ResponseEntity<?> deleteById(@PathVariable("id") int id){
+        String message = null;
+        message = service.delete(id);
+        if(message.equals("sUCCESS")){
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
