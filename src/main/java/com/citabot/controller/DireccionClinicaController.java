@@ -3,6 +3,7 @@ package com.citabot.controller;
 import com.citabot.interfaceService.IDireccionClinicaService;
 import com.citabot.model.DireccionClinica;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +19,13 @@ public class DireccionClinicaController {
     IDireccionClinicaService service;
 
     @GetMapping(produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
     public List<DireccionClinica> listar(){
         return service.listar();
     }
 
     @GetMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Optional<DireccionClinica> listarById(@PathVariable("id") int id){
         return service.listarById(id);
     }

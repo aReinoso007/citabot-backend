@@ -1,8 +1,12 @@
 package com.citabot.service;
 
 import com.citabot.interfaceService.IDireccionPacienteService;
+import com.citabot.interfaces.IDireccion;
 import com.citabot.interfaces.IDireccionPaciente;
+import com.citabot.interfaces.IPaciente;
+import com.citabot.model.Direccion;
 import com.citabot.model.DireccionPaciente;
+import com.citabot.model.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,10 @@ public class DireccionPacienteService implements IDireccionPacienteService {
 
     @Autowired
     private IDireccionPaciente data;
+    @Autowired
+    private IPaciente pacienteData;
+    @Autowired
+    private IDireccion direccionData;
 
 
     @Override
@@ -24,6 +32,11 @@ public class DireccionPacienteService implements IDireccionPacienteService {
     @Override
     public Optional<DireccionPaciente> listarByPacienteId(int id) {
         return data.listarByPacienteId(id);
+    }
+
+    @Override
+    public Optional<DireccionPaciente> listarById(int id) {
+        return data.findById(id);
     }
 
     @Override
@@ -41,5 +54,39 @@ public class DireccionPacienteService implements IDireccionPacienteService {
             message = "FAILED";
         }
         return message;
+    }
+
+    @Override
+    public DireccionPaciente save(int direccionId, int pacienteId, String tipo) {
+        Paciente paciente = new Paciente();
+        Direccion direccion = new Direccion();
+        DireccionPaciente direccionPaciente = new DireccionPaciente();
+        DireccionPaciente dirPaciente = new DireccionPaciente();
+        try{
+
+            paciente = pacienteData.findById(pacienteId).get();
+            System.out.printf("Paciente recuperado: ", paciente.toString());
+            direccion = direccionData.findById(direccionId).get();
+            System.out.printf("Direccion recuperada: ", direccion.toString());
+
+            direccionPaciente.setDireccion(direccion);
+            direccionPaciente.setPaciente(paciente);
+            direccionPaciente.setTipo(tipo);
+            dirPaciente = data.save(direccionPaciente);
+            if(dirPaciente==null){
+                return null;
+            }
+
+        }catch (Error error){
+            System.out.printf("ERROR ADDINT PATIENT ADDRESS: ", error.getMessage());
+        }
+
+
+        return dirPaciente;
+    }
+
+    @Override
+    public DireccionPaciente update(DireccionPaciente direccionPaciente) {
+        return data.save(direccionPaciente);
     }
 }

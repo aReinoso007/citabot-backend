@@ -25,6 +25,9 @@ public class Paciente extends Usuario implements Serializable {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<PacienteCirugia> pacienteCirugias = new ArrayList<>();
 
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<DireccionPaciente> direccionPacientes = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
     private List<Cita> citas = new ArrayList<>();
 
@@ -56,9 +59,11 @@ public class Paciente extends Usuario implements Serializable {
     }
 
     /*Para agregar patologia, cirugias y citas */
-    public Paciente(List<PacientePatologia> pacientePatologias, List<PacienteCirugia> pacienteCirugias, List<Cita> citas) {
+
+    public Paciente(List<PacientePatologia> pacientePatologias, List<PacienteCirugia> pacienteCirugias, List<DireccionPaciente> direccionPacientes, List<Cita> citas) {
         this.pacientePatologias = pacientePatologias;
         this.pacienteCirugias = pacienteCirugias;
+        this.direccionPacientes = direccionPacientes;
         this.citas = citas;
     }
 
@@ -108,6 +113,14 @@ public class Paciente extends Usuario implements Serializable {
 
     public void setPacientePatologias(List<PacientePatologia> pacientePatologias) {
         this.pacientePatologias = pacientePatologias;
+    }
+
+    public List<DireccionPaciente> getDireccionPacientes() {
+        return direccionPacientes;
+    }
+
+    public void setDireccionPacientes(List<DireccionPaciente> direccionPacientes) {
+        this.direccionPacientes = direccionPacientes;
     }
 
     public List<PacienteCirugia> getPacienteCirugias() {
