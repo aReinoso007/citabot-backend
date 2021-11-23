@@ -34,6 +34,7 @@ public class ClinicaController {
     }
 
     @GetMapping( path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Optional<Clinica> getById(@PathVariable("id") int id){
         return service.findById(id);
     }

@@ -5,6 +5,7 @@ import com.citabot.model.DireccionClinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,16 +32,26 @@ public class DireccionClinicaController {
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public DireccionClinica guardarDireccionClinica(@RequestParam("idClinica") int idClinica, @RequestParam("idDireccion") int idDireccion){
-        DireccionClinica direccionClinica = new DireccionClinica();
+    public ResponseEntity<?>guardarDireccionClinica(@RequestParam("idClinica") int idClinica, @RequestParam("idDireccion") int idDireccion){
+        DireccionClinica direccionClinica = null;
         System.out.printf("idClinica: "+idClinica+", idDireccion: "+idDireccion);
-        try{
-            direccionClinica = service.save(idClinica, idDireccion);
-            return direccionClinica;
-        }catch (Error error){
-            System.out.printf("Error posting request:  ", error.getMessage());
+        direccionClinica = service.save(idClinica, idDireccion);
+        if(direccionClinica!=null){
+            return new ResponseEntity<>(direccionClinica, HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-        return direccionClinica;
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") int id){
+        String message = null;
+        message = service.delete(id);
+        if(message.equals("sUCCESS")){
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

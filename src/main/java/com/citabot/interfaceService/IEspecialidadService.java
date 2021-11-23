@@ -11,4 +11,5 @@ public interface IEspecialidadService {
     public Especialidad save(Especialidad especialidad);
     public Especialidad edit(Especialidad especialidad);
     public String delete(int id);
+    public Especialidad update(Especialidad especialidad);
 }
