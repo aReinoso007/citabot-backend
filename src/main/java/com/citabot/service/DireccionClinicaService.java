@@ -36,17 +36,22 @@ public class DireccionClinicaService implements IDireccionClinicaService {
         Direccion direccion = new Direccion();
         DireccionClinica rs = new DireccionClinica();
         try{
-            if(clinicaData.existsById(clinica_id)&direccionData.existsById(direccion_id)){
-                clinica = clinicaData.findById(clinica_id).get();
-                direccion = direccionData.findById(direccion_id).get();
-                direccionClinica.setClinica(clinica);
-                direccionClinica.setDireccion(direccion);
-                rs = data.save(direccionClinica);
-            }
+
+            clinica = clinicaData.findById(clinica_id).get();
+            direccion = direccionData.findById(direccion_id).get();
+            direccionClinica.setClinica(clinica);
+            direccionClinica.setDireccion(direccion);
+            rs = data.save(direccionClinica);
+
         }catch (Error error){
             System.out.printf("ERROR SAVING RECORD: ", error.getMessage());
         }
         return rs;
+    }
+
+    @Override
+    public Optional<DireccionClinica> listarById(int id) {
+        return data.findById(id);
     }
 
     @Override

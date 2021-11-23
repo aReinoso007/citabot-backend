@@ -53,7 +53,7 @@ public class PacienteCirugiaservice implements IPacienteCirugiaService {
 
             pCir = data.save(pacienteCirugia);
         }catch (Error error){
-            System.out.printf("Error ocurred: ", error.getMessage());
+            System.out.printf("ERROR SAVING RECORD: ", error.getMessage());
         }
 
         return pCir;
