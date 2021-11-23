@@ -13,4 +13,5 @@ public interface IEnfermedadService {
     public Enfermedad save(Enfermedad enfermedad);
     public Enfermedad edit(Enfermedad enfermedad);
     public String delete(int id);
+    public Enfermedad update(Enfermedad enfermedad);
 }

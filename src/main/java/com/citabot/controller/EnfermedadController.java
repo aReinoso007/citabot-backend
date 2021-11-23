@@ -57,5 +57,20 @@ public class EnfermedadController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+    /*Para actualizar nombre, tipo y descripcion */
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateEnfermedad(@PathVariable("id") int id, @RequestBody Enfermedad enfermedad){
+        Enfermedad enfermedadDB = null;
+        enfermedadDB = service.findById(id).get();
+        if(enfermedadDB!=null){
+            enfermedadDB.setNombre(enfermedad.getNombre());
+            enfermedadDB.setTipo(enfermedad.getTipo());
+            enfermedadDB.setDescripcion(enfermedad.getDescripcion());
+            service.update(enfermedadDB);
+            return new ResponseEntity<>(enfermedadDB, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
