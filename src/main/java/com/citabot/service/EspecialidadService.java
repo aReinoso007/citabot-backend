@@ -2,11 +2,14 @@ package com.citabot.service;
 
 import com.citabot.interfaceService.IEspecialidadService;
 import com.citabot.interfaces.IEspecialidad;
+import com.citabot.model.Enfermedad;
 import com.citabot.model.Especialidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class EspecialidadService implements IEspecialidadService {
     @Autowired
@@ -15,6 +18,12 @@ public class EspecialidadService implements IEspecialidadService {
     public List<Especialidad> listar() {
         return (List<Especialidad>) data.findAll();
     }
+
+    @Override
+    public Optional<Especialidad> findById(int id) {
+        return (Optional<Especialidad>) data.findById(id);
+    }
+
 
     @Override
     public List<Especialidad> listarByNombre(String nombre) {

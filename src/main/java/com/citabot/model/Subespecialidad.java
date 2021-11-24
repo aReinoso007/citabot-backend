@@ -1,6 +1,8 @@
 package com.citabot.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,6 +14,7 @@ public class Subespecialidad implements Serializable {
     private Integer subespecialidadId;
     private String nombre;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "especialidad_id")
     private Especialidad especialidad;
 
