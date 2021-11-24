@@ -94,7 +94,7 @@ public class PacienteService implements IPacienteService {
             return data.save(pacienteDb);
         }
     }
-
+    /*Para poner la fecha y ahora de actualizacion */
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
