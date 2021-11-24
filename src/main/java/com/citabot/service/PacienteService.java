@@ -19,10 +19,6 @@ public class PacienteService implements IPacienteService {
 
     @Autowired
     private IPaciente data;
-    @Autowired
-    private IEnfermedad enfermedadData;
-    @Autowired
-    private ICirugia cirugiaData;
 
     @Override
     @Transactional(readOnly = true)
@@ -68,70 +64,40 @@ public class PacienteService implements IPacienteService {
     @Transactional(readOnly = true)
     public Optional<Paciente> listarByNombreYApellido(String n) {
         String[] nombre = n.split(" ");
-        return (Optional<Paciente>) data.findPacientesByNombreOrApellido(nombre[0].toString(), nombre[1].toString());
+        return data.findPacientesByNombreOrApellido(nombre[0].toString(), nombre[1].toString());
     }
 
     @Override
-    public Paciente addPatologia(String tipo, int enfermedadId, int pacId) {
-        PacientePatologia pacientePatologia = new PacientePatologia();
-        Enfermedad enfermedad = new Enfermedad();
-        Paciente p = new Paciente();
-        Date date = new Date();
-        Timestamp ts = new Timestamp(date.getTime());
-        try{
-            if(enfermedadData.existsById(enfermedadId)){
-                enfermedad = enfermedadData.findById(enfermedadId).get();
-                p = data.findPacienteByUsuarioId(pacId).get();
-                pacientePatologia.setEnfermedad(enfermedad);
-                pacientePatologia.setPaciente(p);
-                pacientePatologia.setTipo(tipo);
-                p.getPacientePatologias().add(pacientePatologia);
-                p.setUpdatedAt(ts);
-                data.save(p);
-            }else{
-                return null;
-            }
-
-        }catch (Error error){
-            System.out.printf("ERROR ADDING PATOLOGY TO PATIENT: ", error.getMessage());
-        }
-
-        return p;
+    public Paciente findByEmail(String email) {
+        return data.findPacienteByEmail(email).get();
     }
 
     @Override
-    public Paciente addCirugia(String tipo, int cirugiaId, int pacId) {
-        System.out.printf("paciente ID: ", pacId);
-        System.out.printf("Tipo: ", tipo);
-        System.out.printf("cirugia ID: ", cirugiaId);
-        PacienteCirugia pacienteCirugia = new PacienteCirugia();
+    public Paciente buscarPorEmailYContrasena(String email, String password) {
+        return data.findPacienteByEmailAndPassword(email, password);
+    }
+    /*Actualizar: nombre, apellido, emailRecovery, numeroContacto, tipoSangre */
+    @Override
+    public Paciente update(int id, Paciente paciente) {
+        Paciente pacienteDb = null;
+        pacienteDb = data.findById(id).get();
+        if(!data.existsById(id)){
+            return null;
 
-        Cirugia cirugia = new Cirugia();
-        Paciente paciente = new Paciente();
-        /*Para actualizar el updated_at */
+        }else{
+            pacienteDb.setNombre(paciente.getNombre());
+            pacienteDb.setApellido(paciente.getApellido());
+            pacienteDb.setRecoveryEmail(paciente.getRecoveryEmail());
+            pacienteDb.setUpdatedAt(actualizado());
+            pacienteDb.setTipoSangre(paciente.getTipoSangre());
+            pacienteDb.setNumeroContacto(paciente.getNumeroContacto());
+            return data.save(pacienteDb);
+        }
+    }
 
+    public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
-
-        try{
-                cirugia = cirugiaData.findById(3).get();
-                System.out.printf("cirugia recuperada: ", cirugia);
-                paciente = data.findPacienteByUsuarioId(2).get();
-                System.out.printf("paciente recuperada: ", paciente);
-
-                /*Actualizo al registro de paciente_cirugia */
-                pacienteCirugia.setCirugia(cirugia);
-                pacienteCirugia.setPaciente(paciente);
-                pacienteCirugia.setTipo("personal");
-
-                /*Agrego a la lista de paciente_cirugia */
-                paciente.getPacienteCirugias().add(pacienteCirugia);
-                paciente.setUpdatedAt(ts);
-                data.save(paciente);
-
-        }catch (Error error){
-            System.out.printf("ERROR ADDING SURGERY TO PATIENT: ", error.getMessage());
-        }
-        return paciente;
+        return ts;
     }
 }
