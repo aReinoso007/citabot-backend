@@ -20,11 +20,13 @@ public class PacienteController {
     private IPacienteService service;
 
     @GetMapping(produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
     public List<Paciente> listar(){
         return service.listar();
     }
 
     @GetMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Paciente getById(@PathVariable("id") int id){
         return service.findById(id);
     }
@@ -48,7 +50,6 @@ public class PacienteController {
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Paciente paciente){
         Paciente pacienteDB = null;
         pacienteDB = service.findById(id);
-        System.out.printf("fecha nacimiento: ", paciente.getFechaNacimiento().toString());
         if(pacienteDB!=null){
             service.update(id, paciente);
             pacienteDB = service.findById(id);
