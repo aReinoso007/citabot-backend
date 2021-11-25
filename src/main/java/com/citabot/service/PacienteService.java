@@ -40,17 +40,14 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Paciente save(Paciente paciente) {
-        Paciente pacientedb = data.findPacienteByEmail(paciente.getEmail()).get();
-        if(pacientedb!=null){
-            return null;
-        }else{
-            return data.save(paciente);
-        }
-
+        paciente.setCreatedAt(actualizado());
+        paciente.setUpdatedAt(actualizado());
+        return data.save(paciente);
     }
 
     @Override
     public Paciente edit(Paciente paciente) {
+        paciente.setEstado("ACTIVADO");
         return data.save(paciente);
     }
 
@@ -76,7 +73,9 @@ public class PacienteService implements IPacienteService {
     @Override
     @Transactional(readOnly = true)
     public Paciente findByEmail(String email) {
-        return data.findPacienteByEmail(email).get();
+        Optional<Paciente> paciente = data.findPacienteByEmail(email);
+        System.out.printf("Retorno paciente por email: ", paciente);
+        return paciente.isEmpty() ? null: paciente.get();
     }
 
     @Override
@@ -99,6 +98,7 @@ public class PacienteService implements IPacienteService {
             pacienteDb.setUpdatedAt(actualizado());
             pacienteDb.setTipoSangre(paciente.getTipoSangre());
             pacienteDb.setNumeroContacto(paciente.getNumeroContacto());
+            pacienteDb.setFechaNacimiento(paciente.getFechaNacimiento());
             return data.save(pacienteDb);
         }
     }

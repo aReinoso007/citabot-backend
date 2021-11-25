@@ -5,13 +5,11 @@ import com.citabot.model.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8090")
 @RestController
@@ -31,20 +29,26 @@ public class PacienteController {
         return service.findById(id);
     }
 
+    /*Formato de fecha: anio-mes-dia */
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Paciente p){
-        Paciente pacientedb = service.save(p);
-        if(pacientedb == null){
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }else{
+        System.out.printf("Paciente a registrar: ", p);
+        Paciente pacientedb = null;
+        String message = "Paciente ya registrado con email: "+ p.getEmail();
+        if(service.findByEmail(p.getEmail())==null){
+            pacientedb = service.save(p);
             return new ResponseEntity<>(pacientedb, HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
     }
 
+    /*Formato de fecha: anio-mes-dia */
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Paciente paciente){
         Paciente pacienteDB = null;
         pacienteDB = service.findById(id);
+        System.out.printf("fecha nacimiento: ", paciente.getFechaNacimiento().toString());
         if(pacienteDB!=null){
             service.update(id, paciente);
             pacienteDB = service.findById(id);
