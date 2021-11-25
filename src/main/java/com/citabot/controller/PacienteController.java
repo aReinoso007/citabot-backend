@@ -27,13 +27,42 @@ public class PacienteController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Paciente> getById(@PathVariable("id") int id){
+    public Paciente getById(@PathVariable("id") int id){
         return service.findById(id);
     }
 
     @PostMapping
-    public Paciente save(@RequestBody Paciente p){
-        return service.save(p);
+    public ResponseEntity<?> save(@RequestBody Paciente p){
+        Paciente pacientedb = service.save(p);
+        if(pacientedb == null){
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }else{
+            return new ResponseEntity<>(pacientedb, HttpStatus.CREATED);
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Paciente paciente){
+        Paciente pacienteDB = null;
+        pacienteDB = service.findById(id);
+        if(pacienteDB!=null){
+            service.update(id, paciente);
+            pacienteDB = service.findById(id);
+            return new ResponseEntity<>(pacienteDB, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") int id){
+        String message = null;
+        message = service.delete(id);
+        if(message.equals("SUCCESS")){
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
     }
 
 

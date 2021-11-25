@@ -34,13 +34,19 @@ public class PacienteService implements IPacienteService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Paciente> findById(int id) {
-        return data.findPacienteByUsuarioId(id);
+    public Paciente findById(int id) {
+        return data.findPacienteByUsuarioId(id).orElse(null);
     }
 
     @Override
     public Paciente save(Paciente paciente) {
-        return data.save(paciente);
+        Paciente pacientedb = data.findPacienteByEmail(paciente.getEmail()).get();
+        if(pacientedb!=null){
+            return null;
+        }else{
+            return data.save(paciente);
+        }
+
     }
 
     @Override
@@ -68,11 +74,13 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Paciente findByEmail(String email) {
         return data.findPacienteByEmail(email).get();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Paciente buscarPorEmailYContrasena(String email, String password) {
         return data.findPacienteByEmailAndPassword(email, password);
     }
