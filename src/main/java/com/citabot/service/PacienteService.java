@@ -42,6 +42,7 @@ public class PacienteService implements IPacienteService {
     public Paciente save(Paciente paciente) {
         paciente.setCreatedAt(actualizado());
         paciente.setUpdatedAt(actualizado());
+        paciente.setEstado("activado");
         return data.save(paciente);
     }
 
