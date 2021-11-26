@@ -5,6 +5,7 @@ import com.citabot.model.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,19 @@ public class PacienteController {
     public Paciente getById(@PathVariable("id") int id){
         return service.findById(id);
     }
+
+    /*Usa el form-url-enconded */
+    @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("password") String password){
+        Paciente pacienteDb = null;
+        pacienteDb = service.buscarPorEmailYContrasena(email, password);
+        if(pacienteDb!=null){
+            return new ResponseEntity<>(pacienteDb, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     /*Formato de fecha: anio-mes-dia */
     @PostMapping

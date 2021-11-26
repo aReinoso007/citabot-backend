@@ -34,7 +34,6 @@ public class MedicoController {
     /*Usa el form-url-enconded */
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("password") String password){
-        System.out.printf("password: ", password);
         Medico medicodb = null;
         medicodb = service.findByEmailAndContrasena(email, password);
         if(medicodb!=null){

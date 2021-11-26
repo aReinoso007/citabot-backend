@@ -90,7 +90,6 @@ public class MedicoService implements IMedicoService {
 
     @Override
     public Medico findByEmailAndContrasena(String email, String password) {
-        System.out.printf("password received: "+password);
         return data.findMedicoByEmailAndPassword(email, password);
     }
 
