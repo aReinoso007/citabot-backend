@@ -34,8 +34,8 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public Optional<Cita> listarByPacienteId(int id) {
-        return data.findCitaByPaciente(id);
+    public List<Cita> listarByPacienteId(int id) {
+        return (List<Cita>) data.getCitasByPacienteId(id);
     }
 
     @Override

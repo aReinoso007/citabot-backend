@@ -13,7 +13,7 @@ public interface ICitaService {
     public List<Cita> listar();
     public Optional<Cita> listarById(int id);
     @Query(value = "SELECT * FROM CITA WHERE paciente_usuario_id=:id", nativeQuery = true)
-    public Optional<Cita> listarByPacienteId(int id);
+    public List<Cita> listarByPacienteId(int id);
 
     public Cita save(Cita cita);
     public String delete(int citaId);

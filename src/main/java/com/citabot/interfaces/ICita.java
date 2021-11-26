@@ -15,5 +15,6 @@ public interface ICita extends CrudRepository<Cita, Integer> {
 
     @Query(value = "SELECT * FROM cita WHERE paciente_usuario_id=:pacienteId and estado=:estado", nativeQuery = true)
     Optional<Cita> findByPacienteAndEstado(int pacienteId, String estado);
-    Optional<Cita> findCitaByPaciente(int id);
+    @Query(value = "SELECT * FROM cita WHERE paciente_usuario_id=:id", nativeQuery = true)
+    List<Cita> getCitasByPacienteId(int id);
 }

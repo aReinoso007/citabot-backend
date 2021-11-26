@@ -19,7 +19,6 @@ public class Cita implements Serializable {
     private Integer citaId;
     private Timestamp createdAt;
     private Timestamp updateAt;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date fechaCita;
     private Time horaInicio;
     private Time horaFin;
