@@ -14,5 +14,5 @@ public interface IMedicoService {
     public String delete(int id);
     public Medico buscarPorId(int id);
     public Medico findByEmail(String email);
-    public Medico findByEmailAndContrasena(String email, String contrasena);
+    Medico findByEmailAndContrasena(String email, String password);
 }

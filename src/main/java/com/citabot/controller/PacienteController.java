@@ -33,7 +33,7 @@ public class PacienteController {
 
     /*Formato de fecha: anio-mes-dia */
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody Paciente p){
+    public ResponseEntity<?> signUp(@RequestBody Paciente p){
         System.out.printf("Paciente a registrar: ", p);
         Paciente pacientedb = null;
         String message = "Paciente ya registrado con email: "+ p.getEmail();

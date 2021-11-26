@@ -15,6 +15,8 @@ public interface IMedico extends CrudRepository<Medico, Integer> {
     @Query(value = "SELECT * FROM medico WHERE usuario_id= :usuarioId", nativeQuery = true)
     Medico findMedicoByUsuarioId(int usuarioId);
     Optional<Medico> findMedicoByEmail(String email);
+    @Query(value = "SELECT * FROM medico WHERE medico.email=?1 AND medico.password=?2", nativeQuery = true)
+    Optional<Medico> login(String email, String password);
     Medico findMedicoByEmailAndPassword(String email, String password);
 
 

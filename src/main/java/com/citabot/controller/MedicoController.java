@@ -4,6 +4,7 @@ import com.citabot.interfaceService.IMedicoService;
 import com.citabot.model.Medico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +31,22 @@ public class MedicoController {
         return service.findById(id);
     }
 
+    /*Usa el form-url-enconded */
+    @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("password") String password){
+        System.out.printf("password: ", password);
+        Medico medicodb = null;
+        medicodb = service.findByEmailAndContrasena(email, password);
+        if(medicodb!=null){
+            return new ResponseEntity<>(medicodb, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody Medico medico){
+    public ResponseEntity<?> signUp(@RequestBody Medico medico){
         Medico medicodb = null;
         String message = "Medico ya registrado con email: "+medico.getEmail();
         if(service.findByEmail(medico.getEmail())==null){

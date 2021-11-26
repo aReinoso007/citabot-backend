@@ -89,8 +89,8 @@ public class MedicoService implements IMedicoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Medico findByEmailAndContrasena(String email, String password) {
+        System.out.printf("password received: "+password);
         return data.findMedicoByEmailAndPassword(email, password);
     }
 
