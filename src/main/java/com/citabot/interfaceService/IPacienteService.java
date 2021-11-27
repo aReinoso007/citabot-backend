@@ -1,5 +1,6 @@
 package com.citabot.interfaceService;
 
+import com.citabot.model.Cita;
 import com.citabot.model.Paciente;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface IPacienteService {
     public Paciente findByEmail(String email);
     public Paciente buscarPorEmailYContrasena(String email, String password);
     public Paciente update(int id, Paciente paciente);
+    public Paciente agendar(int paId, int regId, Cita cita, String hInicio, String hFin);
 }

@@ -9,6 +9,7 @@ import com.citabot.model.Medico;
 import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -31,6 +32,7 @@ public class RegistroClinicaService implements IRegistroClinicaService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<RegistroClinica> findById(int id) {
         return data.findById(id);
     }
