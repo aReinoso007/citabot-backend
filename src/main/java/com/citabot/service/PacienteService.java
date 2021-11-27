@@ -112,35 +112,6 @@ public class PacienteService implements IPacienteService {
         }
     }
 
-    @Override
-    public Paciente agendar(int paId, int regId, Cita cita, String hInicio, String hFin) {
-        Paciente paciente = new Paciente();
-        Paciente p = new Paciente();
-        RegistroClinica registroClinica = new RegistroClinica();
-        Time horaInicio = null;
-        Time horaFin = null;
-        try{
-            paciente = data.findById(paId).get();
-            registroClinica = registroData.findById(regId).get();
-            cita.setPaciente(paciente);
-            cita.setClinicaMedico(registroClinica);
-            horaInicio = getFormattedTime(hInicio);
-            horaFin = getFormattedTime(hFin);
-            cita.setEstado("activo");
-            cita.setCreatedAt(actualizado());
-            cita.setUpdateAt(actualizado());
-            System.out.printf("Cita a crear: ", cita);
-            paciente.getCitas().add(cita);
-            data.save(paciente);
-            return paciente;
-
-        }catch (Error | ParseException error){
-            System.out.printf("Error scheduling Appointment: ", error.getMessage());
-        }
-
-        return paciente;
-    }
-
     /*Para poner la fecha y ahora de actualizacion */
     public Timestamp actualizado(){
         Date date = new Date();
@@ -148,11 +119,4 @@ public class PacienteService implements IPacienteService {
         return ts;
     }
 
-    /*Para formatear horaInicio y horaFin */
-    public Time getFormattedTime(String time) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH.mm.ss");
-        long ms = sdf.parse(time).getTime();
-        Time t =new Time(ms);
-        return t;
-    }
 }

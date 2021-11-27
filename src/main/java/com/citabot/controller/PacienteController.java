@@ -47,26 +47,6 @@ public class PacienteController {
         }
     }
 
-    @PostMapping(value = "/agendar", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> agendarCita(
-            @RequestParam("fechaCita") Date fechaCita , @RequestParam("sintomas") String sintomas,
-            @RequestParam("precio") BigDecimal precio, @RequestParam("pacienteId") int pacienteId,
-            @RequestParam("registroId") int registroId, @RequestParam("hInicio") String hiInicio,
-            @RequestParam("hFin") String hFin){
-        Cita citaNew = new Cita();
-        Paciente paciente = new Paciente();
-        citaNew.setFechaCita(fechaCita);
-        citaNew.setSintomas(sintomas);
-        citaNew.setPrecioConsulta(precio);
-        paciente = service.agendar(pacienteId, registroId, citaNew, hiInicio, hFin);
-        if(paciente!=null){
-            return new ResponseEntity<>(paciente, HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-
-    }
-
     /*Formato de fecha: anio-mes-dia */
     @PostMapping
     public ResponseEntity<?> signUp(@RequestBody Paciente p){
