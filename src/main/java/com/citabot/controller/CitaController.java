@@ -37,20 +37,11 @@ public class CitaController {
         return service.listarById(id);
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @PostMapping(value = "/{paId}/{regId}")
     public ResponseEntity<?> agendar(
-            @RequestParam("fechaCita") Date fechaCita , @RequestParam("sintomas") String sintomas,
-            @RequestParam("precio")BigDecimal precio, @RequestParam("pacienteId") int pacienteId,
-            @RequestParam("registroId") int registroId, @RequestParam("hInicio") String hiInicio,
-            @RequestParam("hFin") String hFin){
-
-        Cita citaDb = new Cita();
-        Cita cita = new Cita();
-        citaDb.setFechaCita(fechaCita);
-        citaDb.setSintomas(sintomas);
-        citaDb.setPrecioConsulta(precio);
-
-        cita = service.save(cita);
+            @RequestBody Cita cita, @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){
+        System.out.printf("paId: "+paId+", regId: "+regId+"    ");
+        cita = service.save(cita, paId, regId);
         if(cita!=null){
             return new ResponseEntity<>(cita, HttpStatus.CREATED);
         }else{

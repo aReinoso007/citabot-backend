@@ -24,9 +24,9 @@ public class CitaService implements ICitaService {
     @Autowired
     private ICita data;
     @Autowired
-    private IPacienteService pacienteService;
+    private IPacienteService pacienteData;
     @Autowired
-    private IRegistroClinicaService registroService;
+    private IRegistroClinicaService registroData;
 
 
     @Override
@@ -45,9 +45,18 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public Cita save(Cita cita) {
+    public Cita save(Cita cita, int paId, int regId) {
         Cita citaDb = new Cita();
+        Paciente pacienteDB = new Paciente();
+        RegistroClinica registroClinicaDB = new RegistroClinica();
+
         try{
+            pacienteDB = pacienteData.findById(paId);
+            registroClinicaDB = registroData.findById(regId).get();
+            cita.setCreatedAt(actualizado());
+            cita.setUpdateAt(actualizado());
+            cita.setPaciente(pacienteDB);
+            cita.setClinicaMedico(registroClinicaDB);
             citaDb = data.save(cita);
             return citaDb;
         }catch (Error error){
@@ -64,7 +73,7 @@ public class CitaService implements ICitaService {
             if(data.existsById(citaId)){
                 c = data.findById(citaId).get();
                 c.setEstado("CANCELADO");
-                c.setUpdateAt(setTime());
+                c.setUpdateAt(actualizado());
                 data.save(c);
             }else{
                 return "Cita no existe";
@@ -83,8 +92,9 @@ public class CitaService implements ICitaService {
         try {
             if(data.existsById(citaId)){
                 c = data.findById(citaId).get();
+                c.setCreatedAt(actualizado());
+                c.setUpdateAt(actualizado());
                 c.setEstado(estado);
-                c.setUpdateAt(setTime());
                 data.save(c);
                 return  c;
             }else{
@@ -101,7 +111,7 @@ public class CitaService implements ICitaService {
         return data.findByPacienteAndEstado(pId, estado);
     }
 
-    public Timestamp setTime(){
+    public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
         return ts;
@@ -114,35 +124,4 @@ public class CitaService implements ICitaService {
         Time t =new Time(ms);
         return t;
     }
-    /*
-    @Override
-    public Cita save(int paId, int regId, Cita cita, String hInicio, String hFin) {
-        Cita c = new Cita();
-        Time horaInicio= null;
-        Time horaFin = null;
-        Paciente p = new Paciente();
-        RegistroClinica registroClinica = new RegistroClinica();
-
-        try{
-            p = pacienteService.findById(paId);
-            System.out.printf("Paciente: ", p.getNombre());
-            registroClinica = registroService.findById(regId).get();
-            System.out.printf("Registro: ", registroService.findById(regId).get());
-            horaInicio = getFormattedTime(hInicio);
-            horaFin = getFormattedTime(hFin);
-            cita.setHoraInicio(horaInicio);
-            //cita.setPaciente(p);
-            cita.setClinicaMedico(registroClinica);
-            cita.setHoraFin(horaFin);
-            cita.setEstado("ACTIVO");
-            cita.setCreatedAt(setTime());
-            cita.setUpdateAt(setTime());
-            c = data.save(cita);
-            return c;
-        }catch(Error | ParseException e){
-            System.out.printf("Error scheduling appointment: ", e.getMessage());
-        }
-        return c;
-    }
-     */
 }
