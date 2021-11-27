@@ -57,16 +57,7 @@ public class MedicoService implements IMedicoService {
         return message;
     }
 
-    @Override
-    public List<Medico> buscarCedula(int idEspecialidad) {
-        System.out.println("Consulta Realizada...");
-        Query nativeQuery = em.createNativeQuery(
-                "SELECT id, numero, operadora, tipo, usuario_cedula FROM usuario, telefono WHERE telefono.usuario_cedula=usuario.cedula and usuario.cedula= ?",
-                Telefono.class);
-        nativeQuery.setParameter(1, cedula);
-        System.out.println("Consulta Realizada...");
-        return (List<Telefono>) nativeQuery.getResultList();
-    }
+
 
 
 
