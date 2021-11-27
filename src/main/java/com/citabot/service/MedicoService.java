@@ -75,6 +75,11 @@ public class MedicoService implements IMedicoService {
         return message;
     }
 
+
+
+
+
+
     @Override
     @Transactional(readOnly = true)
     public Medico buscarPorId(int id) {
