@@ -13,9 +13,9 @@ public interface ICitaService {
     public List<Cita> listar();
     public Optional<Cita> listarById(int id);
     @Query(value = "SELECT * FROM CITA WHERE paciente_usuario_id=:id", nativeQuery = true)
-    public Optional<Cita> listarByPacienteId(int id);
+    public List<Cita> listarByPacienteId(int id);
 
-    public Cita save(Cita cita);
+    public Cita save(Cita cita, int paId, int regId);
     public String delete(int citaId);
     public Cita update(int citaId, String estado);
     public Optional<Cita> getCitasByPacienteIdAndEstado(int pId, String estado);

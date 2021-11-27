@@ -1,7 +1,6 @@
 package com.citabot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,7 +18,6 @@ public class Cita implements Serializable {
     private Integer citaId;
     private Timestamp createdAt;
     private Timestamp updateAt;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date fechaCita;
     private Time horaInicio;
     private Time horaFin;
@@ -28,11 +26,11 @@ public class Cita implements Serializable {
     private String estado;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "paciente_id", insertable = true)
     private Paciente paciente;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "registro_clinica_id")
+    @JoinColumn(name = "registro_clinica_id", insertable = true)
     private RegistroClinica clinicaMedico;
 
     public Cita() {
