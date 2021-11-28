@@ -63,4 +63,9 @@ public class EspecialidadService implements IEspecialidadService {
         }
         return message;
     }
+
+    @Override
+    public Especialidad update(Especialidad especialidad) {
+        return data.save(especialidad);
+    }
 }

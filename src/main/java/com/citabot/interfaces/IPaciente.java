@@ -15,5 +15,9 @@ public interface IPaciente extends CrudRepository<Paciente, Integer> {
 
     @Query(value = "SELECT * FROM paciente WHERE usuario_id= :usuarioId", nativeQuery = true)
     Optional<Paciente> findPacienteByUsuarioId(int usuarioId);
+    Optional<Paciente> findPacienteByEmail(String email);
+    Paciente findPacienteByEmailAndPassword(String email, String password);
+
+
 
 }

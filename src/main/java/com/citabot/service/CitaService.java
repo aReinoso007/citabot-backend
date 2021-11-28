@@ -1,15 +1,20 @@
 package com.citabot.service;
 
 import com.citabot.interfaceService.ICitaService;
+import com.citabot.interfaceService.IPacienteService;
+import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.ICita;
-import com.citabot.interfaces.IPaciente;
-import com.citabot.interfaces.IRegistroClinica;
 import com.citabot.model.Cita;
 import com.citabot.model.Paciente;
 import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +24,9 @@ public class CitaService implements ICitaService {
     @Autowired
     private ICita data;
     @Autowired
-    private IPaciente pacienteData;
-
+    private IPacienteService pacienteData;
+    @Autowired
+    private IRegistroClinicaService registroData;
 
 
     @Override
@@ -34,19 +40,29 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public Optional<Cita> listarByPacienteId(int id) {
-        return data.findCitaByPaciente(id);
+    public List<Cita> listarByPacienteId(int id) {
+        return (List<Cita>) data.getCitasByPacienteId(id);
     }
 
     @Override
-    public Cita save(Cita cita) {
-        Cita c = new Cita();
+    public Cita save(Cita cita, int paId, int regId) {
+        Cita citaDb = new Cita();
+        Paciente pacienteDB = new Paciente();
+        RegistroClinica registroClinicaDB = new RegistroClinica();
+
         try{
-            c = data.save(cita);
-        }catch(Error e){
-            System.out.printf("Error scheduling appointment: ", e.getMessage());
+            pacienteDB = pacienteData.findById(paId);
+            registroClinicaDB = registroData.findById(regId).get();
+            cita.setCreatedAt(actualizado());
+            cita.setUpdateAt(actualizado());
+            cita.setPaciente(pacienteDB);
+            cita.setClinicaMedico(registroClinicaDB);
+            citaDb = data.save(cita);
+            return citaDb;
+        }catch (Error error){
+            System.out.printf("error saving cita: ", error.getMessage());
         }
-        return c;
+        return citaDb;
     }
 
     @Override
@@ -57,6 +73,7 @@ public class CitaService implements ICitaService {
             if(data.existsById(citaId)){
                 c = data.findById(citaId).get();
                 c.setEstado("CANCELADO");
+                c.setUpdateAt(actualizado());
                 data.save(c);
             }else{
                 return "Cita no existe";
@@ -75,6 +92,8 @@ public class CitaService implements ICitaService {
         try {
             if(data.existsById(citaId)){
                 c = data.findById(citaId).get();
+                c.setCreatedAt(actualizado());
+                c.setUpdateAt(actualizado());
                 c.setEstado(estado);
                 data.save(c);
                 return  c;
@@ -90,5 +109,19 @@ public class CitaService implements ICitaService {
     @Override
     public Optional<Cita> getCitasByPacienteIdAndEstado(int pId, String estado) {
         return data.findByPacienteAndEstado(pId, estado);
+    }
+
+    public Timestamp actualizado(){
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        return ts;
+    }
+
+    /*Para formatear horaInicio y horaFin */
+    public Time getFormattedTime(String time) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH.mm.ss");
+        long ms = sdf.parse(time).getTime();
+        Time t =new Time(ms);
+        return t;
     }
 }

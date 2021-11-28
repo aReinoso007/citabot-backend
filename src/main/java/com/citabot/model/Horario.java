@@ -2,12 +2,12 @@ package com.citabot.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 public class Horario implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -18,19 +18,22 @@ public class Horario implements Serializable {
     private RegistroClinica registroClinica;
     private Duration duracionCita;
     private String dia;
-    private LocalDateTime inicio;
-    private LocalDateTime fin;
+    private LocalTime inicio;
+    private LocalTime fin;
 
     public Horario() {
     }
 
-    public Horario(RegistroClinica registroClinica, Duration duracionCita, String dia, LocalDateTime inicio, LocalDateTime fin) {
+    public Horario(Integer horarioId, RegistroClinica registroClinica, Duration duracionCita, String dia, LocalTime inicio, LocalTime fin) {
+        this.horarioId = horarioId;
         this.registroClinica = registroClinica;
         this.duracionCita = duracionCita;
         this.dia = dia;
         this.inicio = inicio;
         this.fin = fin;
     }
+
+
 
     public Integer getHorarioId() {
         return horarioId;
@@ -64,19 +67,19 @@ public class Horario implements Serializable {
         this.dia = dia;
     }
 
-    public LocalDateTime getInicio() {
+    public LocalTime getInicio() {
         return inicio;
     }
 
-    public void setInicio(LocalDateTime inicio) {
+    public void setInicio(LocalTime inicio) {
         this.inicio = inicio;
     }
 
-    public LocalDateTime getFin() {
+    public LocalTime getFin() {
         return fin;
     }
 
-    public void setFin(LocalDateTime fin) {
+    public void setFin(LocalTime fin) {
         this.fin = fin;
     }
 }

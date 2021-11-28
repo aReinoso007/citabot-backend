@@ -34,7 +34,6 @@ public class ClinicaService implements IClinicaService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Clinica save(Clinica clinica) {
         Clinica c = new Clinica();
         try {
@@ -64,36 +63,8 @@ public class ClinicaService implements IClinicaService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Clinica buscarPorId(int id) {
-        return (Clinica) data.findClinicaByClinicaId(id);
+    public Clinica update(Clinica clinica) {
+        return data.save(clinica);
     }
 
-    @Override
-    public Clinica addDireccion(int dirId, int cliId) {
-        DireccionClinica direccionClinica = new DireccionClinica();
-
-        Direccion direccion = new Direccion();
-        Clinica clinica = new Clinica();
-
-        try{
-            if(direccionData.existsById(dirId)){
-                direccion = direccionData.findById(dirId).get();
-                clinica = data.findClinicaByClinicaId(cliId);
-
-                direccionClinica.setDireccion(direccion);
-                direccionClinica.setClinica(clinica);
-
-                clinica.getDireccionClinicas().add(direccionClinica);
-
-                data.save(clinica);
-            }else {
-                return null;
-            }
-
-        }catch (Error error){
-            System.out.printf("Error adding direccion: ", error.getMessage());
-        }
-        return clinica;
-    }
 }

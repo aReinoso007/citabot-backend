@@ -10,9 +10,9 @@ public interface IDireccionClinicaService {
 
     public List<DireccionClinica>  listar();
     public DireccionClinica save(int clinica_id, int direccion_id);
+    public Optional<DireccionClinica> listarById(int id);
     public DireccionClinica update(DireccionClinica direccionClinica);
     public String delete(int id);
-    public Optional<DireccionClinica> listarByClinicaId(int id);
 
 
 }

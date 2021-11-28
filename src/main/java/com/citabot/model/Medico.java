@@ -28,6 +28,8 @@ public class Medico extends Usuario implements Serializable {
     private List<MedicoSubespecialidad> subespecialidades = new ArrayList<>();
 
 
+
+
     public Medico(String slogan, String profesion, String photoUrl, String descripcion, List<RegistroClinica> clinicas, List<MedicoEspecialidad> especialidades, List<MedicoSubespecialidad> subespecialidades) {
         this.slogan = slogan;
         this.profesion = profesion;

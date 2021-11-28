@@ -36,17 +36,22 @@ public class DireccionClinicaService implements IDireccionClinicaService {
         Direccion direccion = new Direccion();
         DireccionClinica rs = new DireccionClinica();
         try{
-            if(clinicaData.existsById(clinica_id)&direccionData.existsById(direccion_id)){
-                clinica = clinicaData.findById(clinica_id).get();
-                direccion = direccionData.findById(direccion_id).get();
-                direccionClinica.setClinica(clinica);
-                direccionClinica.setDireccion(direccion);
-                rs = data.save(direccionClinica);
-            }
+
+            clinica = clinicaData.findById(clinica_id).get();
+            direccion = direccionData.findById(direccion_id).get();
+            direccionClinica.setClinica(clinica);
+            direccionClinica.setDireccion(direccion);
+            rs = data.save(direccionClinica);
+
         }catch (Error error){
             System.out.printf("ERROR SAVING RECORD: ", error.getMessage());
         }
         return rs;
+    }
+
+    @Override
+    public Optional<DireccionClinica> listarById(int id) {
+        return data.findById(id);
     }
 
     @Override
@@ -72,19 +77,15 @@ public class DireccionClinicaService implements IDireccionClinicaService {
         try {
             if(!data.existsById(id)){
                 message = "RECORD DOES NOT EXIST";
+                return message;
             }else{
                 data.deleteById(id);
+                return message;
             }
 
         }catch (Error error){
             System.out.printf("ERROR DELETING RECORD: ", error.getMessage());
-            message = "FAILED";
         }
         return message;
-    }
-    /*Retorna el registro por el ID de la clinica */
-    @Override
-    public Optional<DireccionClinica> listarByClinicaId(int cliId) {
-        return data.listarDireccionesByClinicaId(cliId);
     }
 }

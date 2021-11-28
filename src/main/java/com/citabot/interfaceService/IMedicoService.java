@@ -10,8 +10,10 @@ public interface IMedicoService {
     public List<Medico> listarByName(String name);
     public Optional<Medico> findById(int id);
     public Medico save(Medico medico);
-    public Medico edit(Medico medico);
+    public Medico update(int id, Medico medico);
     public String delete(int id);
     public Medico buscarPorId(int id);
     public List<Medico> Listar_medicos_especialidad(int idEspecialidad);
+    public Medico findByEmail(String email);
+    Medico findByEmailAndContrasena(String email, String password);
 }
