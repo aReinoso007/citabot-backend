@@ -4,6 +4,7 @@ import com.citabot.interfaceService.IMedicoService;
 import com.citabot.model.Medico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Repository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +80,12 @@ public class MedicoController {
         }else{
             return new ResponseEntity<>(meesage, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/especialidad/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Medico> getByMedicoEspecialidad(@PathVariable("id") int id){
+        return service.Listar_medicos_especialidad(id);
     }
 
 }

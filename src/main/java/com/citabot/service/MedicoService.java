@@ -6,7 +6,6 @@ import com.citabot.model.Medico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +13,8 @@ import java.util.Optional;
 
 @Service
 public class MedicoService implements IMedicoService {
+
+
 
     @Autowired
     private IMedico data;
@@ -76,14 +77,15 @@ public class MedicoService implements IMedicoService {
     }
 
 
-
-
-
-
     @Override
     @Transactional(readOnly = true)
     public Medico buscarPorId(int id) {
         return (Medico) data.findMedicoByUsuarioId(id);
+    }
+
+    @Override
+    public List<Medico> Listar_medicos_especialidad(int idEspecialidad) {
+        return (List<Medico>) data.listarPorEspecialidadId(idEspecialidad);
     }
 
     @Override

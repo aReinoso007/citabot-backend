@@ -13,6 +13,7 @@ public interface IMedicoService {
     public Medico update(int id, Medico medico);
     public String delete(int id);
     public Medico buscarPorId(int id);
+    public List<Medico> Listar_medicos_especialidad(int idEspecialidad);
     public Medico findByEmail(String email);
     Medico findByEmailAndContrasena(String email, String password);
 }

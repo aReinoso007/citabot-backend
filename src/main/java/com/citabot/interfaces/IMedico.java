@@ -12,10 +12,17 @@ import java.util.Optional;
 public interface IMedico extends CrudRepository<Medico, Integer> {
 
     List<Medico> findMedicoByNombre(String nombre);
+
+
     @Query(value = "SELECT * FROM medico WHERE usuario_id= :usuarioId", nativeQuery = true)
     Medico findMedicoByUsuarioId(int usuarioId);
     Optional<Medico> findMedicoByEmail(String email);
     Medico findMedicoByEmailAndPassword(String email, String password);
+
+    @Query(value = "select nombre, apellido, usuario_id  from medico, medico_especialidad where\n" +
+            "medico.usuario_id=medico_especialidad.medico_id and\n" +
+            "medico_especialidad.especialidad_id=?1", nativeQuery = true)
+    List<Medico> listarPorEspecialidadId(int especialidadId);
 
 
 }
