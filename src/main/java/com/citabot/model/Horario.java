@@ -17,7 +17,6 @@ public class Horario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer horarioId;
     @ManyToOne
-    @JsonIgnore
     @JoinColumn
     private RegistroClinica registroClinica;
     private Time duracionCita;

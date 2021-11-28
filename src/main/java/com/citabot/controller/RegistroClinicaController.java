@@ -3,7 +3,9 @@ package com.citabot.controller;
 import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,6 +46,17 @@ public class RegistroClinicaController {
             System.out.printf("Error saving Registro: ", error.getMessage());
         }
         return registroClinica;
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> borrarPorId(@PathVariable("id") int id){
+        String message = null;
+        message = service.delete(id);
+        if(message.equals("SUCCESS")){
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
     }
 
 
