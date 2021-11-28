@@ -1,7 +1,10 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalTime;
 
@@ -14,26 +17,24 @@ public class Horario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer horarioId;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn
     private RegistroClinica registroClinica;
-    private Duration duracionCita;
+    private Time duracionCita;
     private String dia;
-    private LocalTime inicio;
-    private LocalTime fin;
+    private Time inicio;
+    private Time fin;
 
     public Horario() {
     }
 
-    public Horario(Integer horarioId, RegistroClinica registroClinica, Duration duracionCita, String dia, LocalTime inicio, LocalTime fin) {
-        this.horarioId = horarioId;
+    public Horario(RegistroClinica registroClinica, Time duracionCita, String dia, Time inicio, Time fin) {
         this.registroClinica = registroClinica;
         this.duracionCita = duracionCita;
         this.dia = dia;
         this.inicio = inicio;
         this.fin = fin;
     }
-
-
 
     public Integer getHorarioId() {
         return horarioId;
@@ -51,11 +52,11 @@ public class Horario implements Serializable {
         this.registroClinica = registroClinica;
     }
 
-    public Duration getDuracionCita() {
+    public Time getDuracionCita() {
         return duracionCita;
     }
 
-    public void setDuracionCita(Duration duracionCita) {
+    public void setDuracionCita(Time duracionCita) {
         this.duracionCita = duracionCita;
     }
 
@@ -67,19 +68,19 @@ public class Horario implements Serializable {
         this.dia = dia;
     }
 
-    public LocalTime getInicio() {
+    public Time getInicio() {
         return inicio;
     }
 
-    public void setInicio(LocalTime inicio) {
+    public void setInicio(Time inicio) {
         this.inicio = inicio;
     }
 
-    public LocalTime getFin() {
+    public Time getFin() {
         return fin;
     }
 
-    public void setFin(LocalTime fin) {
+    public void setFin(Time fin) {
         this.fin = fin;
     }
 }
