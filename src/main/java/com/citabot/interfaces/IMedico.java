@@ -1,7 +1,6 @@
 package com.citabot.interfaces;
 
 import com.citabot.model.Medico;
-import com.citabot.model.Paciente;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
