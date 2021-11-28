@@ -13,4 +13,5 @@ public interface IMedicoService {
     public Medico edit(Medico medico);
     public String delete(int id);
     public Medico buscarPorId(int id);
+    public List<Medico> Listar_medicos_especialidad(int idEspecialidad);
 }
