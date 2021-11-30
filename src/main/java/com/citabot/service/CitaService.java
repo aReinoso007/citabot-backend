@@ -1,6 +1,7 @@
 package com.citabot.service;
 
 import com.citabot.interfaceService.ICitaService;
+import com.citabot.interfaceService.IHorarioService;
 import com.citabot.interfaceService.IPacienteService;
 import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.ICita;
@@ -27,7 +28,8 @@ public class CitaService implements ICitaService {
     private IPacienteService pacienteData;
     @Autowired
     private IRegistroClinicaService registroData;
-
+    @Autowired
+    private IHorarioService horarioService;
 
     @Override
     public List<Cita> listar() {
@@ -111,6 +113,11 @@ public class CitaService implements ICitaService {
         return data.findByPacienteAndEstado(pId, estado);
     }
 
+    @Override
+    public List<Cita> listarByRegistroId(int id) {
+        return (List<Cita>) data.getCitasByRegistroId(id);
+    }
+
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
@@ -124,4 +131,5 @@ public class CitaService implements ICitaService {
         Time t =new Time(ms);
         return t;
     }
+
 }

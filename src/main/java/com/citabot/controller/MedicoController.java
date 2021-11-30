@@ -44,7 +44,7 @@ public class MedicoController {
 
     }
 
-    @PostMapping(path = "/usuario/medico")
+    @PostMapping()
     public ResponseEntity<?> signUp(@RequestBody Medico medico){
         Medico medicodb = null;
         String message = "Medico ya registrado con email: "+medico.getEmail();
