@@ -1,21 +1,17 @@
 package com.citabot.controller;
 
 import com.citabot.interfaceService.IPacienteService;
-import com.citabot.model.Cita;
 import com.citabot.model.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8090")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/paciente")
 public class PacienteController {
@@ -23,10 +19,15 @@ public class PacienteController {
     @Autowired
     private IPacienteService service;
 
+
     @GetMapping(produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Paciente> listar(){
-        return service.listar();
+    public ResponseEntity<List<Paciente>> listar(){
+        List<Paciente> pacientes = service.listar();
+        if(pacientes.isEmpty()){
+            return new ResponseEntity<>(pacientes, HttpStatus.NO_CONTENT);
+        }else{
+            return new ResponseEntity<>(pacientes, HttpStatus.OK);
+        }
     }
 
     @GetMapping(path = "/{id}")

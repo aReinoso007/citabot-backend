@@ -11,4 +11,11 @@ public class CitabotBackendApplication {
 		SpringApplication.run(CitabotBackendApplication.class, args);
 	}
 
+	/*
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder(){
+		return new BCryptPasswordEncoder();
+	}
+	 */
+
 }

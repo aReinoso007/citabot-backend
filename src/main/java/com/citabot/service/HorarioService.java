@@ -1,14 +1,15 @@
 package com.citabot.service;
 
 import com.citabot.interfaceService.IHorarioService;
+import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.IHorario;
-import com.citabot.interfaces.IRegistroClinica;
 import com.citabot.model.Horario;
 import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public class HorarioService implements IHorarioService {
     @Autowired
     private IHorario data;
     @Autowired
-    private IRegistroClinica dataRC;
+    private IRegistroClinicaService registroData;
 
     @Override
     public List<Horario> listar() {
@@ -27,7 +28,7 @@ public class HorarioService implements IHorarioService {
 
     @Override
     public List<Horario> listarByClinicaRegistro(int id) {
-        return (List<Horario>) data.findHorarioByRegistroClinica(id);
+        return data.buscarPorRegistro(id);
     }
 
     @Override
@@ -36,19 +37,13 @@ public class HorarioService implements IHorarioService {
     }
 
     @Override
-    public Horario save(String duracion, String dia, String inicio, String fin, int idRegistroClinica) {
+    public Horario save(int idRegistro, Horario horario) {
         Horario h = new Horario();
-        Horario horario = new Horario();
         RegistroClinica registroClinica = new RegistroClinica();
         RegistroClinica rc = new RegistroClinica();
         try{
-            /* Obtengo el registro de clincica para insertar */
-            registroClinica = dataRC.findById(idRegistroClinica).get();
-            /*le asigno al horario que se esta pasando */
+            registroClinica = registroData.findById(idRegistro).get();
             horario.setRegistroClinica(registroClinica);
-            horario.setDia(dia);
-            horario.setDuracionCita(Duration.parse(duracion));
-            /*Se guarda en la db el horario */
             h = data.save(horario);
             return h;
         }catch (Error e){
@@ -68,4 +63,11 @@ public class HorarioService implements IHorarioService {
         }
         return  message;
     }
+
+    public Timestamp actualizado(){
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        return ts;
+    }
+
 }
