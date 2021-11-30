@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +19,6 @@ public class PacienteController {
     @Autowired
     private IPacienteService service;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Paciente>> listar(){
@@ -59,7 +55,6 @@ public class PacienteController {
         Paciente pacientedb = null;
         String message = "Paciente ya registrado con email: "+ p.getEmail();
         if(service.findByEmail(p.getEmail())==null){
-            p.setPassword(bCryptPasswordEncoder.encode(p.getPassword()));
             pacientedb = service.save(p);
             return new ResponseEntity<>(pacientedb, HttpStatus.CREATED);
         }else{

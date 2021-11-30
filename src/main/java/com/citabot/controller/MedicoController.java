@@ -44,7 +44,7 @@ public class MedicoController {
 
     }
 
-    @PostMapping
+    @PostMapping(path = "/usuario/medico")
     public ResponseEntity<?> signUp(@RequestBody Medico medico){
         Medico medicodb = null;
         String message = "Medico ya registrado con email: "+medico.getEmail();
@@ -86,5 +86,7 @@ public class MedicoController {
     public List<Medico> getByMedicoEspecialidad(@PathVariable("id") int id){
         return service.Listar_medicos_especialidad(id);
     }
+
+
 
 }
