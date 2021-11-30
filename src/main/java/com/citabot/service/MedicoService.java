@@ -1,5 +1,6 @@
 package com.citabot.service;
 
+import com.citabot.exceptions.EtAuthException;
 import com.citabot.interfaceService.IMedicoService;
 import com.citabot.interfaces.IMedico;
 import com.citabot.model.Medico;
@@ -7,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.regex.Pattern;
 
 @Service
 public class MedicoService implements IMedicoService {
@@ -38,8 +38,23 @@ public class MedicoService implements IMedicoService {
     }
 
     @Override
+    public Medico validateMedico(String email, String password) throws EtAuthException {
+        if( email!=null) email = email.toLowerCase();
+        return data.findMedicoByEmailAndPassword(email, password);
+    }
+
+    @Override
     public Medico save(Medico medico) {
         /*Add encryption */
+        String email = null;
+        String encryptedPassword = null;
+        Pattern pattern = Pattern.compile("^(.+)@(.+)$");
+        if(medico.getEmail() != null)  email = medico.getEmail().toLowerCase();
+        if(!pattern.matcher(email).matches())
+            throw new EtAuthException("Invalid email format");
+        medico.setPassword(encryptedPassword);
+        System.out.printf("encryptedPassword: ", encryptedPassword);
+        medico.setEmail(email);
         medico.setCreatedAt(actualizado());
         medico.setUpdatedAt(actualizado());
         medico.setEstado("activado");
@@ -69,8 +84,8 @@ public class MedicoService implements IMedicoService {
         String message = "SUCCESS";
         try{
             data.deleteById(id);
-        }catch (Error error){
-            System.out.printf("Error deleting: ", error.getMessage());
+        }catch (Exception exception){
+            System.out.printf("Error deleting: ", exception.getMessage());
             message = "FAILED";
         }
         return message;
@@ -97,6 +112,7 @@ public class MedicoService implements IMedicoService {
 
     @Override
     public Medico findByEmailAndContrasena(String email, String password) {
+
         return data.findMedicoByEmailAndPassword(email, password);
     }
 
@@ -106,4 +122,6 @@ public class MedicoService implements IMedicoService {
         Timestamp ts = new Timestamp(date.getTime());
         return ts;
     }
+
+
 }

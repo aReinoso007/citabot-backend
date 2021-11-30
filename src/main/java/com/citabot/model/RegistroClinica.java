@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.List;
 
@@ -27,11 +28,11 @@ public class RegistroClinica implements Serializable {
     private Clinica clinica;
     /*En estas no se agrega eso puesto que crean aqui las citas */
     @OneToMany
-    private List<Cita> citas;
+    private List<Cita> citas = new ArrayList<>();
 
     /*En estas no se agrega eso puesto que crean aqui los horarios */
     @OneToMany()
-    private List<Horario> horarios;
+    private List<Horario> horarios = new ArrayList<>();
 
     public RegistroClinica() {
     }

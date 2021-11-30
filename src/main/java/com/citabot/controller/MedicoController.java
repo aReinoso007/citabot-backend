@@ -4,7 +4,6 @@ import com.citabot.interfaceService.IMedicoService;
 import com.citabot.model.Medico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Repository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8090")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/medico")
 public class MedicoController {
@@ -45,7 +44,7 @@ public class MedicoController {
 
     }
 
-    @PostMapping
+    @PostMapping(path = "/usuario/medico")
     public ResponseEntity<?> signUp(@RequestBody Medico medico){
         Medico medicodb = null;
         String message = "Medico ya registrado con email: "+medico.getEmail();
@@ -87,5 +86,7 @@ public class MedicoController {
     public List<Medico> getByMedicoEspecialidad(@PathVariable("id") int id){
         return service.Listar_medicos_especialidad(id);
     }
+
+
 
 }
