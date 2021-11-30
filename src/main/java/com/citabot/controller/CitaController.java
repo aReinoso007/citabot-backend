@@ -30,6 +30,11 @@ public class CitaController {
         return service.listarById(id);
     }
 
+    @GetMapping(path = "/query")
+    public List<Cita> listarByRegistroId(@RequestParam int registro){
+        return service.listarByRegistroId(registro);
+    }
+
     @PostMapping(value = "/{paId}/{regId}")
     public ResponseEntity<?> agendar(
             @RequestBody Cita cita, @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){

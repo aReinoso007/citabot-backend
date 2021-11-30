@@ -19,4 +19,5 @@ public interface ICitaService {
     public String delete(int citaId);
     public Cita update(int citaId, String estado);
     public Optional<Cita> getCitasByPacienteIdAndEstado(int pId, String estado);
+    public List<Cita> listarByRegistroId(int id);
 }
