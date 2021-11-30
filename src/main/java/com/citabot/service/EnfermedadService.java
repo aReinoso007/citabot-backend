@@ -73,4 +73,9 @@ public class EnfermedadService implements IEnfermedadService {
         }
         return message;
     }
+
+    @Override
+    public Enfermedad update(Enfermedad enfermedad) {
+        return data.save(enfermedad);
+    }
 }

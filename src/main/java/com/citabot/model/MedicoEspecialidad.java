@@ -20,7 +20,6 @@ public class MedicoEspecialidad implements Serializable {
     @JoinColumn(name = "medico_id")
     private Medico medico;
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "especialidad_id")
     private Especialidad especialidad;
 
