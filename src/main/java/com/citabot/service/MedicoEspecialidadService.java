@@ -46,6 +46,7 @@ public class MedicoEspecialidadService implements IMedicoEspecialidadService {
         Medico m = new Medico();
         Especialidad especialidad = new Especialidad();
 
+
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
         MedicoEspecialidad medicoEspecialidad = new MedicoEspecialidad();
