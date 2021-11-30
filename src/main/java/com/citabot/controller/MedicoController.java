@@ -35,10 +35,10 @@ public class MedicoController {
         return service.save(medico);
     }
 
-    @GetMapping("/especialidad/{id}")
+    @GetMapping("/query")
     @ResponseStatus(HttpStatus.OK)
-    public List<Medico> getByMedicoEspecialidad(@PathVariable("id") int id){
-        return service.Listar_medicos_especialidad(id);
+    public List<Medico> getByMedicoEspecialidad(@RequestParam int idEspecialidad){
+        return service.Listar_medicos_especialidad(idEspecialidad);
     }
 
 }
