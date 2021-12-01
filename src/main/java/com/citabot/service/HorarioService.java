@@ -112,7 +112,6 @@ public class HorarioService implements IHorarioService {
                 String ddias = "";
                 ddias = dias.get(j).toUpperCase();
                 String dow = d1.getDayOfWeek().toString();
-                System.out.printf("dow: "+dow+" == ddias: "+ddias);
                 if(dow.equals(ddias)) {
                     availableDates.add(d1);
                 }
@@ -120,7 +119,6 @@ public class HorarioService implements IHorarioService {
                 ddias = "";
             }
         }
-        System.out.println("fechas disponibles: "+availableDates);
         return availableDates;
     }
 }
