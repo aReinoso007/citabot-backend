@@ -81,17 +81,12 @@ public class HorarioService implements IHorarioService {
 
     @Override
     public List<LocalDate> listarFechasDisponibles(int id) {
-        System.out.printf("funcion obtener dias: ",data.buscarDiasEnRegistro(id).toString());
-        List<String> dias = new ArrayList<>();
+        List<String> dias = data.buscarDiasEnRegistro(id);
         List<LocalDate> availableDates;
         try{
-            System.out.printf("dias del doctor: ", data.buscarDiasEnRegistro(id));
-            dias.stream().map(ds -> ds.toUpperCase());
-            System.out.printf("Dias obtenidos: ", dias.toString());
-
             availableDates = obtenerFechasDisponibles(dias);
         }catch (Exception e){
-            System.out.printf("excepcion listando fechas: ", e.getMessage());
+            System.out.printf("excepcion listando fechas: "+ e.getMessage());
             return null;
         }
         return availableDates;
@@ -115,16 +110,17 @@ public class HorarioService implements IHorarioService {
 
             for(int j =0; j < dias.size(); j++){
                 String ddias = "";
-                ddias = dias.get(j).toString();
+                ddias = dias.get(j).toUpperCase();
                 String dow = d1.getDayOfWeek().toString();
-                if(dow == (ddias)) {
+                System.out.printf("dow: "+dow+" == ddias: "+ddias);
+                if(dow.equals(ddias)) {
                     availableDates.add(d1);
                 }
                 dow ="";
                 ddias = "";
             }
         }
-        System.out.println("fechas disponibles funcion: "+availableDates);
+        System.out.println("fechas disponibles: "+availableDates);
         return availableDates;
     }
 }

@@ -38,9 +38,9 @@ public class HorarioController {
         return service.listarDiasDelHorarioPorRegistro(id);
     }
 
-    @GetMapping(path = "/fechas/{id}")
+    @GetMapping(path = "/fechas")
     @ResponseStatus(HttpStatus.OK)
-    public List<LocalDate> listarFechasDisponibles(@PathVariable("id") int id){
+    public List<LocalDate> listarFechasDisponibles(@RequestParam int id){
         return  service.listarFechasDisponibles(id);
     }
 
