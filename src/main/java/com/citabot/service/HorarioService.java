@@ -68,16 +68,24 @@ public class HorarioService implements IHorarioService {
 
     @Override
     public List<String> listarDiasDelHorarioPorRegistro(int id) {
-        return  data.buscarDiasEnRegistro(id);
+        List<String> dias = new ArrayList<String>();
+        dias.add("MONDAY");
+        dias.add("TUESDAY");
+        //dias = data.buscarDiasEnRegistro(id);
+        dias.stream().map(ds -> ds.toUpperCase());
+        List<LocalDate> availableDates = new ArrayList<>();
+        availableDates = obtenerFechasDisponibles(dias);
+        System.out.println("fechas disponibles funcion: "+availableDates);
+        return data.buscarDiasEnRegistro(id);
     }
 
     @Override
     public List<LocalDate> listarFechasDisponibles(int id) {
-        System.out.printf("funcion obtener dias: ",data.buscarDiasEnRegistro(id));
+        System.out.printf("funcion obtener dias: ",data.buscarDiasEnRegistro(id).toString());
         List<String> dias = new ArrayList<>();
         List<LocalDate> availableDates;
         try{
-            dias = data.buscarDiasEnRegistro(id);
+            System.out.printf("dias del doctor: ", data.buscarDiasEnRegistro(id));
             dias.stream().map(ds -> ds.toUpperCase());
             System.out.printf("Dias obtenidos: ", dias.toString());
 

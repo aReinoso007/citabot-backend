@@ -44,7 +44,7 @@ public class HorarioController {
         return  service.listarFechasDisponibles(id);
     }
 
-    @GetMapping(path = "/query/{registro}")
+    @GetMapping(path = "/query")
     @ResponseStatus(HttpStatus.OK)
     public List<Horario> listarByRegistro(@RequestParam int registro){
         return service.listarByClinicaRegistro(registro);
