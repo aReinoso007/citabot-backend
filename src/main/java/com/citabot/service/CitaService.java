@@ -6,6 +6,7 @@ import com.citabot.interfaceService.IPacienteService;
 import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.ICita;
 import com.citabot.model.Cita;
+import com.citabot.model.Horario;
 import com.citabot.model.Paciente;
 import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,11 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CitaService implements ICitaService {
@@ -33,6 +36,7 @@ public class CitaService implements ICitaService {
 
     @Override
     public List<Cita> listar() {
+        System.out.printf("horario: ", semanasenCalendario(YearMonth.now()));
         return (List<Cita>) data.findAll();
     }
 
@@ -130,6 +134,62 @@ public class CitaService implements ICitaService {
         long ms = sdf.parse(time).getTime();
         Time t =new Time(ms);
         return t;
+    }
+
+    public List<LocalDate> semanasenCalendario(YearMonth mes){
+        List<LocalDate> diasHorario = new ArrayList<>();
+        return diasHorario;
+    }
+
+    public List<LocalDate> dayInCalendar(YearMonth month){
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(7);
+        List<LocalDate> fechasDisponibles = new ArrayList<>();
+
+        List<Horario> diasEnRegistro = null;
+        /*cambiar la asignacion del id a dinamico */
+        diasEnRegistro = horarioService.listarDiasDelHorarioPorRegistro(2);
+
+        List<String> diasHorario = new ArrayList<>(); diasHorario = dias(diasEnRegistro);
+        List<LocalDate> datesAvailable = new ArrayList<>();
+
+
+
+
+        return fechasDisponibles;
+    }
+
+    public List<String> dias(List<Horario> dias){
+        List<String> days = new ArrayList<>();
+        for(int i=0; i < dias.size(); i++){
+            days.add(dias.get(i).getDia());
+        }
+        /*Transformar todos los dias a upperCase */
+        dias.stream().map(ds -> ds.getDia().toUpperCase());
+        return days;
+    }
+
+    public List<LocalDate> obtenerFechasDisponibles(List<String> dias){
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(7);
+        List<LocalDate> availableDates = new ArrayList<LocalDate>();
+
+        for(LocalDate d1 = startDate; d1.isBefore(endDate); d1 = d1.plusDays(1)){
+
+            for(int j =0; j < dias.size(); j++){
+                String ddias = "";
+                ddias = dias.get(j).toString();
+                String dow = d1.getDayOfWeek().toString();
+                if(dow == (ddias)) {
+                    availableDates.add(d1);
+                }
+                dow ="";
+                ddias = "";
+            }
+        }
+
+        System.out.println("fechas disponibles: "+availableDates);
+        return availableDates;
     }
 
 }
