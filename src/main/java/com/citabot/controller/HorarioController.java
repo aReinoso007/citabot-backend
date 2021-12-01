@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,11 +33,18 @@ public class HorarioController {
     }
 
     @GetMapping(path = "/dias/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public List<String> listarDias(@PathVariable("id") int id){
         return service.listarDiasDelHorarioPorRegistro(id);
     }
 
-    @GetMapping(path = "/query")
+    @GetMapping(path = "/fechas/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<LocalDate> listarFechasDisponibles(@PathVariable("id") int id){
+        return  service.listarFechasDisponibles(id);
+    }
+
+    @GetMapping(path = "/query/{registro}")
     @ResponseStatus(HttpStatus.OK)
     public List<Horario> listarByRegistro(@RequestParam int registro){
         return service.listarByClinicaRegistro(registro);

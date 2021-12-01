@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -69,10 +71,52 @@ public class HorarioService implements IHorarioService {
         return  data.buscarDiasEnRegistro(id);
     }
 
+    @Override
+    public List<LocalDate> listarFechasDisponibles(int id) {
+        System.out.printf("funcion obtener dias: ",data.buscarDiasEnRegistro(id));
+        List<String> dias = new ArrayList<>();
+        List<LocalDate> availableDates;
+        try{
+            dias = data.buscarDiasEnRegistro(id);
+            dias.stream().map(ds -> ds.toUpperCase());
+            System.out.printf("Dias obtenidos: ", dias.toString());
+
+            availableDates = obtenerFechasDisponibles(dias);
+        }catch (Exception e){
+            System.out.printf("excepcion listando fechas: ", e.getMessage());
+            return null;
+        }
+        return availableDates;
+    }
+
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
         return ts;
     }
 
+
+
+    public List<LocalDate> obtenerFechasDisponibles(List<String> dias){
+
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(7);
+        List<LocalDate> availableDates = new ArrayList<LocalDate>();
+
+        for(LocalDate d1 = startDate; d1.isBefore(endDate); d1 = d1.plusDays(1)){
+
+            for(int j =0; j < dias.size(); j++){
+                String ddias = "";
+                ddias = dias.get(j).toString();
+                String dow = d1.getDayOfWeek().toString();
+                if(dow == (ddias)) {
+                    availableDates.add(d1);
+                }
+                dow ="";
+                ddias = "";
+            }
+        }
+        System.out.println("fechas disponibles funcion: "+availableDates);
+        return availableDates;
+    }
 }
