@@ -65,8 +65,8 @@ public class HorarioService implements IHorarioService {
     }
 
     @Override
-    public List<Horario> listarDiasDelHorarioPorRegistro(int id) {
-        return (List<Horario>) data.buscarDiasEnRegistro(id);
+    public List<String> listarDiasDelHorarioPorRegistro(int id) {
+        return  data.buscarDiasEnRegistro(id);
     }
 
     public Timestamp actualizado(){

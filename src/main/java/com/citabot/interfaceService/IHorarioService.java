@@ -13,7 +13,7 @@ public interface IHorarioService {
     public Optional<Horario> listarById(int id);
     public Horario save(int idRegistro, Horario horario);
     public String delete(int id);
-    public List<Horario> listarDiasDelHorarioPorRegistro(int id);
+    public List<String> listarDiasDelHorarioPorRegistro(int id);
 
 
 }

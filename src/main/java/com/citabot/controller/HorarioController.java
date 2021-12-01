@@ -31,6 +31,11 @@ public class HorarioController {
         return service.listarById(id);
     }
 
+    @GetMapping(path = "/dias/{id}")
+    public List<String> listarDias(@PathVariable("id") int id){
+        return service.listarDiasDelHorarioPorRegistro(id);
+    }
+
     @GetMapping(path = "/query")
     @ResponseStatus(HttpStatus.OK)
     public List<Horario> listarByRegistro(@RequestParam int registro){

@@ -36,7 +36,6 @@ public class CitaService implements ICitaService {
 
     @Override
     public List<Cita> listar() {
-        System.out.printf("horario: ", semanasenCalendario(YearMonth.now()));
         return (List<Cita>) data.findAll();
     }
 
@@ -136,36 +135,29 @@ public class CitaService implements ICitaService {
         return t;
     }
 
-    public List<LocalDate> semanasenCalendario(YearMonth mes){
-        List<LocalDate> diasHorario = new ArrayList<>();
-        return diasHorario;
-    }
-
     public List<LocalDate> dayInCalendar(YearMonth month){
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = startDate.plusDays(7);
         List<LocalDate> fechasDisponibles = new ArrayList<>();
 
-        List<Horario> diasEnRegistro = null;
+        List<String> diasEnRegistro = null;
         /*cambiar la asignacion del id a dinamico */
         diasEnRegistro = horarioService.listarDiasDelHorarioPorRegistro(2);
 
-        List<String> diasHorario = new ArrayList<>(); diasHorario = dias(diasEnRegistro);
+        List<String> diasHorario = new ArrayList<>();
+        //diasHorario = dias(diasEnRegistro);
         List<LocalDate> datesAvailable = new ArrayList<>();
-
-
-
 
         return fechasDisponibles;
     }
 
-    public List<String> dias(List<Horario> dias){
+    public List<String> dias(List<String> dias){
         List<String> days = new ArrayList<>();
         for(int i=0; i < dias.size(); i++){
-            days.add(dias.get(i).getDia());
+            //days.add(dias.get(i).getDia());
         }
         /*Transformar todos los dias a upperCase */
-        dias.stream().map(ds -> ds.getDia().toUpperCase());
+        //dias.stream().map(ds -> ds.getDia().toUpperCase());
         return days;
     }
 
@@ -187,7 +179,6 @@ public class CitaService implements ICitaService {
                 ddias = "";
             }
         }
-
         System.out.println("fechas disponibles: "+availableDates);
         return availableDates;
     }
