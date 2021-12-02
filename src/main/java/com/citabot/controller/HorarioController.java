@@ -38,6 +38,11 @@ public class HorarioController {
         return service.listarDiasDelHorarioPorRegistro(id);
     }
 
+    @GetMapping(path = "/fechas_ordenadas/{id}")
+    public List<String> listarHorarioOrdenado(@PathVariable("id") int id){
+        return service.horariosRegistroOrdenado(id);
+    }
+
     @GetMapping(path = "/fechas")
     @ResponseStatus(HttpStatus.OK)
     public List<LocalDate> listarFechasDisponibles(@RequestParam int id){

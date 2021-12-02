@@ -92,6 +92,11 @@ public class HorarioService implements IHorarioService {
         return availableDates;
     }
 
+    @Override
+    public List<String> horariosRegistroOrdenado(int id) {
+        return data.horarioOrdenadoPorRegistro(id);
+    }
+
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());

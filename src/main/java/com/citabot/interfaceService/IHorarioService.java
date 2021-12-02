@@ -16,6 +16,6 @@ public interface IHorarioService {
     public String delete(int id);
     public List<String> listarDiasDelHorarioPorRegistro(int id);
     public List<LocalDate> listarFechasDisponibles(int id);
-
+    List<String> horariosRegistroOrdenado(int id);
 
 }
