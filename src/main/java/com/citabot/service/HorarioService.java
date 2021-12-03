@@ -102,8 +102,8 @@ public class HorarioService implements IHorarioService {
     public List<LocalDateTime> obtenerFechasyHorasDisponibles(List<String> diasHoras){
         List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
 
-        LocalDateTime inicioDate = LocalDateTime.now();
-        LocalDateTime finDate = inicioDate.plusDays(7);
+        LocalDateTime inicioDate = LocalDateTime.now().withSecond(0).withNano(0);
+        LocalDateTime finDate = inicioDate.plusDays(7).withSecond(0).withNano(0);
         for(LocalDateTime id1 = inicioDate; id1.isBefore(finDate); id1 = id1.plusDays(1)) {
             for(int i=0; i< diasHoras.size(); i++) {
                 String diaHora = diasHoras.get(i);
@@ -119,14 +119,19 @@ public class HorarioService implements IHorarioService {
                     int minStart = Integer.parseInt(minIn);
                     int horaEnd = Integer.parseInt(horFin);
                     int minEnd = Integer.parseInt(minFin);
-                    LocalDateTime nldt = id1.withHour(horaStart).withMinute(minStart).withNano(01);
-                    LocalDateTime nldtFin = id1.withHour(horaEnd).withMinute(minEnd).withNano(007);
+                    LocalDateTime nldt = id1.withHour(horaStart).withMinute(minStart).withSecond(0).withNano(0);
+                    LocalDateTime nldtFin = id1.withHour(horaEnd).withMinute(minEnd).withSecond(0).withNano(0);
                     for(LocalDateTime id2 = nldt; id2.isBefore(nldtFin); id2 = id2.plusMinutes(30)) {
                         availableDates.add(id2);
                     }
                 }
             }
         }
+        List<Timestamp> lcdtsConvertidos = new ArrayList<Timestamp>();
+        for(int k=0; k < availableDates.size(); k++) {
+            lcdtsConvertidos.add(Timestamp.valueOf(availableDates.get(k)));
+        }
+
         return availableDates;
     }
 }
