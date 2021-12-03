@@ -72,23 +72,16 @@ public class HorarioService implements IHorarioService {
 
     @Override
     public List<String> listarDiasDelHorarioPorRegistro(int id) {
-        List<String> dias = new ArrayList<String>();
-        dias.add("MONDAY");
-        dias.add("TUESDAY");
-        //dias = data.buscarDiasEnRegistro(id);
-        dias.stream().map(ds -> ds.toUpperCase());
-        List<LocalDate> availableDates = new ArrayList<>();
-        availableDates = obtenerFechasDisponibles(dias);
-        System.out.println("fechas disponibles funcion: "+availableDates);
         return data.buscarDiasEnRegistro(id);
     }
 
     @Override
-    public List<LocalDate> listarFechasDisponibles(int id) {
-        List<String> dias = data.buscarDiasEnRegistro(id);
-        List<LocalDate> availableDates;
+    public List<LocalDateTime> listarFechasDisponibles(int id) {
+        /*Aqui le paso un array que tiene el dia,hora inicio, hora fin */
+        List<String> dias = data.horarioOrdenadoPorRegistro(id);
+        List<LocalDateTime> availableDates;
         try{
-            availableDates = obtenerFechasDisponibles(dias);
+            availableDates = obtenerFechasyHorasDisponibles(dias);
         }catch (Exception e){
             System.out.printf("excepcion listando fechas: "+ e.getMessage());
             return null;
@@ -105,30 +98,6 @@ public class HorarioService implements IHorarioService {
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
         return ts;
-    }
-
-
-
-    public List<LocalDate> obtenerFechasDisponibles(List<String> dias){
-
-        LocalDate startDate = LocalDate.now();
-        LocalDate endDate = startDate.plusDays(7);
-        List<LocalDate> availableDates = new ArrayList<LocalDate>();
-
-        for(LocalDate d1 = startDate; d1.isBefore(endDate); d1 = d1.plusDays(1)){
-
-            for(int j =0; j < dias.size(); j++){
-                String ddias = "";
-                ddias = dias.get(j).toUpperCase();
-                String dow = d1.getDayOfWeek().toString();
-                if(dow.equals(ddias)) {
-                    availableDates.add(d1);
-                }
-                dow ="";
-                ddias = "";
-            }
-        }
-        return availableDates;
     }
 
     public List<LocalDateTime> obtenerFechasyHorasDisponibles(List<String> diasHoras){
@@ -164,4 +133,28 @@ public class HorarioService implements IHorarioService {
         System.out.println("Fechas disponibles: "+ availableDates);
         return availableDates;
     }
+
+    /*
+    public List<LocalDate> obtenerFechasDisponibles(List<String> dias){
+
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(7);
+        List<LocalDate> availableDates = new ArrayList<LocalDate>();
+
+        for(LocalDate d1 = startDate; d1.isBefore(endDate); d1 = d1.plusDays(1)){
+
+            for(int j =0; j < dias.size(); j++){
+                String ddias = "";
+                ddias = dias.get(j).toUpperCase();
+                String dow = d1.getDayOfWeek().toString();
+                if(dow.equals(ddias)) {
+                    availableDates.add(d1);
+                }
+                dow ="";
+                ddias = "";
+            }
+        }
+        return availableDates;
+    }
+     */
 }

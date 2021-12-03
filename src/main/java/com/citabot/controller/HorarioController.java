@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,20 +33,23 @@ public class HorarioController {
         return service.listarById(id);
     }
 
+    /*Me muestra los dias que trabaja */
     @GetMapping(path = "/dias/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<String> listarDias(@PathVariable("id") int id){
         return service.listarDiasDelHorarioPorRegistro(id);
     }
 
+    /*Me devuelve el dia, inicio, fin, intervalo */
     @GetMapping(path = "/fechas_ordenadas/{id}")
     public List<String> listarHorarioOrdenado(@PathVariable("id") int id){
         return service.horariosRegistroOrdenado(id);
     }
 
-    @GetMapping(path = "/fechas")
+    /*Devuelve  */
+    @GetMapping(path = "/fechas/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<LocalDate> listarFechasDisponibles(@RequestParam int id){
+    public List<LocalDateTime> listarFechasDisponibles(@PathVariable("id") int id){
         return  service.listarFechasDisponibles(id);
     }
 
