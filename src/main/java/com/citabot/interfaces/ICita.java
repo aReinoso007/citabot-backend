@@ -24,5 +24,5 @@ public interface ICita extends CrudRepository<Cita, Integer> {
     List<Cita> getCitasByRegistroId(int id);
 
     @Query(value = "SELECT DISTINCT fecha_cita from cita where registro_clinica_id=:id order by fecha_cita asc", nativeQuery = true)
-    List<Timestamp> getFechasCitaPorRegistro(int id);
+    List<String> getFechasCitaPorRegistro(int id);
 }

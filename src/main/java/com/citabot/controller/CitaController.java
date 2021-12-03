@@ -34,7 +34,7 @@ public class CitaController {
 
     /*Devuelve las fechas de las citas agendadas en orden por fecha */
     @GetMapping(path = "/fechas/{id}")
-    public List<Timestamp> listarFechasOrdenadasPorRegistro(@PathVariable("id") int id){
+    public List<String> listarFechasOrdenadasPorRegistro(@PathVariable("id") int id){
         return service.citasOrdenadasFechaPorRegistro(id);
     }
 

@@ -1,14 +1,12 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Entity
 public class Cita implements Serializable {
@@ -19,7 +17,8 @@ public class Cita implements Serializable {
     private Integer citaId;
     private Timestamp createdAt;
     private Timestamp updateAt;
-   private LocalDateTime fechaCita;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.s", timezone = "America/Guayaquil")
+    private Timestamp fechaCita;
     private String sintomas;
     private BigDecimal precioConsulta;
     private String estado;
@@ -35,7 +34,7 @@ public class Cita implements Serializable {
     public Cita() {
     }
 
-    public Cita(Timestamp createdAt, Timestamp updateAt, LocalDateTime fechaCita, String sintomas, BigDecimal precioConsulta, String estado, Paciente paciente, RegistroClinica clinicaMedico) {
+    public Cita(Timestamp createdAt, Timestamp updateAt, Timestamp fechaCita, String sintomas, BigDecimal precioConsulta, String estado, Paciente paciente, RegistroClinica clinicaMedico) {
         this.createdAt = createdAt;
         this.updateAt = updateAt;
         this.fechaCita = fechaCita;
@@ -70,11 +69,11 @@ public class Cita implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public LocalDateTime getFechaCita() {
+    public Timestamp getFechaCita() {
         return fechaCita;
     }
 
-    public void setFechaCita(LocalDateTime fechaCita) {
+    public void setFechaCita(Timestamp fechaCita) {
         this.fechaCita = fechaCita;
     }
 
@@ -118,3 +117,5 @@ public class Cita implements Serializable {
         this.clinicaMedico = clinicaMedico;
     }
 }
+
+

@@ -6,7 +6,6 @@ import com.citabot.interfaceService.IPacienteService;
 import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.ICita;
 import com.citabot.model.Cita;
-import com.citabot.model.Horario;
 import com.citabot.model.Paciente;
 import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class CitaService implements ICitaService {
@@ -123,7 +117,7 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public List<Timestamp> citasOrdenadasFechaPorRegistro(int id) {
+    public List<String> citasOrdenadasFechaPorRegistro(int id) {
         return data.getFechasCitaPorRegistro(id);
     }
 
