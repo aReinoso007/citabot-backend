@@ -8,6 +8,7 @@ import com.citabot.interfaces.ICita;
 import com.citabot.model.Cita;
 import com.citabot.model.Paciente;
 import com.citabot.model.RegistroClinica;
+import com.citabot.model.formulario.FCita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,14 +47,20 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public Cita save(Cita cita, int paId, int regId) {
+    public Cita save(FCita formularioCita, int paId, int regId) {
         Cita citaDb = new Cita();
+        Cita cita = new Cita();
         Paciente pacienteDB = new Paciente();
         RegistroClinica registroClinicaDB = new RegistroClinica();
-
+        System.out.printf("fecha obtenida: "+formularioCita.getFechaCita());
+        Timestamp fecha = localDateTimeToTimeStamp(formularioCita.getFechaCita());
+        System.out.printf("fecha transformada: "+fecha);
         try{
             pacienteDB = pacienteData.findById(paId);
             registroClinicaDB = registroData.findById(regId).get();
+            cita.setSintomas(formularioCita.getSintomas());
+            cita.setFechaCita(fecha);
+            cita.setEstado("pendiente");
             cita.setCreatedAt(actualizado());
             cita.setUpdateAt(actualizado());
             cita.setPaciente(pacienteDB);
@@ -117,6 +124,7 @@ public class CitaService implements ICitaService {
         return (List<Cita>) data.getCitasByRegistroId(id);
     }
 
+    /* */
     @Override
     public List<String> citasOrdenadasFechaPorRegistro(int id) {
         return data.getFechasCitaPorRegistro(id);
