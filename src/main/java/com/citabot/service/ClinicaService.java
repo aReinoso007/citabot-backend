@@ -67,4 +67,9 @@ public class ClinicaService implements IClinicaService {
         return data.save(clinica);
     }
 
+    @Override
+    public List<Clinica> listarPorMedico(int idMedico) {
+        return (List<Clinica>) data.listarClinicasPorMedico(idMedico);
+    }
+
 }

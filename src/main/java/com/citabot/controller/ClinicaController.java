@@ -2,6 +2,7 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.IClinicaService;
 import com.citabot.model.Clinica;
+import com.citabot.model.Medico;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -29,6 +30,7 @@ public class ClinicaController {
 
     /* Funciona */
     @GetMapping("/query")
+    @ResponseStatus(HttpStatus.OK)
     public List<Clinica> getByNombre(@RequestParam String nombre){
         return service.listarByNombre(nombre);
     }
@@ -68,5 +70,12 @@ public class ClinicaController {
         }
         return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/medico_clinica")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Clinica> listarClinicasMedico(@RequestParam int idMedico){
+        return service.listarPorMedico(idMedico);
+    }
+
 
 }
