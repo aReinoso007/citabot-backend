@@ -18,6 +18,6 @@ public interface ICita extends CrudRepository<Cita, Integer> {
     @Query(value = "SELECT * FROM cita WHERE paciente_usuario_id=:id", nativeQuery = true)
     List<Cita> getCitasByPacienteId(int id);
 
-    @Query(value = "SELECT * FROM cita WHERE registro_clinica_id=:id", nativeQuery = true)
+    @Query(value = "SELECT * FROM cita WHERE registro_clinica_id=:id ORDER BY fecha_cita ASC", nativeQuery = true)
     List<Cita> getCitasByRegistroId(int id);
 }

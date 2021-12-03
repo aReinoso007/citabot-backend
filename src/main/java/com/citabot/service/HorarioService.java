@@ -1,5 +1,6 @@
 package com.citabot.service;
 
+import com.citabot.interfaceService.ICitaService;
 import com.citabot.interfaceService.IHorarioService;
 import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.IHorario;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,8 @@ public class HorarioService implements IHorarioService {
     private IHorario data;
     @Autowired
     private IRegistroClinicaService registroData;
+    @Autowired
+    private ICitaService citaData;
 
     @Override
     public List<Horario> listar() {
@@ -124,6 +128,40 @@ public class HorarioService implements IHorarioService {
                 ddias = "";
             }
         }
+        return availableDates;
+    }
+
+    public List<LocalDateTime> obtenerFechasyHorasDisponibles(List<String> diasHoras){
+        List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
+
+        LocalDateTime inicioDate = LocalDateTime.now();
+        LocalDateTime finDate = inicioDate.plusDays(7);
+        for(LocalDateTime id1 = inicioDate; id1.isBefore(finDate); id1 = id1.plusDays(1)) {
+            for(int i=0; i< diasHoras.size(); i++) {
+                String diaHora = diasHoras.get(i);
+                String[] arrOfDia = diaHora.split(",", 4);
+                String ldt = id1.getDayOfWeek().toString();
+                if(ldt.equals(arrOfDia[0].toUpperCase())) {
+
+                    String horIn = arrOfDia[1].substring(0,2);
+                    System.out.println("hora inicio: "+horIn);
+                    String minIn = arrOfDia[1].substring(6,8);
+                    System.out.println("min inicio: "+minIn);
+                    String horFin = arrOfDia[2].substring(0,2);
+                    String minFin = arrOfDia[2].substring(3,5);
+                    int horaStart = Integer.parseInt(horIn);
+                    int minStart = Integer.parseInt(minIn);
+                    int horaEnd = Integer.parseInt(horFin);
+                    int minEnd = Integer.parseInt(minFin);
+                    LocalDateTime nldt = id1.withHour(horaStart).withMinute(minStart).withNano(01);
+                    LocalDateTime nldtFin = id1.withHour(horaEnd).withMinute(minEnd).withNano(007);
+                    for(LocalDateTime id2 = nldt; id2.isBefore(nldtFin); id2 = id2.plusMinutes(30)) {
+                        availableDates.add(id2);
+                    }
+                }
+            }
+        }
+        System.out.println("Fechas disponibles: "+ availableDates);
         return availableDates;
     }
 }
