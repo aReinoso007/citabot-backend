@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,4 +22,7 @@ public interface ICita extends CrudRepository<Cita, Integer> {
 
     @Query(value = "SELECT * FROM cita WHERE registro_clinica_id=:id ORDER BY fecha_cita ASC", nativeQuery = true)
     List<Cita> getCitasByRegistroId(int id);
+
+    @Query(value = "SELECT DISTINCT fecha_cita from cita where registro_clinica_id=:id order by fecha_cita asc", nativeQuery = true)
+    List<Timestamp> getFechasCitaPorRegistro(int id);
 }

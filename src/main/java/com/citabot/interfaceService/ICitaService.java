@@ -5,6 +5,8 @@ import com.citabot.model.Paciente;
 import com.citabot.model.RegistroClinica;
 import org.springframework.data.jpa.repository.Query;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,4 +22,5 @@ public interface ICitaService {
     public Cita update(int citaId, String estado);
     public Optional<Cita> getCitasByPacienteIdAndEstado(int pId, String estado);
     public List<Cita> listarByRegistroId(int id);
+    public List<Timestamp> citasOrdenadasFechaPorRegistro(int id);
 }

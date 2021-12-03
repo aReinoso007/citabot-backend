@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -119,6 +120,12 @@ public class CitaService implements ICitaService {
     @Override
     public List<Cita> listarByRegistroId(int id) {
         return (List<Cita>) data.getCitasByRegistroId(id);
+    }
+
+    @Override
+    public List<Timestamp> citasOrdenadasFechaPorRegistro(int id) {
+        System.out.printf("id de registro: "+id);
+        return data.getFechasCitaPorRegistro(id);
     }
 
     public Timestamp actualizado(){
