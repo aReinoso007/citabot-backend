@@ -22,6 +22,4 @@ public interface IMedico extends CrudRepository<Medico, Integer> {
             "medico.usuario_id=medico_especialidad.medico_id and\n" +
             "medico_especialidad.especialidad_id=?1", nativeQuery = true)
     List<Medico> listarPorEspecialidadId(int especialidadId);
-
-
 }
