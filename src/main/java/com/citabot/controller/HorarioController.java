@@ -54,7 +54,7 @@ public class HorarioController {
     /*Devuelve  */
     @GetMapping(path = "/fechas/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<Timestamp> listarFechasDisponibles(@PathVariable("id") int id){
+    public List<LocalDateTime> listarFechasDisponibles(@PathVariable("id") int id){
         return  service.listarFechasDisponibles(id);
     }
 

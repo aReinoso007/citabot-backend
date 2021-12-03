@@ -75,10 +75,10 @@ public class HorarioService implements IHorarioService {
     }
 
     @Override
-    public List<Timestamp> listarFechasDisponibles(int id) {
+    public List<LocalDateTime> listarFechasDisponibles(int id) {
         /*Aqui le paso un array que tiene el dia,hora inicio, hora fin */
         List<String> dias = data.horarioOrdenadoPorRegistro(id);
-        List<Timestamp> availableDates;
+        List<LocalDateTime> availableDates;
         try{
             availableDates = obtenerFechasyHorasDisponibles(dias);
         }catch (Exception e){
@@ -99,7 +99,7 @@ public class HorarioService implements IHorarioService {
         return ts;
     }
 
-    public List<Timestamp> obtenerFechasyHorasDisponibles(List<String> diasHoras){
+    public List<LocalDateTime> obtenerFechasyHorasDisponibles(List<String> diasHoras){
         List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
 
         LocalDateTime inicioDate = LocalDateTime.now().withSecond(0).withNano(0);
@@ -130,11 +130,7 @@ public class HorarioService implements IHorarioService {
                 }
             }
         }
-        List<Timestamp> lcdtsConvertidos = new ArrayList<Timestamp>();
-        for(int k=0; k < availableDates.size(); k++) {
-            lcdtsConvertidos.add(Timestamp.valueOf(availableDates.get(k)));
-        }
-        return lcdtsConvertidos;
+        return availableDates;
     }
 
 
