@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,12 @@ public class CitaController {
     @ResponseStatus(HttpStatus.OK)
     public Optional<Cita> listarById(@PathVariable("id") int id){
         return service.listarById(id);
+    }
+
+    /*Devuelve las fechas de las citas agendadas en orden por fecha */
+    @GetMapping(path = "/fechas/{id}")
+    public List<String> listarFechasOrdenadasPorRegistro(@PathVariable("id") int id){
+        return service.citasOrdenadasFechaPorRegistro(id);
     }
 
     @GetMapping(path = "/query")

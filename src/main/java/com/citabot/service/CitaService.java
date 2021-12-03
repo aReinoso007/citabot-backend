@@ -15,9 +15,8 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class CitaService implements ICitaService {
@@ -118,6 +117,11 @@ public class CitaService implements ICitaService {
         return (List<Cita>) data.getCitasByRegistroId(id);
     }
 
+    @Override
+    public List<String> citasOrdenadasFechaPorRegistro(int id) {
+        return data.getFechasCitaPorRegistro(id);
+    }
+
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
@@ -131,5 +135,10 @@ public class CitaService implements ICitaService {
         Time t =new Time(ms);
         return t;
     }
+    /*Para transformar la fecha enviada en el registro de cita */
+    public Timestamp localDateTimeToTimeStamp(LocalDateTime ldt){
+        return Timestamp.valueOf(ldt);
+    }
+
 
 }
