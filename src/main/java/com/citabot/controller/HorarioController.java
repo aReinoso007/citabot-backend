@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,7 +41,11 @@ public class HorarioController {
         return service.listarDiasDelHorarioPorRegistro(id);
     }
 
-    /*Me devuelve el dia, inicio, fin, intervalo */
+    /*Me devuelve el dia, inicio, fin, intervalo ej
+    *   "monday,07:30:00,12:00:00,00:30:00",
+        "tuesday,07:30:00,12:00:00,00:30:00",
+        "tuesday,13:30:00,18:00:00,00:30:00"
+        * esto me sirve para obtener los intervaos de tiempo del horario*/
     @GetMapping(path = "/fechas_ordenadas/{id}")
     public List<String> listarHorarioOrdenado(@PathVariable("id") int id){
         return service.horariosRegistroOrdenado(id);
@@ -49,7 +54,7 @@ public class HorarioController {
     /*Devuelve  */
     @GetMapping(path = "/fechas/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<LocalDateTime> listarFechasDisponibles(@PathVariable("id") int id){
+    public List<Timestamp> listarFechasDisponibles(@PathVariable("id") int id){
         return  service.listarFechasDisponibles(id);
     }
 
