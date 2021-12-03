@@ -12,5 +12,5 @@ public interface IRegistroClinicaService {
     public RegistroClinica edit(RegistroClinica registroClinica);
     public String delete(int id);
     public Optional<RegistroClinica> findByMedico(int id);
-    public Optional<RegistroClinica> finByClinicaAndMedico(int cliId, int medId);
+    public Optional<Integer> finByClinicaAndMedico(int cliId, int medId);
 }

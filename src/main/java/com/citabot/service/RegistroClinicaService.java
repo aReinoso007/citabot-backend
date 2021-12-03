@@ -90,7 +90,7 @@ public class RegistroClinicaService implements IRegistroClinicaService {
     }
 
     @Override
-    public Optional<RegistroClinica> finByClinicaAndMedico(int cliId, int medId) {
+    public Optional<Integer> finByClinicaAndMedico(int cliId, int medId) {
         return data.getRegistroClinicaByClinicaAndMedico(cliId, medId);
     }
 
