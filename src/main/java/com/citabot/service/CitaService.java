@@ -15,6 +15,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -133,6 +134,10 @@ public class CitaService implements ICitaService {
         long ms = sdf.parse(time).getTime();
         Time t =new Time(ms);
         return t;
+    }
+    /*Para transformar la fecha enviada en el registro de cita */
+    public Timestamp localDateTimeToTimeStamp(LocalDateTime ldt){
+        return Timestamp.valueOf(ldt);
     }
 
 

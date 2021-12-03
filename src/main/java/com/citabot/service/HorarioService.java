@@ -112,15 +112,18 @@ public class HorarioService implements IHorarioService {
                 if(ldt.equals(arrOfDia[0].toUpperCase())) {
 
                     String horIn = arrOfDia[1].substring(0,2);
-                    String minIn = arrOfDia[1].substring(6,8);
+                    String minIn = arrOfDia[1].substring(3,5);
+
                     String horFin = arrOfDia[2].substring(0,2);
                     String minFin = arrOfDia[2].substring(3,5);
+
                     int horaStart = Integer.parseInt(horIn);
                     int minStart = Integer.parseInt(minIn);
                     int horaEnd = Integer.parseInt(horFin);
                     int minEnd = Integer.parseInt(minFin);
                     LocalDateTime nldt = id1.withHour(horaStart).withMinute(minStart).withSecond(0).withNano(0);
                     LocalDateTime nldtFin = id1.withHour(horaEnd).withMinute(minEnd).withSecond(0).withNano(0);
+
                     for(LocalDateTime id2 = nldt; id2.isBefore(nldtFin); id2 = id2.plusMinutes(30)) {
                         availableDates.add(id2);
                     }
@@ -133,4 +136,6 @@ public class HorarioService implements IHorarioService {
         }
         return lcdtsConvertidos;
     }
+
+
 }

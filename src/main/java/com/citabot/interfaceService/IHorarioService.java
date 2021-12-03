@@ -16,7 +16,9 @@ public interface IHorarioService {
     public Optional<Horario> listarById(int id);
     public Horario save(int idRegistro, Horario horario);
     public String delete(int id);
+
     public List<String> listarDiasDelHorarioPorRegistro(int id);
+
     /*Devuelve fechas disponibles y hace uso de la funcion
     * horariosRegistroOrdenado para agregar los intervalos de tiempo
     * a las fechas disponibles */
