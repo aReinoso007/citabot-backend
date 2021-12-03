@@ -2,6 +2,7 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.ICitaService;
 import com.citabot.model.Cita;
+import com.citabot.model.formulario.FCita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,11 +46,11 @@ public class CitaController {
 
     @PostMapping(value = "/{paId}/{regId}")
     public ResponseEntity<?> agendar(
-            @RequestBody Cita cita, @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){
-        System.out.printf("paId: "+paId+", regId: "+regId+"    ");
-        cita = service.save(cita, paId, regId);
+            @RequestBody FCita formularioCita, @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){
+        Cita cita = new Cita();
+        cita = service.save(formularioCita, paId, regId);
         if(cita!=null){
-            return new ResponseEntity<>(cita, HttpStatus.CREATED);
+            return new ResponseEntity<>(formularioCita, HttpStatus.CREATED);
         }else{
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
