@@ -14,4 +14,10 @@ public interface IHorario extends CrudRepository<Horario, Integer> {
     List<Horario> findHorarioByRegistroClinica(int id);
     @Query(value = "select * from horario where registro_clinica_registro_clinica_id=:id", nativeQuery = true)
     List<Horario> buscarPorRegistro(int id);
+
+    @Query(value = "SELECT DISTINCT dia FROM horario WHERE registro_clinica_registro_clinica_id=:id", nativeQuery = true)
+    List<String> buscarDiasEnRegistro(int id);
+
+    @Query(value = "SELECT dia, inicio, fin, duracion_cita FROM horario WHERE registro_clinica_registro_clinica_id=:id order by dia asc", nativeQuery = true)
+    List<String> horarioOrdenadoPorRegistro(int id);
 }

@@ -1,12 +1,11 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
@@ -18,9 +17,8 @@ public class Cita implements Serializable {
     private Integer citaId;
     private Timestamp createdAt;
     private Timestamp updateAt;
-    private Date fechaCita;
-    private Time horaInicio;
-    private Time horaFin;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.s", timezone = "America/Guayaquil")
+    private Timestamp fechaCita;
     private String sintomas;
     private BigDecimal precioConsulta;
     private String estado;
@@ -36,12 +34,10 @@ public class Cita implements Serializable {
     public Cita() {
     }
 
-    public Cita(Timestamp createdAt, Timestamp updateAt, Date fechaCita, Time horaInicio, Time horaFin, String sintomas, BigDecimal precioConsulta, String estado, Paciente paciente, RegistroClinica clinicaMedico) {
+    public Cita(Timestamp createdAt, Timestamp updateAt, Timestamp fechaCita, String sintomas, BigDecimal precioConsulta, String estado, Paciente paciente, RegistroClinica clinicaMedico) {
         this.createdAt = createdAt;
         this.updateAt = updateAt;
         this.fechaCita = fechaCita;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
         this.sintomas = sintomas;
         this.precioConsulta = precioConsulta;
         this.estado = estado;
@@ -73,28 +69,12 @@ public class Cita implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public Date getFechaCita() {
+    public Timestamp getFechaCita() {
         return fechaCita;
     }
 
-    public void setFechaCita(Date fechaCita) {
+    public void setFechaCita(Timestamp fechaCita) {
         this.fechaCita = fechaCita;
-    }
-
-    public Time getHoraInicio() {
-        return horaInicio;
-    }
-
-    public void setHoraInicio(Time horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public Time getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(Time horaFin) {
-        this.horaFin = horaFin;
     }
 
     public String getSintomas() {
@@ -137,3 +117,5 @@ public class Cita implements Serializable {
         this.clinicaMedico = clinicaMedico;
     }
 }
+
+

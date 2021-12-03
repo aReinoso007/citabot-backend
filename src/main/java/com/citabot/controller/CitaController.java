@@ -2,11 +2,14 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.ICitaService;
 import com.citabot.model.Cita;
+import com.citabot.model.formulario.FCita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,13 +33,24 @@ public class CitaController {
         return service.listarById(id);
     }
 
+    /*Devuelve las fechas de las citas agendadas en orden por fecha */
+    @GetMapping(path = "/fechas/{id}")
+    public List<String> listarFechasOrdenadasPorRegistro(@PathVariable("id") int id){
+        return service.citasOrdenadasFechaPorRegistro(id);
+    }
+
+    @GetMapping(path = "/query")
+    public List<Cita> listarByRegistroId(@RequestParam int registro){
+        return service.listarByRegistroId(registro);
+    }
+
     @PostMapping(value = "/{paId}/{regId}")
     public ResponseEntity<?> agendar(
-            @RequestBody Cita cita, @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){
-        System.out.printf("paId: "+paId+", regId: "+regId+"    ");
-        cita = service.save(cita, paId, regId);
+            @RequestBody FCita formularioCita, @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){
+        Cita cita = new Cita();
+        cita = service.save(formularioCita, paId, regId);
         if(cita!=null){
-            return new ResponseEntity<>(cita, HttpStatus.CREATED);
+            return new ResponseEntity<>(formularioCita, HttpStatus.CREATED);
         }else{
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }

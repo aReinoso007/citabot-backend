@@ -1,12 +1,14 @@
 package com.citabot.service;
 
 import com.citabot.interfaceService.ICitaService;
+import com.citabot.interfaceService.IHorarioService;
 import com.citabot.interfaceService.IPacienteService;
 import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.ICita;
 import com.citabot.model.Cita;
 import com.citabot.model.Paciente;
 import com.citabot.model.RegistroClinica;
+import com.citabot.model.formulario.FCita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,8 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class CitaService implements ICitaService {
@@ -27,7 +28,8 @@ public class CitaService implements ICitaService {
     private IPacienteService pacienteData;
     @Autowired
     private IRegistroClinicaService registroData;
-
+    @Autowired
+    private IHorarioService horarioService;
 
     @Override
     public List<Cita> listar() {
@@ -45,14 +47,20 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public Cita save(Cita cita, int paId, int regId) {
+    public Cita save(FCita formularioCita, int paId, int regId) {
         Cita citaDb = new Cita();
+        Cita cita = new Cita();
         Paciente pacienteDB = new Paciente();
         RegistroClinica registroClinicaDB = new RegistroClinica();
-
+        System.out.printf("fecha obtenida: "+formularioCita.getFechaCita());
+        Timestamp fecha = localDateTimeToTimeStamp(formularioCita.getFechaCita());
+        System.out.printf("fecha transformada: "+fecha);
         try{
             pacienteDB = pacienteData.findById(paId);
             registroClinicaDB = registroData.findById(regId).get();
+            cita.setSintomas(formularioCita.getSintomas());
+            cita.setFechaCita(fecha);
+            cita.setEstado("pendiente");
             cita.setCreatedAt(actualizado());
             cita.setUpdateAt(actualizado());
             cita.setPaciente(pacienteDB);
@@ -111,6 +119,17 @@ public class CitaService implements ICitaService {
         return data.findByPacienteAndEstado(pId, estado);
     }
 
+    @Override
+    public List<Cita> listarByRegistroId(int id) {
+        return (List<Cita>) data.getCitasByRegistroId(id);
+    }
+
+    /* */
+    @Override
+    public List<String> citasOrdenadasFechaPorRegistro(int id) {
+        return data.getFechasCitaPorRegistro(id);
+    }
+
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
@@ -124,4 +143,10 @@ public class CitaService implements ICitaService {
         Time t =new Time(ms);
         return t;
     }
+    /*Para transformar la fecha enviada en el registro de cita */
+    public Timestamp localDateTimeToTimeStamp(LocalDateTime ldt){
+        return Timestamp.valueOf(ldt);
+    }
+
+
 }
