@@ -25,7 +25,7 @@ public class RegistroClinicaController {
     }
 
     @GetMapping(value = "/buscar/{medId}/{cliId}", produces = "application/json")
-    public int listarByCliYMedico(@PathVariable("cliId") int cliId, @PathVariable("medId") int medId){
+    public Optional<Integer> listarByCliYMedico(@PathVariable("cliId") int cliId, @PathVariable("medId") int medId){
         return service.finByClinicaAndMedico(cliId, medId);
     }
 
