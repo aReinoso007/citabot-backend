@@ -141,12 +141,8 @@ public class HorarioService implements IHorarioService {
         /*Pasar de LocalDateTime horario a TimeStamp */
         horarioTimestamp = localDateTimeATimestamp(availableDates);
         agendadasTimestamp = stringaTimestamp(citasAgendadas);
-
         filtro = filtrarFechas(horarioTimestamp, agendadasTimestamp);
-        System.out.printf("filtro size: "+ filtro.size());
         fechasFiltradas = timeStampToLocalDateTime(filtro);
-        System.out.printf("filtratas LocalDateTime: "+fechasFiltradas.size());
-        System.out.printf("filtratas LocalDateTime: "+fechasFiltradas);
         return fechasFiltradas;
     }
 
