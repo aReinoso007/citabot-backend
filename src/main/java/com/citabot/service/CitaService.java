@@ -124,7 +124,6 @@ public class CitaService implements ICitaService {
 
     @Override
     public List<Timestamp> citasOrdenadasFechaPorRegistro(int id) {
-        System.out.printf("id de registro: "+id);
         return data.getFechasCitaPorRegistro(id);
     }
 
@@ -142,52 +141,5 @@ public class CitaService implements ICitaService {
         return t;
     }
 
-    public List<LocalDate> dayInCalendar(YearMonth month){
-        LocalDate startDate = LocalDate.now();
-        LocalDate endDate = startDate.plusDays(7);
-        List<LocalDate> fechasDisponibles = new ArrayList<>();
-
-        List<String> diasEnRegistro = null;
-        /*cambiar la asignacion del id a dinamico */
-        diasEnRegistro = horarioService.listarDiasDelHorarioPorRegistro(2);
-
-        List<String> diasHorario = new ArrayList<>();
-        //diasHorario = dias(diasEnRegistro);
-        List<LocalDate> datesAvailable = new ArrayList<>();
-
-        return fechasDisponibles;
-    }
-
-    public List<String> dias(List<String> dias){
-        List<String> days = new ArrayList<>();
-        for(int i=0; i < dias.size(); i++){
-            //days.add(dias.get(i).getDia());
-        }
-        /*Transformar todos los dias a upperCase */
-        //dias.stream().map(ds -> ds.getDia().toUpperCase());
-        return days;
-    }
-
-    public List<LocalDate> obtenerFechasDisponibles(List<String> dias){
-        LocalDate startDate = LocalDate.now();
-        LocalDate endDate = startDate.plusDays(7);
-        List<LocalDate> availableDates = new ArrayList<LocalDate>();
-
-        for(LocalDate d1 = startDate; d1.isBefore(endDate); d1 = d1.plusDays(1)){
-
-            for(int j =0; j < dias.size(); j++){
-                String ddias = "";
-                ddias = dias.get(j).toString();
-                String dow = d1.getDayOfWeek().toString();
-                if(dow == (ddias)) {
-                    availableDates.add(d1);
-                }
-                dow ="";
-                ddias = "";
-            }
-        }
-        System.out.println("fechas disponibles: "+availableDates);
-        return availableDates;
-    }
 
 }

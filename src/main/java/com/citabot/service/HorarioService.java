@@ -113,9 +113,7 @@ public class HorarioService implements IHorarioService {
                 if(ldt.equals(arrOfDia[0].toUpperCase())) {
 
                     String horIn = arrOfDia[1].substring(0,2);
-                    System.out.println("hora inicio: "+horIn);
                     String minIn = arrOfDia[1].substring(6,8);
-                    System.out.println("min inicio: "+minIn);
                     String horFin = arrOfDia[2].substring(0,2);
                     String minFin = arrOfDia[2].substring(3,5);
                     int horaStart = Integer.parseInt(horIn);
@@ -130,31 +128,6 @@ public class HorarioService implements IHorarioService {
                 }
             }
         }
-        System.out.println("Fechas disponibles: "+ availableDates);
         return availableDates;
     }
-
-    /*
-    public List<LocalDate> obtenerFechasDisponibles(List<String> dias){
-
-        LocalDate startDate = LocalDate.now();
-        LocalDate endDate = startDate.plusDays(7);
-        List<LocalDate> availableDates = new ArrayList<LocalDate>();
-
-        for(LocalDate d1 = startDate; d1.isBefore(endDate); d1 = d1.plusDays(1)){
-
-            for(int j =0; j < dias.size(); j++){
-                String ddias = "";
-                ddias = dias.get(j).toUpperCase();
-                String dow = d1.getDayOfWeek().toString();
-                if(dow.equals(ddias)) {
-                    availableDates.add(d1);
-                }
-                dow ="";
-                ddias = "";
-            }
-        }
-        return availableDates;
-    }
-     */
 }
