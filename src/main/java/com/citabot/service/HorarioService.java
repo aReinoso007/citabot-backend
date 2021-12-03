@@ -136,17 +136,18 @@ public class HorarioService implements IHorarioService {
                         availableDates.add(id2);
                     }
                 }
-                /*Pasar los LocalDateTime a timestamp */
             }
         }
         /*Pasar de LocalDateTime horario a TimeStamp */
         horarioTimestamp = localDateTimeATimestamp(availableDates);
         agendadasTimestamp = stringaTimestamp(citasAgendadas);
+
         filtro = filtrarFechas(horarioTimestamp, agendadasTimestamp);
-        System.out.printf("localDatetime size: "+availableDates.size());
-        System.out.printf("localDatetime size: "+filtro.size());
-        System.out.printf("filtratas: "+ filtro);
-        return availableDates;
+        System.out.printf("filtro size: "+ filtro.size());
+        fechasFiltradas = timeStampToLocalDateTime(filtro);
+        System.out.printf("filtratas LocalDateTime: "+fechasFiltradas.size());
+        System.out.printf("filtratas LocalDateTime: "+fechasFiltradas);
+        return fechasFiltradas;
     }
 
 
@@ -156,6 +157,15 @@ public class HorarioService implements IHorarioService {
             ldt.add(Timestamp.valueOf(fechas.get(i)));
         }
         return ldt;
+    }
+
+    public List<LocalDateTime> timeStampToLocalDateTime(List<Timestamp> filtro){
+        List<LocalDateTime> filtradas = new ArrayList<>();
+        for(int i=0; i<filtro.size();i++){
+            Timestamp ts = filtro.get(i);
+            filtradas.add(ts.toLocalDateTime());
+        }
+        return filtradas;
     }
 
     public List<Timestamp> stringaTimestamp(List<String> agendadas){
