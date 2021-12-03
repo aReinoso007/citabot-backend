@@ -1,5 +1,7 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class Clinica implements Serializable {
     private String photoUrl;
     @OneToMany(mappedBy = "clinica")
     private List<DireccionClinica> direccionClinicas = new ArrayList<>();
+   @JsonIgnore
     @OneToMany(mappedBy = "clinica")
     private List<RegistroClinica> registroClinicas = new ArrayList<>();
 

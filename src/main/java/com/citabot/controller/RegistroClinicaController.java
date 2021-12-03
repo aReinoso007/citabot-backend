@@ -24,8 +24,8 @@ public class RegistroClinicaController {
         return service.findAll();
     }
 
-    @GetMapping(value = "/query", produces = "application/json")
-    public Optional<RegistroClinica> listarByCliYMedico(@PathVariable("cliId") int cliId, @PathVariable("medId") int medId){
+    @GetMapping(value = "/buscar/{medId}/{cliId}", produces = "application/json")
+    public int listarByCliYMedico(@PathVariable("cliId") int cliId, @PathVariable("medId") int medId){
         return service.finByClinicaAndMedico(cliId, medId);
     }
 

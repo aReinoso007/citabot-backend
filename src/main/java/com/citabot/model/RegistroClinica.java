@@ -23,7 +23,7 @@ public class RegistroClinica implements Serializable {
     @JoinColumn(name ="medico_id")
     private Medico medico;
     @ManyToOne /*Esto nos dice que no vamos a insertar una nueva clinica desde el registro del medico */
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name ="clinica_id")
     private Clinica clinica;
     /*En estas no se agrega eso puesto que crean aqui las citas */
