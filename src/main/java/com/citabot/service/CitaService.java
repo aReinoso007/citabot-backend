@@ -124,6 +124,7 @@ public class CitaService implements ICitaService {
         return (List<Cita>) data.getCitasByRegistroId(id);
     }
 
+    /* */
     @Override
     public List<String> citasOrdenadasFechaPorRegistro(int id) {
         return data.getFechasCitaPorRegistro(id);

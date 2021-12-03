@@ -9,12 +9,10 @@ import com.citabot.model.RegistroClinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class HorarioService implements IHorarioService {
@@ -80,7 +78,7 @@ public class HorarioService implements IHorarioService {
         List<String> dias = data.horarioOrdenadoPorRegistro(id);
         List<LocalDateTime> availableDates;
         try{
-            availableDates = obtenerFechasyHorasDisponibles(dias);
+            availableDates = obtenerFechasyHorasDisponibles(dias, id);
         }catch (Exception e){
             System.out.printf("excepcion listando fechas: "+ e.getMessage());
             return null;
@@ -99,8 +97,18 @@ public class HorarioService implements IHorarioService {
         return ts;
     }
 
-    public List<LocalDateTime> obtenerFechasyHorasDisponibles(List<String> diasHoras){
+    public List<LocalDateTime> obtenerFechasyHorasDisponibles(List<String> diasHoras, int id){
+        /*Aqui guardo las fechas generadas, importante para iterar por dias */
         List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
+
+        /*Tiene las citas agendadas */
+        List<String> citasAgendadas = citaData.citasOrdenadasFechaPorRegistro(id);
+
+        /*Para guardar las fechas que no se repiten */
+        List<LocalDateTime> fechasFiltradas = new ArrayList<>();
+        List<Timestamp> filtro = new ArrayList<>();
+        List<Timestamp> horarioTimestamp = new ArrayList<>();
+        List<Timestamp> agendadasTimestamp = new ArrayList<>();
 
         LocalDateTime inicioDate = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime finDate = inicioDate.plusDays(7).withSecond(0).withNano(0);
@@ -128,10 +136,40 @@ public class HorarioService implements IHorarioService {
                         availableDates.add(id2);
                     }
                 }
+                /*Pasar los LocalDateTime a timestamp */
             }
         }
+        /*Pasar de LocalDateTime horario a TimeStamp */
+        horarioTimestamp = localDateTimeATimestamp(availableDates);
+        agendadasTimestamp = stringaTimestamp(citasAgendadas);
+        filtro = filtrarFechas(horarioTimestamp, agendadasTimestamp);
+        System.out.printf("localDatetime size: "+availableDates.size());
+        System.out.printf("localDatetime size: "+filtro.size());
+        System.out.printf("filtratas: "+ filtro);
         return availableDates;
     }
 
+
+    public List<Timestamp> localDateTimeATimestamp(List<LocalDateTime> fechas){
+        List<Timestamp> ldt = new ArrayList<>();
+        for(int i=0;i<fechas.size(); i++){
+            ldt.add(Timestamp.valueOf(fechas.get(i)));
+        }
+        return ldt;
+    }
+
+    public List<Timestamp> stringaTimestamp(List<String> agendadas){
+        List<Timestamp> convertidas = new ArrayList<>();
+        for(int i=0; i <agendadas.size();i++){
+            convertidas.add(Timestamp.valueOf(agendadas.get(i)));
+        }
+        return convertidas;
+    }
+
+    public List<Timestamp> filtrarFechas(List<Timestamp> fechas, List<Timestamp> agendadas){
+        List<Timestamp> filtro = new ArrayList<>(fechas);
+        filtro.removeAll(agendadas);
+        return filtro;
+    }
 
 }
