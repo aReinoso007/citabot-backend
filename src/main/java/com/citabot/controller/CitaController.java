@@ -5,9 +5,12 @@ import com.citabot.model.Cita;
 import com.citabot.model.formulario.FCita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,10 +45,15 @@ public class CitaController {
         return service.listarByRegistroId(registro);
     }
 
-    @PostMapping(value = "/{paId}/{regId}")
+    @PostMapping(value = "/{paId}/{regId}", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<?> agendar(
-            @RequestBody FCita formularioCita, @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){
+            @RequestParam("fechaCita") String fechaCita, @RequestParam("sintomas") String sintomas, @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){
         Cita cita = new Cita();
+        FCita formularioCita = new FCita();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime lcdt = LocalDateTime.parse(fechaCita);
+        formularioCita.setFechaCita(lcdt);
+        formularioCita.setSintomas(sintomas);
         cita = service.save(formularioCita, paId, regId);
         if(cita!=null){
             return new ResponseEntity<>(formularioCita, HttpStatus.CREATED);
