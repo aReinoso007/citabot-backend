@@ -17,4 +17,7 @@ public interface IPacienteService {
     public Paciente findByEmail(String email);
     public Paciente buscarPorEmailYContrasena(String email, String password);
     public Paciente update(int id, Paciente paciente);
+    public Paciente buscarPorUsername(String username);
+    public Boolean existeUsername(String username);
+    Paciente loginUsernamePAssword(String username, String password);
 }

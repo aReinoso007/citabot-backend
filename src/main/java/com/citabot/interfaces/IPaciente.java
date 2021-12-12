@@ -17,7 +17,8 @@ public interface IPaciente extends CrudRepository<Paciente, Integer> {
     Optional<Paciente> findPacienteByUsuarioId(int usuarioId);
     Optional<Paciente> findPacienteByEmail(String email);
     Paciente findPacienteByEmailAndPassword(String email, String password);
-
-
+    Paciente findPacienteByUsername(String username);
+    Boolean existsByUsername(String username);
+    Paciente findPacienteByUsernameAndPassword(String username, String password);
 
 }

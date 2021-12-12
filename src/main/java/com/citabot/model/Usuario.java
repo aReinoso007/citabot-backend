@@ -11,7 +11,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer usuarioId;
+    private Long usuarioId;
     private String username;
     private String estado;
     private String nombre;
@@ -42,11 +42,11 @@ public class Usuario {
         this.updatedAt = updatedAt;
     }
 
-    public Integer getId() {
+    public Long getUsuarioId() {
         return usuarioId;
     }
 
-    public void setId(Integer usuarioId) {
+    public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
     }
 

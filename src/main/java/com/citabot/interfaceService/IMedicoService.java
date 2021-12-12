@@ -18,4 +18,7 @@ public interface IMedicoService {
     public List<Medico> Listar_medicos_especialidad(int idEspecialidad);
     public Medico findByEmail(String email);
     Medico findByEmailAndContrasena(String email, String password);
+    Medico findByUsername(String username);
+    boolean existeUsername(String username);
+    Medico loginUsernamePassword(String username, String password);
 }

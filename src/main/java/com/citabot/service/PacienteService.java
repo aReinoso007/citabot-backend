@@ -107,6 +107,21 @@ public class PacienteService implements IPacienteService {
         }
     }
 
+    @Override
+    public Paciente buscarPorUsername(String username) {
+        return data.findPacienteByUsername(username);
+    }
+
+    @Override
+    public Boolean existeUsername(String username) {
+        return data.existsByUsername(username);
+    }
+
+    @Override
+    public Paciente loginUsernamePAssword(String username, String password) {
+        return data.findPacienteByUsernameAndPassword(username, password);
+    }
+
     /*Para poner la fecha y ahora de actualizacion */
     public Timestamp actualizado(){
         Date date = new Date();

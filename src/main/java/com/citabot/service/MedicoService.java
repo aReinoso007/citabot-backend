@@ -116,6 +116,21 @@ public class MedicoService implements IMedicoService {
         return data.findMedicoByEmailAndPassword(email, password);
     }
 
+    @Override
+    public Medico findByUsername(String username) {
+        return data.findMedicoByUsername(username);
+    }
+
+    @Override
+    public boolean existeUsername(String username) {
+        return data.existsByUsername(username);
+    }
+
+    @Override
+    public Medico loginUsernamePassword(String username, String password) {
+        return data.findMedicoByUsernameAndPassword(username, password);
+    }
+
     /*Para poner la fecha y ahora de actualizacion */
     public Timestamp actualizado(){
         Date date = new Date();
