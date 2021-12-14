@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface IPacienteCirugia extends CrudRepository<PacienteCirugia, Integer> {
 
     @Query(value = "SELECT * FROM paciente_cirugia WHERE paciente_id=:id", nativeQuery = true)
-    public Optional<PacienteCirugia> listarByPacienteId(int id);
+    public Optional<PacienteCirugia> listarByPacienteId(long id);
 
 }

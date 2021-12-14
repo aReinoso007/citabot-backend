@@ -1,19 +1,22 @@
 package com.citabot.controller;
 
+import com.citabot.Constants;
 import com.citabot.interfaceService.IMedicoService;
 import com.citabot.model.Medico;
+import com.citabot.model.Paciente;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/medico")
+@RequestMapping("/api/medico")
 public class MedicoController {
 
     @Autowired
@@ -37,7 +40,7 @@ public class MedicoController {
         Medico medicodb = null;
         medicodb = service.findByEmailAndContrasena(email, password);
         if(medicodb!=null){
-            return new ResponseEntity<>(medicodb, HttpStatus.OK);
+            return new ResponseEntity<>(generateJWTToken(medicodb), HttpStatus.OK);
         }else{
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
@@ -87,6 +90,19 @@ public class MedicoController {
         return service.Listar_medicos_especialidad(idEspecialidad);
     }
 
-
+    private Map<String, String> generateJWTToken(Medico medico){
+        long timestamp = System.currentTimeMillis();
+        String token = Jwts.builder().signWith(SignatureAlgorithm.HS256, Constants.API_SECRET_KEY)
+                .setIssuedAt(new Date(timestamp))
+                .claim("userId", medico.getUsuarioId())
+                .claim("email", medico.getEmail())
+                .claim("nombre", medico.getNombre())
+                .claim("apellido",medico.getApellido())
+                .claim("profesion",medico.getProfesion())
+                .compact();
+        Map<String, String> map = new HashMap<>();
+        map.put("token", token);
+        return map;
+    }
 
 }

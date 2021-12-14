@@ -1,7 +1,8 @@
 package com.citabot.security.jwt;
 
-import com.citabot.security.services.CustomUserDetails;
+/*import com.citabot.security.services.CustomUserDetails;
 import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,8 +12,9 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
+@Slf4j*/
 public class JwtUtils {
-    private static final Logger logger= LoggerFactory.getLogger(JwtUtils.class);
+    /*private static final Logger logger= LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${reinozhan.app.jwtSecret}")
     private String jwtSecret;
@@ -21,13 +23,19 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication){
+        log.info("auth utils-g-token: ", authentication);
         CustomUserDetails userPrincipal = (CustomUserDetails) authentication.getPrincipal();
+        log.info("Jwt userPrincipal", userPrincipal);
+        log.info("return g", Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact());
         return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
     public String getUsernameFromJwtToken(String token){
+        log.info(Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject());
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
@@ -47,6 +55,6 @@ public class JwtUtils {
             logger.error("JWT claims string is empty: {}", e.getMessage());
         }
         return false;
-    }
+    }*/
 
 }

@@ -36,7 +36,7 @@ public class PacienteCirugiaservice implements IPacienteCirugiaService {
     }
 
     @Override
-    public PacienteCirugia save(int pacId, int cirId, String tipo) {
+    public PacienteCirugia save(long pacId, int cirId, String tipo) {
 
         Paciente p = new Paciente();
         Cirugia c = new Cirugia();
@@ -61,7 +61,7 @@ public class PacienteCirugiaservice implements IPacienteCirugiaService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<PacienteCirugia> listarByPacienteId(int id) {
+    public Optional<PacienteCirugia> listarByPacienteId(long id) {
         return Optional.empty();
     }
 

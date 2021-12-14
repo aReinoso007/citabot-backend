@@ -1,11 +1,14 @@
 package com.citabot.service;
 
+import com.citabot.exceptions.EtAuthException;
 import com.citabot.interfaceService.ICitaService;
 import com.citabot.interfaceService.IPacienteService;
 import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.IPaciente;
 import com.citabot.model.*;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +16,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 public class PacienteService implements IPacienteService {
@@ -37,14 +41,22 @@ public class PacienteService implements IPacienteService {
 
     @Override
     @Transactional(readOnly = true)
-    public Paciente findById(int id) {
+    public Paciente findById(long id) {
         return data.findPacienteByUsuarioId(id).orElse(null);
     }
 
     @Override
     public Paciente save(Paciente paciente) {
+        String email = null;
+        String hashedPwd = BCrypt.hashpw(paciente.getPassword(), BCrypt.gensalt(10));
+        Pattern pattern = Pattern.compile("^(.+)@(.+)$");
+        if(paciente.getEmail() !=null) email = paciente.getEmail().toLowerCase();
+        if(!pattern.matcher(email).matches())
+            throw new EtAuthException("Formato de email invalido");
+        paciente.setPassword(hashedPwd);
         paciente.setCreatedAt(actualizado());
         paciente.setUpdatedAt(actualizado());
+        paciente.setRole("ROLE_USER");
         paciente.setEstado("activado");
         return data.save(paciente);
     }
@@ -56,7 +68,7 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public String delete(int id) {
+    public String delete(long id) {
         String message = "SUCCESS";
         try{
             data.deleteById(id);
@@ -78,18 +90,24 @@ public class PacienteService implements IPacienteService {
     @Transactional(readOnly = true)
     public Paciente findByEmail(String email) {
         Optional<Paciente> paciente = data.findPacienteByEmail(email);
-        System.out.printf("Retorno paciente por email: ", paciente);
         return paciente.isEmpty() ? null: paciente.get();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Paciente buscarPorEmailYContrasena(String email, String password) {
-        return data.findPacienteByEmailAndPassword(email, password);
+        try{
+            Paciente paciente = data.findPacienteByEmail(email).get();
+            if(!BCrypt.checkpw(password, paciente.getPassword()))
+                throw new EtAuthException("Email/password invalidos");
+            return paciente;
+        }catch (EmptyResultDataAccessException e){
+            throw  new EtAuthException("Credenciales incorrectas");
+        }
     }
     /*Actualizar: nombre, apellido, emailRecovery, numeroContacto, tipoSangre */
     @Override
-    public Paciente update(int id, Paciente paciente) {
+    public Paciente update(long id, Paciente paciente) {
         Paciente pacienteDb = null;
         pacienteDb = data.findById(id).get();
         if(!data.existsById(id)){

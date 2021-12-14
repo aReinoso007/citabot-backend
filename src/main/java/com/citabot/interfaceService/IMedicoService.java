@@ -9,12 +9,12 @@ import java.util.Optional;
 public interface IMedicoService {
     public List<Medico> listar();
     public List<Medico> listarByName(String name);
-    public Optional<Medico> findById(int id);
+    public Optional<Medico> findById(long id);
     Medico validateMedico(String email, String password) throws EtAuthException;
     public Medico save(Medico medico);
-    public Medico update(int id, Medico medico);
-    public String delete(int id);
-    public Medico buscarPorId(int id);
+    public Medico update(long id, Medico medico);
+    public String delete(long id);
+    public Medico buscarPorId(long id);
     public List<Medico> Listar_medicos_especialidad(int idEspecialidad);
     public Medico findByEmail(String email);
     Medico findByEmailAndContrasena(String email, String password);

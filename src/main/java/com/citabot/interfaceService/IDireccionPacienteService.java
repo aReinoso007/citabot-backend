@@ -11,7 +11,7 @@ public interface IDireccionPacienteService {
     public Optional<DireccionPaciente> listarByPacienteId(int id);
     public Optional<DireccionPaciente> listarById(int id);
     public String delete(int id);
-    public DireccionPaciente save(int direccionId, int pacienteId, String tipo);
+    public DireccionPaciente save(int direccionId, long pacienteId, String tipo);
     public DireccionPaciente update(DireccionPaciente direccionPaciente);
 
 }

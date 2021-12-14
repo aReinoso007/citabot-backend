@@ -3,6 +3,7 @@ package com.citabot.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -20,6 +21,7 @@ public class Usuario {
     @JsonIgnore
     private String recoveryEmail;
     @JsonIgnore
+    @Size(max = 120)
     private String password;
     private String numeroContacto;
     private Timestamp createdAt;

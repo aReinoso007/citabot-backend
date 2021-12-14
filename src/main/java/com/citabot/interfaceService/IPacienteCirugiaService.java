@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface IPacienteCirugiaService {
     public List<PacienteCirugia> listar();
     public Optional<PacienteCirugia> listarById(int id);
-    public PacienteCirugia save(int pacId, int cirId, String tipo);
-    public Optional<PacienteCirugia> listarByPacienteId(int id);
+    public PacienteCirugia save(long pacId, int cirId, String tipo);
+    public Optional<PacienteCirugia> listarByPacienteId(long id);
     public String delete(int id);
 
 }

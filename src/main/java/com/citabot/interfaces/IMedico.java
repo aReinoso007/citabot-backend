@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 @Repository
-public interface IMedico extends CrudRepository<Medico, Integer> {
+public interface IMedico extends CrudRepository<Medico, Long> {
 
     List<Medico> findMedicoByNombre(String nombre);
 
 
     @Query(value = "SELECT * FROM medico WHERE usuario_id= :usuarioId", nativeQuery = true)
-    Medico findMedicoByUsuarioId(int usuarioId);
+    Medico findMedicoByUsuarioId(long usuarioId);
     Optional<Medico> findMedicoByEmail(String email);
     Medico findMedicoByEmailAndPassword(String email, String password);
 

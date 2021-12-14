@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 @Repository
-public interface IPaciente extends CrudRepository<Paciente, Integer> {
+public interface IPaciente extends CrudRepository<Paciente, Long> {
 
     Optional<Paciente> findPacientesByNombre(String nombre);
     Optional<Paciente> findPacientesByNombreOrApellido(String nombre, String apellido);
 
     @Query(value = "SELECT * FROM paciente WHERE usuario_id= :usuarioId", nativeQuery = true)
-    Optional<Paciente> findPacienteByUsuarioId(int usuarioId);
+    Optional<Paciente> findPacienteByUsuarioId(long usuarioId);
     Optional<Paciente> findPacienteByEmail(String email);
     Paciente findPacienteByEmailAndPassword(String email, String password);
     Paciente findPacienteByUsername(String username);

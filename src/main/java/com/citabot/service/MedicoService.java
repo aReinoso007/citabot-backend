@@ -4,7 +4,11 @@ import com.citabot.exceptions.EtAuthException;
 import com.citabot.interfaceService.IMedicoService;
 import com.citabot.interfaces.IMedico;
 import com.citabot.model.Medico;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+/*import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;*/
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
@@ -18,6 +22,9 @@ public class MedicoService implements IMedicoService {
 
     @Autowired
     private IMedico data;
+
+    /*@Autowired
+    PasswordEncoder encoder;*/
 
     @Override
     @Transactional(readOnly = true)
@@ -33,7 +40,7 @@ public class MedicoService implements IMedicoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Medico> findById(int id) {
+    public Optional<Medico> findById(long id) {
         return data.findById(id);
     }
 
@@ -45,17 +52,16 @@ public class MedicoService implements IMedicoService {
 
     @Override
     public Medico save(Medico medico) {
-        /*Add encryption */
         String email = null;
-        String encryptedPassword = null;
+        String hashedPwd = BCrypt.hashpw(medico.getPassword(), BCrypt.gensalt(10));
         Pattern pattern = Pattern.compile("^(.+)@(.+)$");
         if(medico.getEmail() != null)  email = medico.getEmail().toLowerCase();
         if(!pattern.matcher(email).matches())
             throw new EtAuthException("Invalid email format");
-        medico.setPassword(encryptedPassword);
-        System.out.printf("encryptedPassword: ", encryptedPassword);
         medico.setEmail(email);
+        medico.setPassword(hashedPwd);
         medico.setCreatedAt(actualizado());
+        medico.setRole("ROLE_USER");
         medico.setUpdatedAt(actualizado());
         medico.setEstado("activado");
         return data.save(medico);
@@ -63,7 +69,7 @@ public class MedicoService implements IMedicoService {
 
     /*Slogan, descripcion y numero contacto */
     @Override
-    public Medico update(int id, Medico medico) {
+    public Medico update(long id, Medico medico) {
         Medico medicoDB = null;
 
         if(!data.existsById(id)){
@@ -80,7 +86,7 @@ public class MedicoService implements IMedicoService {
     }
 
     @Override
-    public String delete(int id) {
+    public String delete(long id) {
         String message = "SUCCESS";
         try{
             data.deleteById(id);
@@ -94,13 +100,13 @@ public class MedicoService implements IMedicoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Medico buscarPorId(int id) {
+    public Medico buscarPorId(long id) {
         return (Medico) data.findMedicoByUsuarioId(id);
     }
 
     @Override
     public List<Medico> Listar_medicos_especialidad(int idEspecialidad) {
-        return (List<Medico>) data.listarPorEspecialidadId(idEspecialidad);
+        return data.listarPorEspecialidadId(idEspecialidad);
     }
 
     @Override
@@ -112,8 +118,14 @@ public class MedicoService implements IMedicoService {
 
     @Override
     public Medico findByEmailAndContrasena(String email, String password) {
-
-        return data.findMedicoByEmailAndPassword(email, password);
+        try{
+            Medico medico = data.findMedicoByEmail(email).get();
+            if(!BCrypt.checkpw(password, medico.getPassword()))
+                throw new EtAuthException("Email/password invalido");
+            return medico;
+        }catch (EmptyResultDataAccessException e){
+            throw new EtAuthException("Credenciales incorrectas");
+        }
     }
 
     @Override

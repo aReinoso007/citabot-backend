@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface IPacientePatologia extends CrudRepository<PacientePatologia, Integer> {
 
     @Query(value = "SELECT * FROM paciente_patologia WHERE paciente_id=:id", nativeQuery = true)
-    public List<PacientePatologia> listarByPacienteId(int id);
+    public List<PacientePatologia> listarByPacienteId(long id);
     
 
 
