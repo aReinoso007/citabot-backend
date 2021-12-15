@@ -74,5 +74,4 @@ public class CitaController {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
     }
-
 }
