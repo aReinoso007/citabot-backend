@@ -5,6 +5,7 @@ import com.citabot.interfaceService.IMedicoService;
 import com.citabot.interfaceService.IPacienteService;
 import com.citabot.model.Medico;
 import com.citabot.model.Paciente;
+import com.citabot.model.formulario.FLogin;
 import com.citabot.model.formulario.FMedico;
 import com.citabot.model.formulario.FPaciente;
 import io.jsonwebtoken.Jwts;
@@ -15,11 +16,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:8100/*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 /*Parte publica de los usuarios para login y registro */
@@ -29,9 +31,9 @@ public class UsuariosController {
     @Autowired
     IPacienteService pacienteService;
 
-    @PostMapping(value = "/medico_login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> loginMedico(@RequestParam("email") String email, @RequestParam("password") String password){
-        Medico medicodb = medicoService.findByEmailAndContrasena(email, password);
+    @PostMapping(value = "/medico_login")
+    public ResponseEntity<?> loginMedico(@Valid @RequestBody FLogin fLogin){
+        Medico medicodb = medicoService.findByEmailAndContrasena(fLogin.getEmail(), fLogin.getPassword());
         if(medicodb!=null){
             return new ResponseEntity<>(generateJWTTokenMedico(medicodb), HttpStatus.OK);
         }else{

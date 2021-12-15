@@ -9,6 +9,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 public class CitabotBackendApplication {
 
@@ -24,6 +26,7 @@ public class CitabotBackendApplication {
 		CorsConfiguration config = new CorsConfiguration();
 		config.addAllowedOrigin("*");
 		config.addAllowedHeader("*");
+		config.applyPermitDefaultValues();
 		source.registerCorsConfiguration("/**", config);
 		registrationBean.setFilter(new CorsFilter(source));
 		registrationBean.setOrder(0);
