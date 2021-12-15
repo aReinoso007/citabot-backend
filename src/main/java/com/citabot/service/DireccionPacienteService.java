@@ -56,8 +56,9 @@ public class DireccionPacienteService implements IDireccionPacienteService {
         return message;
     }
 
+
     @Override
-    public DireccionPaciente save(int direccionId, int pacienteId, String tipo) {
+    public DireccionPaciente save(int direccionId, long pacienteId, String tipo) {
         Paciente paciente = new Paciente();
         Direccion direccion = new Direccion();
         DireccionPaciente direccionPaciente = new DireccionPaciente();

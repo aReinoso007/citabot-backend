@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/cita")
+@RequestMapping("/api/public/cita")
 public class CitaController {
 
     @Autowired
@@ -44,7 +44,7 @@ public class CitaController {
     public List<Cita> listarByRegistroId(@RequestParam int registro){
         return service.listarByRegistroId(registro);
     }
-
+    /*paId = pacienteId, regId = id del registro de clinica de medico */
     @PostMapping(value = "/{paId}/{regId}", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<?> agendar(
             @RequestParam("fechaCita") String fechaCita, @RequestParam("sintomas") String sintomas, @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){

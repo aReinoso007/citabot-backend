@@ -3,15 +3,15 @@ package com.citabot.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @MappedSuperclass
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer usuarioId;
+    private Long usuarioId;
     private String username;
     private String estado;
     private String nombre;
@@ -20,6 +20,7 @@ public class Usuario {
     @JsonIgnore
     private String recoveryEmail;
     @JsonIgnore
+    @Size(max = 120)
     private String password;
     private String numeroContacto;
     private Timestamp createdAt;
@@ -42,11 +43,11 @@ public class Usuario {
         this.updatedAt = updatedAt;
     }
 
-    public Integer getId() {
+    public Long getUsuarioId() {
         return usuarioId;
     }
 
-    public void setId(Integer usuarioId) {
+    public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
     }
 

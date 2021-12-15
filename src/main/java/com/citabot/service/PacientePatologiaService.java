@@ -30,7 +30,7 @@ public class PacientePatologiaService implements IPacientePatologiaService {
     }
 
     @Override
-    public List<PacientePatologia> listarByPacienteId(int id) {
+    public List<PacientePatologia> listarByPacienteId(long id) {
         return data.listarByPacienteId(id);
     }
 
@@ -57,7 +57,7 @@ public class PacientePatologiaService implements IPacientePatologiaService {
     }
 
     @Override
-    public PacientePatologia save(String tipo, int pacienteId, int enfermedadId) {
+    public PacientePatologia save(String tipo, long pacienteId, int enfermedadId) {
         Paciente paciente = new Paciente();
         Enfermedad enfermedad = new Enfermedad();
         PacientePatologia pacientePatologia = new PacientePatologia();

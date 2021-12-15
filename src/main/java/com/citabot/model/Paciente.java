@@ -1,13 +1,15 @@
 package com.citabot.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Paciente extends Usuario implements Serializable {
@@ -16,8 +18,8 @@ public class Paciente extends Usuario implements Serializable {
 
     private String photoUrl;
     private String tipoSangre;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
     private Date fechaNacimiento;
-    private String contactPhoneNumber;
     private String genero;
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<PacientePatologia> pacientePatologias = new ArrayList<>();
@@ -31,40 +33,36 @@ public class Paciente extends Usuario implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
     private List<Cita> citas = new ArrayList<>();
 
+    private String role;
+
+
     public Paciente() {
         super();
     }
 
-    public Paciente(String username, String estado, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt, String photoUrl, String tipoSangre, Date fechaNacimiento, String contactPhoneNumber, String genero, List<PacientePatologia> pacientePatologias, List<PacienteCirugia> pacienteCirugias, List<Cita> citas) {
-        super(username, estado, nombre, apellido, email, recoveryEmail, password, numeroContacto, createdAt, updatedAt);
+    public Paciente(String photoUrl, String tipoSangre, Date fechaNacimiento, String genero, List<PacientePatologia> pacientePatologias, List<PacienteCirugia> pacienteCirugias, List<DireccionPaciente> direccionPacientes, List<Cita> citas, String role) {
         this.photoUrl = photoUrl;
         this.tipoSangre = tipoSangre;
         this.fechaNacimiento = fechaNacimiento;
-        this.contactPhoneNumber = contactPhoneNumber;
         this.genero = genero;
-        this.pacientePatologias = pacientePatologias;
-        this.pacienteCirugias = pacienteCirugias;
-        this.citas = citas;
-    }
-
-    public Paciente(String photoUrl, String tipoSangre, Date fechaNacimiento, String contactPhoneNumber, String genero, List<PacientePatologia> pacientePatologias, List<PacienteCirugia> pacienteCirugias, List<Cita> citas) {
-        this.photoUrl = photoUrl;
-        this.tipoSangre = tipoSangre;
-        this.fechaNacimiento = fechaNacimiento;
-        this.contactPhoneNumber = contactPhoneNumber;
-        this.genero = genero;
-        this.pacientePatologias = pacientePatologias;
-        this.pacienteCirugias = pacienteCirugias;
-        this.citas = citas;
-    }
-
-    /*Para agregar patologia, cirugias y citas */
-
-    public Paciente(List<PacientePatologia> pacientePatologias, List<PacienteCirugia> pacienteCirugias, List<DireccionPaciente> direccionPacientes, List<Cita> citas) {
         this.pacientePatologias = pacientePatologias;
         this.pacienteCirugias = pacienteCirugias;
         this.direccionPacientes = direccionPacientes;
         this.citas = citas;
+        this.role = role;
+    }
+
+    public Paciente(String username, String estado, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt, String photoUrl, String tipoSangre, Date fechaNacimiento, String genero, List<PacientePatologia> pacientePatologias, List<PacienteCirugia> pacienteCirugias, List<DireccionPaciente> direccionPacientes, List<Cita> citas, String role) {
+        super(username, estado, nombre, apellido, email, recoveryEmail, password, numeroContacto, createdAt, updatedAt);
+        this.photoUrl = photoUrl;
+        this.tipoSangre = tipoSangre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.pacientePatologias = pacientePatologias;
+        this.pacienteCirugias = pacienteCirugias;
+        this.direccionPacientes = direccionPacientes;
+        this.citas = citas;
+        this.role = role;
     }
 
     public String getPhotoUrl() {
@@ -91,14 +89,6 @@ public class Paciente extends Usuario implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getContactPhoneNumber() {
-        return contactPhoneNumber;
-    }
-
-    public void setContactPhoneNumber(String contactPhoneNumber) {
-        this.contactPhoneNumber = contactPhoneNumber;
-    }
-
     public String getGenero() {
         return genero;
     }
@@ -115,14 +105,6 @@ public class Paciente extends Usuario implements Serializable {
         this.pacientePatologias = pacientePatologias;
     }
 
-    public List<DireccionPaciente> getDireccionPacientes() {
-        return direccionPacientes;
-    }
-
-    public void setDireccionPacientes(List<DireccionPaciente> direccionPacientes) {
-        this.direccionPacientes = direccionPacientes;
-    }
-
     public List<PacienteCirugia> getPacienteCirugias() {
         return pacienteCirugias;
     }
@@ -131,11 +113,27 @@ public class Paciente extends Usuario implements Serializable {
         this.pacienteCirugias = pacienteCirugias;
     }
 
+    public List<DireccionPaciente> getDireccionPacientes() {
+        return direccionPacientes;
+    }
+
+    public void setDireccionPacientes(List<DireccionPaciente> direccionPacientes) {
+        this.direccionPacientes = direccionPacientes;
+    }
+
     public List<Cita> getCitas() {
         return citas;
     }
 
     public void setCitas(List<Cita> citas) {
         this.citas = citas;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -15,7 +15,6 @@ public class Medico extends Usuario implements Serializable {
     private String profesion;
     private String photoUrl;
     private String descripcion;
-
     @OneToMany( cascade = CascadeType.ALL, mappedBy = "medico" )
     private List<RegistroClinica> clinicas = new ArrayList<>();
 
@@ -24,9 +23,9 @@ public class Medico extends Usuario implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medico")
     private List<MedicoSubespecialidad> subespecialidades = new ArrayList<>();
+    private String role;
 
-
-    public Medico(String slogan, String profesion, String photoUrl, String descripcion, List<RegistroClinica> clinicas, List<MedicoEspecialidad> especialidades, List<MedicoSubespecialidad> subespecialidades) {
+    public Medico(String slogan, String profesion, String photoUrl, String descripcion, List<RegistroClinica> clinicas, List<MedicoEspecialidad> especialidades, List<MedicoSubespecialidad> subespecialidades, String role) {
         this.slogan = slogan;
         this.profesion = profesion;
         this.photoUrl = photoUrl;
@@ -34,9 +33,10 @@ public class Medico extends Usuario implements Serializable {
         this.clinicas = clinicas;
         this.especialidades = especialidades;
         this.subespecialidades = subespecialidades;
+        this.role = role;
     }
 
-    public Medico(String username, String estado, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt, String slogan, String profesion, String photoUrl, String descripcion, List<RegistroClinica> clinicas, List<MedicoEspecialidad> especialidades, List<MedicoSubespecialidad> subespecialidades) {
+    public Medico(String username, String estado, String nombre, String apellido, String email, String recoveryEmail, String password, String numeroContacto, Timestamp createdAt, Timestamp updatedAt, String slogan, String profesion, String photoUrl, String descripcion, List<RegistroClinica> clinicas, List<MedicoEspecialidad> especialidades, List<MedicoSubespecialidad> subespecialidades, String role) {
         super(username, estado, nombre, apellido, email, recoveryEmail, password, numeroContacto, createdAt, updatedAt);
         this.slogan = slogan;
         this.profesion = profesion;
@@ -45,19 +45,7 @@ public class Medico extends Usuario implements Serializable {
         this.clinicas = clinicas;
         this.especialidades = especialidades;
         this.subespecialidades = subespecialidades;
-    }
-
-    public Medico(String slogan, String profesion, String photoUrl, String descripcion) {
-        this.slogan = slogan;
-        this.profesion = profesion;
-        this.photoUrl = photoUrl;
-        this.descripcion = descripcion;
-    }
-
-    public Medico(List<RegistroClinica> clinicas, List<MedicoEspecialidad> especialidades, List<MedicoSubespecialidad> subespecialidades) {
-        this.clinicas = clinicas;
-        this.especialidades = especialidades;
-        this.subespecialidades = subespecialidades;
+        this.role = role;
     }
 
     public Medico() {
@@ -118,5 +106,13 @@ public class Medico extends Usuario implements Serializable {
 
     public void setSubespecialidades(List<MedicoSubespecialidad> subespecialidades) {
         this.subespecialidades = subespecialidades;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
