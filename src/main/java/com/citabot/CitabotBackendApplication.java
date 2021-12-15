@@ -24,6 +24,7 @@ public class CitabotBackendApplication {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.addAllowedOrigin("*");
+		config.addAllowedOrigin("/api/public/**");
 		config.addAllowedHeader("*");
 		config.applyPermitDefaultValues();
 		source.registerCorsConfiguration("/**", config);
