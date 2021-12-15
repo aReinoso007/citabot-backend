@@ -16,7 +16,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/medico")
+@RequestMapping("/api/private/medico")
 public class MedicoController {
 
     @Autowired
@@ -34,31 +34,6 @@ public class MedicoController {
         return service.findById(id);
     }
 
-    /*Usa el form-url-enconded */
-    @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("password") String password){
-        Medico medicodb = null;
-        medicodb = service.findByEmailAndContrasena(email, password);
-        if(medicodb!=null){
-            return new ResponseEntity<>(generateJWTToken(medicodb), HttpStatus.OK);
-        }else{
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        }
-
-    }
-
-    @PostMapping()
-    public ResponseEntity<?> signUp(@RequestBody Medico medico){
-        Medico medicodb = null;
-        String message = "Medico ya registrado con email: "+medico.getEmail();
-        if(service.findByEmail(medico.getEmail())==null){
-            medicodb = service.save(medico);
-            return new ResponseEntity<>(medicodb, HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
-        }
-
-    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Medico medico){
@@ -90,19 +65,5 @@ public class MedicoController {
         return service.Listar_medicos_especialidad(idEspecialidad);
     }
 
-    private Map<String, String> generateJWTToken(Medico medico){
-        long timestamp = System.currentTimeMillis();
-        String token = Jwts.builder().signWith(SignatureAlgorithm.HS256, Constants.API_SECRET_KEY)
-                .setIssuedAt(new Date(timestamp))
-                .claim("userId", medico.getUsuarioId())
-                .claim("email", medico.getEmail())
-                .claim("nombre", medico.getNombre())
-                .claim("apellido",medico.getApellido())
-                .claim("profesion",medico.getProfesion())
-                .compact();
-        Map<String, String> map = new HashMap<>();
-        map.put("token", token);
-        return map;
-    }
 
 }

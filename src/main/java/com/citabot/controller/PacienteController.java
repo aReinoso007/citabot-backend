@@ -13,13 +13,12 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping("/api/private/paciente")
 public class PacienteController {
 
     @Autowired
     private IPacienteService service;
-
-
+    /*Este listar verificar con Chris si necesita algo publico */
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Paciente>> listar(){
         List<Paciente> pacientes = service.listar();
@@ -36,31 +35,8 @@ public class PacienteController {
         return service.findById(id);
     }
 
-    /*Usa el form-url-enconded */
-    @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("password") String password){
-        Paciente pacienteDb = null;
-        pacienteDb = service.buscarPorEmailYContrasena(email, password);
-        if(pacienteDb!=null){
-            return new ResponseEntity<>(pacienteDb, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        }
-    }
 
-    /*Formato de fecha: anio-mes-dia */
-    @PostMapping
-    public ResponseEntity<?> signUp(@RequestBody Paciente p){
-        System.out.printf("Paciente a registrar: ", p);
-        Paciente pacientedb = null;
-        String message = "Paciente ya registrado con email: "+ p.getEmail();
-        if(service.findByEmail(p.getEmail())==null){
-            pacientedb = service.save(p);
-            return new ResponseEntity<>(pacientedb, HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
-        }
-    }
+
 
     /*Formato de fecha: anio-mes-dia */
     @PutMapping("/update/{id}")

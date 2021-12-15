@@ -4,10 +4,9 @@ import com.citabot.exceptions.EtAuthException;
 import com.citabot.interfaceService.IMedicoService;
 import com.citabot.interfaces.IMedico;
 import com.citabot.model.Medico;
+import com.citabot.model.formulario.FMedico;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-/*import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;*/
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +21,6 @@ public class MedicoService implements IMedicoService {
 
     @Autowired
     private IMedico data;
-
-    /*@Autowired
-    PasswordEncoder encoder;*/
 
     @Override
     @Transactional(readOnly = true)
@@ -51,19 +47,18 @@ public class MedicoService implements IMedicoService {
     }
 
     @Override
-    public Medico save(Medico medico) {
-        String email = null;
+    public Medico save(FMedico form) {
+        Medico medico = formularioAMedico(form);
         String hashedPwd = BCrypt.hashpw(medico.getPassword(), BCrypt.gensalt(10));
         Pattern pattern = Pattern.compile("^(.+)@(.+)$");
-        if(medico.getEmail() != null)  email = medico.getEmail().toLowerCase();
-        if(!pattern.matcher(email).matches())
+        if(findByEmail(medico.getEmail())!=null) throw new EtAuthException("Email ya registrado");
+        if(!pattern.matcher(medico.getEmail()).matches())
             throw new EtAuthException("Invalid email format");
-        medico.setEmail(email);
         medico.setPassword(hashedPwd);
         medico.setCreatedAt(actualizado());
         medico.setRole("ROLE_USER");
         medico.setUpdatedAt(actualizado());
-        medico.setEstado("activado");
+        medico.setEstado("ACTIVO");
         return data.save(medico);
     }
 
@@ -88,11 +83,16 @@ public class MedicoService implements IMedicoService {
     @Override
     public String delete(long id) {
         String message = "SUCCESS";
-        try{
-            data.deleteById(id);
-        }catch (Exception exception){
-            System.out.printf("Error deleting: ", exception.getMessage());
-            message = "FAILED";
+        Medico medico = findById(id).get();
+        if(medico!=null){
+            try{
+                medico.setEstado("DESACTIVADO");
+                data.save(medico);
+                return message;
+            }catch (Exception exception){
+                System.out.printf("Error deleting: ", exception.getMessage());
+                message = "FAILED";
+            }
         }
         return message;
     }
@@ -101,7 +101,7 @@ public class MedicoService implements IMedicoService {
     @Override
     @Transactional(readOnly = true)
     public Medico buscarPorId(long id) {
-        return (Medico) data.findMedicoByUsuarioId(id);
+        return  data.findMedicoByUsuarioId(id);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class MedicoService implements IMedicoService {
         Optional<Medico> medico = data.findMedicoByEmail(email);
         return medico.isEmpty() ? null: medico.get();
     }
-
+    /*Esto es para el login */
     @Override
     public Medico findByEmailAndContrasena(String email, String password) {
         try{
@@ -148,6 +148,25 @@ public class MedicoService implements IMedicoService {
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
         return ts;
+    }
+    /*Transformar el formulario de registro de medico a medico
+    * porque no puedo enviar por el json la contrasena, cuando se hacen
+    * consultas se envia el obj medico menos password*/
+    private Medico formularioAMedico(FMedico form){
+        Medico medico = new Medico();
+        medico.setNombre(form.getNombre());
+        medico.setApellido(form.getApellido());
+        medico.setUsername(form.getUsername());
+        medico.setEstado(form.getEstado());
+        medico.setEmail(form.getEmail());
+        medico.setRecoveryEmail(form.getRecoveryEmail());
+        medico.setPassword(form.getPassword());
+        medico.setNumeroContacto(form.getNumeroContacto());
+        medico.setSlogan(form.getSlogan());
+        medico.setProfesion(form.getProfesion());
+        medico.setDescripcion(form.getDescripcion());
+        medico.setRole(form.getRole());
+        return medico;
     }
 
 
