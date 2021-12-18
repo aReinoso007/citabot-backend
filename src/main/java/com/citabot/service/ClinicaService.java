@@ -5,8 +5,6 @@ import com.citabot.interfaceService.IClinicaService;
 import com.citabot.interfaces.IClinica;
 import com.citabot.interfaces.IDireccion;
 import com.citabot.model.Clinica;
-import com.citabot.model.Direccion;
-import com.citabot.model.DireccionClinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,7 +67,8 @@ public class ClinicaService implements IClinicaService {
 
     @Override
     public List<Clinica> listarPorMedico(int idMedico) {
-        return (List<Clinica>) data.listarClinicasPorMedico(idMedico);
+        System.out.printf("Clinicas: "+data.listarClinicasPorMedico(idMedico));
+        return data.listarClinicasPorMedico(idMedico);
     }
 
 }

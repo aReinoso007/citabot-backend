@@ -40,6 +40,16 @@ public class CitaController {
         return service.citasOrdenadasFechaPorRegistro(id);
     }
 
+    @GetMapping(path = "historial/{id}")
+    public List<Cita> getHistorialCitasMedico(@PathVariable("id") long id){
+        return service.getHistorial(id);
+    }
+
+    @GetMapping(path = "/hoy/{id}")
+    public List<Cita> getTodayCitas(@PathVariable("id") long id){
+        return service.getTodayCitas(id);
+    }
+
     @GetMapping(path = "/query")
     public List<Cita> listarByRegistroId(@RequestParam int registro){
         return service.listarByRegistroId(registro);

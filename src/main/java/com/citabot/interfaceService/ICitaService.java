@@ -22,4 +22,6 @@ public interface ICitaService {
     public Optional<Cita> getCitasByPacienteIdAndEstado(int pId, String estado);
     public List<Cita> listarByRegistroId(int id);
     public List<String> citasOrdenadasFechaPorRegistro(int id);
+    public List<Cita> getHistorial(long id);
+    public List<Cita> getTodayCitas(long id);
 }

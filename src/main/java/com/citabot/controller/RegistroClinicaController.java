@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/registro_clinica")
+@RequestMapping("/api/public/registro_clinica")
 public class RegistroClinicaController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class RegistroClinicaController {
     public List<RegistroClinica> listar(){
         return service.findAll();
     }
-
+    /*Retorna el id del registro por la clinica y el id del medico */
     @GetMapping(value = "/buscar/{medId}/{cliId}", produces = "application/json")
     public Optional<Integer> listarByCliYMedico(@PathVariable("cliId") int cliId, @PathVariable("medId") int medId){
         return service.finByClinicaAndMedico(cliId, medId);

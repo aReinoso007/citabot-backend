@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/direccion_clinica")
+@RequestMapping("/api/public/direccion_clinica")
 public class DireccionClinicaController {
 
     @Autowired

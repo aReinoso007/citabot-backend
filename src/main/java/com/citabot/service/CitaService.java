@@ -130,6 +130,16 @@ public class CitaService implements ICitaService {
         return data.getFechasCitaPorRegistro(id);
     }
 
+    @Override
+    public List<Cita> getHistorial(long id) {
+        return data.getAllCitasByMedicoId(id);
+    }
+
+    @Override
+    public List<Cita> getTodayCitas(long id) {
+        return data.getTodayCitas(id);
+    }
+
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
