@@ -27,9 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/pivate/cita")
+@RequestMapping("/api/public/cita")
 @Slf4j
-public class CitaController {
+public class CitaRasaController {
 
     @Autowired
     ICitaService service;
@@ -130,3 +130,4 @@ public class CitaController {
         }
     }
 }
+

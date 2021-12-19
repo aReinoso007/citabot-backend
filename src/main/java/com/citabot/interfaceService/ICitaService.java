@@ -1,11 +1,10 @@
 package com.citabot.interfaceService;
 
 import com.citabot.model.Cita;
+import com.citabot.model.formulario.interfaces.CitaConstl;
 import com.citabot.model.formulario.FCita;
 import org.springframework.data.jpa.repository.Query;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,4 +21,5 @@ public interface ICitaService {
     public Optional<Cita> getCitasByPacienteIdAndEstado(int pId, String estado);
     public List<Cita> listarByRegistroId(int id);
     public List<String> citasOrdenadasFechaPorRegistro(int id);
+    public List<CitaConstl> Listar_citas_paciente(int idPaciente);
 }
