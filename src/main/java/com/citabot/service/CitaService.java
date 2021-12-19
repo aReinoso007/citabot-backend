@@ -8,6 +8,7 @@ import com.citabot.interfaces.ICita;
 import com.citabot.model.Cita;
 import com.citabot.model.Paciente;
 import com.citabot.model.RegistroClinica;
+import com.citabot.model.formulario.interfaces.CitaConstl;
 import com.citabot.model.formulario.FCita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -128,6 +129,13 @@ public class CitaService implements ICitaService {
     @Override
     public List<String> citasOrdenadasFechaPorRegistro(int id) {
         return data.getFechasCitaPorRegistro(id);
+    }
+
+    @Override
+    public List<CitaConstl> Listar_citas_paciente(int idPaciente) {
+        System.out.printf("Data: "+data.listarCitaPorPacienteId(idPaciente));
+        return data.listarCitaPorPacienteId(idPaciente);
+
     }
 
     public Timestamp actualizado(){
