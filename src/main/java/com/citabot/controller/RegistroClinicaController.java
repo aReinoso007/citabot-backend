@@ -26,8 +26,12 @@ public class RegistroClinicaController {
     /*Retorna el id del registro por la clinica y el id del medico */
     @GetMapping(value = "/buscar/{medId}/{cliId}")
     public Optional<Integer> listarByCliYMedico(@PathVariable("cliId") int cliId, @PathVariable("medId") int medId){
-        System.out.printf("id: "+service.finByClinicaAndMedico(cliId, medId));
         return service.finByClinicaAndMedico(cliId, medId);
+    }
+
+    @GetMapping(value = "/buscar2/{medId}/{cliId}")
+    public Integer listarporCliYMedico(@PathVariable("cliId") int cliId, @PathVariable("medId") int medId){
+        return service.getByClinicaYMedico(cliId, medId);
     }
 
     @GetMapping(path = "/{id}")

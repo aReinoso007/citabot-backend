@@ -67,7 +67,6 @@ public class ClinicaService implements IClinicaService {
 
     @Override
     public List<Clinica> listarPorMedico(int idMedico) {
-        System.out.printf("Clinicas: "+data.listarClinicasPorMedico(idMedico));
         return data.listarClinicasPorMedico(idMedico);
     }
 

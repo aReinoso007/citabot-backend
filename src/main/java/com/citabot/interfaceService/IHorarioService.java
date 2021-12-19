@@ -27,4 +27,6 @@ public interface IHorarioService {
     /*Me lista los dias e intervalos de tiempo, esta es importantes */
     List<String> horariosRegistroOrdenado(int id);
 
+    /*Esto es para poder mostrar de mejor manera en el front */
+    List<Horario> horarioOrdenadoObj(int id);
 }

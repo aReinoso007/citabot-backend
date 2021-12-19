@@ -6,6 +6,7 @@ import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.IHorario;
 import com.citabot.model.Horario;
 import com.citabot.model.RegistroClinica;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
+@Slf4j
 public class HorarioService implements IHorarioService {
 
     @Autowired
@@ -40,6 +42,7 @@ public class HorarioService implements IHorarioService {
 
     @Override
     public Horario save(int idRegistro, Horario horario) {
+        log.info("id del registro: ", idRegistro);
         Horario h = new Horario();
         RegistroClinica registroClinica = new RegistroClinica();
         RegistroClinica rc = new RegistroClinica();
@@ -88,6 +91,11 @@ public class HorarioService implements IHorarioService {
     @Override
     public List<String> horariosRegistroOrdenado(int id) {
         return data.horarioOrdenadoPorRegistro(id);
+    }
+
+    @Override
+    public List<Horario> horarioOrdenadoObj(int id) {
+        return data.horarioOrdenadoOBJ(id);
     }
 
     public Timestamp actualizado(){
