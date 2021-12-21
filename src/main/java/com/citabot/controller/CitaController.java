@@ -67,9 +67,9 @@ public class CitaController {
     }
 
     @GetMapping(path = "/hoy/{id}")
-    public List<Cita> getTodayCitas(@PathVariable("id") long id){
+    public List<Cita> getTodayCitas(@PathVariable("id") long id) {
         return service.getTodayCitas(id);
-
+    }
     @GetMapping(path = "/citas/{id}")
     public List<CitaD> listarCitasPorPaciente(@PathVariable("id") int id) {
         List<CitaConstl> list = new ArrayList<>();
@@ -108,7 +108,7 @@ public class CitaController {
     @PostMapping(value = "/{paId}/{regId}", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
     public ResponseEntity<?> agendar(
             @RequestParam("fechaCita") String fechaCita, @RequestParam("sintomas") String sintomas,
-            @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId) {
+            @PathVariable(name = "paId") int paId, @PathVariable(name = "regId") int regId){
         log.info("fecha ", fechaCita);
         Cita cita = new Cita();
         FCita formularioCita = new FCita();
