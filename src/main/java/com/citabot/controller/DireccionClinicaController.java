@@ -2,12 +2,14 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.IDireccionClinicaService;
 import com.citabot.model.DireccionClinica;
+import com.citabot.model.formulario.FClinicaDireccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,15 +33,15 @@ public class DireccionClinicaController {
         return service.listarById(id);
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?>guardarDireccionClinica(@RequestParam("idClinica") int idClinica, @RequestParam("idDireccion") int idDireccion){
+    @PostMapping()
+    public ResponseEntity<?>guardarDireccionClinica(@Valid @RequestBody FClinicaDireccion formulario){
         DireccionClinica direccionClinica = null;
-        System.out.printf("idClinica: "+idClinica+", idDireccion: "+idDireccion);
-        direccionClinica = service.save(idClinica, idDireccion);
+        System.out.printf("idClinica: "+formulario.getClinicaId()+", idDireccion: "+formulario.getDireccionId());
+        direccionClinica = service.save(formulario.getClinicaId(), formulario.getDireccionId());
         if(direccionClinica!=null){
-            return new ResponseEntity<>(direccionClinica, HttpStatus.CREATED);
+            return new ResponseEntity<>("Agregado con exito", HttpStatus.CREATED);
         }else{
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 

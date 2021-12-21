@@ -70,4 +70,9 @@ public class ClinicaService implements IClinicaService {
         return data.listarClinicasPorMedico(idMedico);
     }
 
+    @Override
+    public List<Clinica> listarClinicasDisponiblesParaMedico(int medicoId) {
+        return data.listarClinicasDisponiblesParaMedico(medicoId);
+    }
+
 }

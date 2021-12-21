@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/especialidad")
+@RequestMapping("/api/public/especialidad")
 
 public class EspecialidadController {
 
@@ -28,6 +28,12 @@ public class EspecialidadController {
     @GetMapping("/query")
     public List<Especialidad> getByNombre(@RequestParam String nombre){
         return service.listarByNombre(nombre);
+    }
+
+    @GetMapping(path = "/disponibles")
+    public List<Especialidad> getDisponiblesParaMedico(@RequestParam int idMedico){
+        return service.listarDisponiblesParaMedico(idMedico);
+
     }
 
     @GetMapping(path = "/{id}")

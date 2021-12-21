@@ -38,7 +38,7 @@ public class SubespecialidadService implements ISubespecialidadService {
 
     @Override
     public List<Subespecialidad> listarByEspecialidad(String nombre) {
-        return (List<Subespecialidad>) data.findSubespecialidadByEspecialidad(nombre);
+        return data.findSubespecialidadByEspecialidad(nombre);
     }
 
     @Override
@@ -75,5 +75,10 @@ public class SubespecialidadService implements ISubespecialidadService {
             message = "FAILED";
         }
         return message;
+    }
+
+    @Override
+    public List<Subespecialidad> listarDisponiblesParaMedicoPorEspecialidad(int medId, int espId) {
+        return data.listarDisponibles(medId, espId);
     }
 }

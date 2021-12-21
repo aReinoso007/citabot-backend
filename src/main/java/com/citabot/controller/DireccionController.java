@@ -32,12 +32,11 @@ public class DireccionController {
 
     @PostMapping
     public ResponseEntity<?> guardarDireccion(@RequestBody Direccion direccion){
-        Direccion direccionDB = null;
-        direccionDB = service.save(direccion);
+        Direccion direccionDB = service.save(direccion);
         if(direccionDB!=null){
-            return new ResponseEntity<>(direccionDB, HttpStatus.CREATED);
+            return new ResponseEntity<>(direccionDB.getDireccionId(), HttpStatus.CREATED);
         }else{
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Error",HttpStatus.CONFLICT);
         }
     }
 

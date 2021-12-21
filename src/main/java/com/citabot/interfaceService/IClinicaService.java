@@ -14,4 +14,5 @@ public interface IClinicaService {
     public Optional<Clinica> findById(int id);
     public Clinica update(Clinica clinica);
     public List<Clinica> listarPorMedico(int idMedico);
+    public List<Clinica> listarClinicasDisponiblesParaMedico(int medicoId);
 }

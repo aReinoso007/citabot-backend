@@ -41,15 +41,21 @@ public class ClinicaController {
         return service.findById(id);
     }
 
+    @GetMapping(path = "/disponibles/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Clinica> getDisponiblesParaMedico(@PathVariable("id") int id){
+        return service.listarClinicasDisponiblesParaMedico(id);
+    }
+
     /*Funciona */
     @PostMapping
     public ResponseEntity<?> guardarClinica(@RequestBody Clinica clinica){
         Clinica clinicaDb = null;
         clinicaDb = service.save(clinica);
         if(clinicaDb!=null){
-            return new ResponseEntity<>(clinicaDb, HttpStatus.CREATED);
+            return new ResponseEntity<>(clinicaDb.getClinicaId(), HttpStatus.CREATED);
         }else{
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Error", HttpStatus.CONFLICT);
         }
 
     }
