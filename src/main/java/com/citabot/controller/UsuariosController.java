@@ -42,9 +42,10 @@ public class UsuariosController {
 
     }
 
-    @PostMapping(value = "/paciente_login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> loginPaciente(@RequestParam("email") String email, @RequestParam("password") String password){
-        Paciente pacienteDb = pacienteService.buscarPorEmailYContrasena(email, password);
+    @PostMapping(value = "/paciente_login")
+    public ResponseEntity<?> loginPaciente(@Valid @RequestBody FLogin fLogin){
+        System.out.printf("LOGIN: "+fLogin);
+        Paciente pacienteDb = pacienteService.buscarPorEmailYContrasena(fLogin.getEmail(), fLogin.getPassword());
         if(pacienteDb!=null){
             return new ResponseEntity<>(generateJWTTokenPaciente(pacienteDb), HttpStatus.OK);
         }else{
@@ -71,6 +72,7 @@ public class UsuariosController {
     /*Formato de fecha: anio-mes-dia */
     @PostMapping(value = "/paciente_registro")
     public ResponseEntity<?> signUpPaciente(@RequestBody FPaciente form){
+        System.out.printf("Paciente: "+form);
         Paciente pacientedb = pacienteService.findByEmail(form.getEmail());
         String message = "Paciente ya registrado con email: "+ form.getEmail();
         if(pacientedb==null){
