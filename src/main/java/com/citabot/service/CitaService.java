@@ -53,10 +53,10 @@ public class CitaService implements ICitaService {
         Cita cita = new Cita();
         Paciente pacienteDB = new Paciente();
         RegistroClinica registroClinicaDB = new RegistroClinica();
-        System.out.printf("fecha obtenida: "+formularioCita.getFechaCita());
+        System.out.printf("fecha obtenida: " + formularioCita.getFechaCita());
         Timestamp fecha = localDateTimeToTimeStamp(formularioCita.getFechaCita());
-        System.out.printf("fecha transformada: "+fecha);
-        try{
+        System.out.printf("fecha transformada: " + fecha);
+        try {
             pacienteDB = pacienteData.findById(paId);
             registroClinicaDB = registroData.findById(regId).get();
             cita.setSintomas(formularioCita.getSintomas());
@@ -68,7 +68,7 @@ public class CitaService implements ICitaService {
             cita.setClinicaMedico(registroClinicaDB);
             citaDb = data.save(cita);
             return citaDb;
-        }catch (Error error){
+        } catch (Error error) {
             System.out.printf("error saving cita: ", error.getMessage());
         }
         return citaDb;
@@ -78,17 +78,17 @@ public class CitaService implements ICitaService {
     public String delete(int citaId) {
         Cita c = new Cita();
         String message = "SUCCESS";
-        try{
-            if(data.existsById(citaId)){
+        try {
+            if (data.existsById(citaId)) {
                 c = data.findById(citaId).get();
                 c.setEstado("CANCELADO");
                 c.setUpdateAt(actualizado());
                 data.save(c);
-            }else{
+            } else {
                 return "Cita no existe";
             }
 
-        }catch(Error error){
+        } catch (Error error) {
             System.out.printf("Error cancelling appointment: ", error.getMessage());
             message = "FAILED";
         }
@@ -99,17 +99,17 @@ public class CitaService implements ICitaService {
     public Cita update(int citaId, String estado) {
         Cita c = new Cita();
         try {
-            if(data.existsById(citaId)){
+            if (data.existsById(citaId)) {
                 c = data.findById(citaId).get();
                 c.setCreatedAt(actualizado());
                 c.setUpdateAt(actualizado());
                 c.setEstado(estado);
                 data.save(c);
-                return  c;
-            }else{
+                return c;
+            } else {
                 return null;
             }
-        }catch (Error e){
+        } catch (Error e) {
             System.out.printf("Error updating: ", e.getMessage());
         }
         return c;
@@ -132,29 +132,37 @@ public class CitaService implements ICitaService {
     }
 
     @Override
+    public List<Cita> getHistorial(long id) {
+        return data.getAllCitasByMedicoId(id);
+    }
+
+    @Override
+    public List<Cita> getTodayCitas(long id) {
+        return data.getTodayCitas(id);
+    }
     public List<CitaConstl> Listar_citas_paciente(int idPaciente) {
-        System.out.printf("Data: "+data.listarCitaPorPacienteId(idPaciente));
+        System.out.printf("Data: " + data.listarCitaPorPacienteId(idPaciente));
         return data.listarCitaPorPacienteId(idPaciente);
 
     }
 
-    public Timestamp actualizado(){
+    public Timestamp actualizado() {
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
         return ts;
     }
 
-    /*Para formatear horaInicio y horaFin */
+    /* Para formatear horaInicio y horaFin */
     public Time getFormattedTime(String time) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("HH.mm.ss");
         long ms = sdf.parse(time).getTime();
-        Time t =new Time(ms);
+        Time t = new Time(ms);
         return t;
     }
-    /*Para transformar la fecha enviada en el registro de cita */
-    public Timestamp localDateTimeToTimeStamp(LocalDateTime ldt){
+
+    /* Para transformar la fecha enviada en el registro de cita */
+    public Timestamp localDateTimeToTimeStamp(LocalDateTime ldt) {
         return Timestamp.valueOf(ldt);
     }
-
 
 }

@@ -12,10 +12,9 @@ import java.util.Optional;
 @Repository
 public interface ICita extends CrudRepository<Cita, Integer> {
 
-
-
     @Query(value = "SELECT * FROM cita WHERE paciente_usuario_id=:pacienteId and estado=:estado", nativeQuery = true)
     Optional<Cita> findByPacienteAndEstado(int pacienteId, String estado);
+
     @Query(value = "SELECT * FROM cita WHERE paciente_usuario_id=:id", nativeQuery = true)
     List<Cita> getCitasByPacienteId(int id);
 
@@ -25,10 +24,20 @@ public interface ICita extends CrudRepository<Cita, Integer> {
     @Query(value = "SELECT DISTINCT fecha_cita from cita where registro_clinica_id=:id order by fecha_cita asc", nativeQuery = true)
     List<String> getFechasCitaPorRegistro(int id);
 
-    @Query(value = "select cita.cita_id as citaId, cita.fecha_cita as fechaCita, cita.sintomas as sintomas, registro_clinica.clinica_id as clinicaId, registro_clinica.medico_id as medicoId from cita, paciente, registro_clinica where\n" +
+    @Query(value = "select * from cita\n" +
+            "where registro_clinica_id in (SELECT registro_clinica_id  from registro_clinica where medico_id=:id order by fecha_cita asc", nativeQuery = true)
+    List<Cita> getAllCitasByMedicoId(long id);
+
+    @Query(value = "select * from cita\n" +
+            "where registro_clinica_id in (SELECT registro_clinica_id  from registro_clinica where medico_id=:id)\n" +
+            "and fecha_cita = now()\n" +
+            "order by fecha_cita asc;", nativeQuery = true)
+    List<Cita> getTodayCitas(long id);
+
+    @Query(value = "select cita.cita_id as citaId, cita.fecha_cita as fechaCita, cita.sintomas as sintomas, registro_clinica.clinica_id as clinicaId, registro_clinica.medico_id as medicoId from cita, paciente, registro_clinica where\n"
+            +
             "cita.registro_clinica_id=registro_clinica.registro_clinica_id and\n" +
             "cita.paciente_id=paciente.usuario_id and paciente.usuario_id=?1", nativeQuery = true)
     List<CitaConstl> listarCitaPorPacienteId(int pacienteId);
-
 
 }
