@@ -5,6 +5,7 @@ import com.citabot.interfaceService.IEspecialidadService;
 
 import com.citabot.model.Especialidad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/public/especialidad")
+@RequestMapping("/api/private/especialidad")
 
 public class EspecialidadController {
 
@@ -30,10 +31,16 @@ public class EspecialidadController {
         return service.listarByNombre(nombre);
     }
 
-    @GetMapping(path = "/disponibles")
-    public List<Especialidad> getDisponiblesParaMedico(@RequestParam int idMedico){
+    @GetMapping(path = "/disponibles/{id}")
+    public List<Especialidad> getDisponiblesParaMedico(@PathVariable("id") int idMedico){
         return service.listarDisponiblesParaMedico(idMedico);
 
+    }
+
+    @GetMapping(path = "/registradas/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Especialidad> getRegistradasPorMEdico(@PathVariable("id") int id){
+        return service.listarRegistradasPorMedico(id);
     }
 
     @GetMapping(path = "/{id}")
