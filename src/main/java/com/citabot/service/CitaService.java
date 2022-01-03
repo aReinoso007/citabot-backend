@@ -151,7 +151,6 @@ public class CitaService implements ICitaService {
         return data.getCitaById(idCita);
     }
 
-   
     public Timestamp actualizado() {
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
