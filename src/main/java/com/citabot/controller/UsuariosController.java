@@ -57,9 +57,10 @@ public class UsuariosController {
     public ResponseEntity<?> signUpMedico(@RequestBody FMedico fMedico){
         Medico medicodb = medicoService.findByEmail(fMedico.getEmail());
         String message = "Paciente ya registrado con email: "+ fMedico.getEmail();
+        String res = "Registro exitoso";
         if(medicodb==null){
             medicoService.save(fMedico);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(res, HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
@@ -76,7 +77,7 @@ public class UsuariosController {
         String message = "Paciente ya registrado con email: "+ form.getEmail();
         if(pacientedb==null){
             pacienteService.save(form);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>("Medico registrado con exito",HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }

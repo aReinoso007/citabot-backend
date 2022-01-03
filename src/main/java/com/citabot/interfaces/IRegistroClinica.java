@@ -16,5 +16,6 @@ public interface IRegistroClinica extends CrudRepository<RegistroClinica, Intege
     Optional<RegistroClinica> findRegistroClinicasByMedico(int id);
     @Query(value = "SELECT DISTINCT registro_clinica_id FROM registro_clinica where clinica_id= :idClinica and medico_id= :idMed", nativeQuery = true)
     Optional<Integer> getRegistroClinicaByClinicaAndMedico(int idClinica, int idMed);
-
+    @Query(value = "SELECT DISTINCT registro_clinica_id FROM registro_clinica where clinica_id= :idClinica and medico_id= :idMed", nativeQuery = true)
+    Integer getbyClinicaByClinicaAndMedico(int idClinica, int idMed);
 }

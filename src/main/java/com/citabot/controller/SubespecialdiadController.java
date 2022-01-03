@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/subespecialidad")
+@RequestMapping("/api/public/subespecialidad")
 
 
 public class SubespecialdiadController {
@@ -32,6 +32,11 @@ public class SubespecialdiadController {
     @GetMapping("/query")
     public List<Subespecialidad> getByNombre(@RequestParam String nombre){
         return service.listarByNombre(nombre);
+    }
+
+    @GetMapping("/disponibles")
+    public List<Subespecialidad> listarDisponiblesParaMedicoPorEspecialidad(@RequestParam int medId, @RequestParam int espId){
+        return service.listarDisponiblesParaMedicoPorEspecialidad(medId, espId);
     }
 
     @GetMapping(path = "/{id}")

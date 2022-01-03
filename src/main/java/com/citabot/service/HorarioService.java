@@ -6,6 +6,7 @@ import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.IHorario;
 import com.citabot.model.Horario;
 import com.citabot.model.RegistroClinica;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
+@Slf4j
 public class HorarioService implements IHorarioService {
 
     @Autowired
@@ -40,6 +42,7 @@ public class HorarioService implements IHorarioService {
 
     @Override
     public Horario save(int idRegistro, Horario horario) {
+        log.info("id del registro: ", idRegistro);
         Horario h = new Horario();
         RegistroClinica registroClinica = new RegistroClinica();
         RegistroClinica rc = new RegistroClinica();
@@ -92,12 +95,17 @@ public class HorarioService implements IHorarioService {
         return data.horarioOrdenadoPorRegistro(id);
     }
 
+    @Override
+    public List<Horario> horarioOrdenadoObj(int id) {
+        return data.horarioOrdenadoOBJ(id);
+    }
+
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
         return ts;
     }
-
+    /*El id es del registro*/
     public List<LocalDateTime> obtenerFechasyHorasDisponibles(List<String> diasHoras, int id){
         /*Aqui guardo las fechas generadas, importante para iterar por dias */
         List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
@@ -110,6 +118,7 @@ public class HorarioService implements IHorarioService {
         List<Timestamp> filtro = new ArrayList<>();
         List<Timestamp> horarioTimestamp = new ArrayList<>();
         List<Timestamp> agendadasTimestamp = new ArrayList<>();
+        List<LocalDateTime> fechasFinales = new ArrayList<>();
 
         LocalDateTime inicioDate = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime finDate = inicioDate.plusDays(7).withSecond(0).withNano(0);
@@ -144,7 +153,20 @@ public class HorarioService implements IHorarioService {
         agendadasTimestamp = stringaTimestamp(citasAgendadas);
         filtro = filtrarFechas(horarioTimestamp, agendadasTimestamp);
         fechasFiltradas = timeStampToLocalDateTime(filtro);
-        return fechasFiltradas;
+
+        /*Obtenemos un iterador */
+        Iterator<LocalDateTime> dateTimeIterator = fechasFiltradas.iterator();
+        while(dateTimeIterator.hasNext()){
+            LocalDateTime ldt = dateTimeIterator.next();
+            if(ldt.isBefore(LocalDateTime.now())){
+                dateTimeIterator.remove();
+            }
+        }
+        for(LocalDateTime ldt : fechasFiltradas){
+            fechasFinales.add(ldt);
+        }
+
+        return fechasFinales;
     }
 
 

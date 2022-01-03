@@ -13,4 +13,5 @@ public interface IRegistroClinicaService {
     public String delete(int id);
     public Optional<RegistroClinica> findByMedico(int id);
     public Optional<Integer> finByClinicaAndMedico(int cliId, int medId);
+    public Integer getByClinicaYMedico(int cliId, int medId);
 }
