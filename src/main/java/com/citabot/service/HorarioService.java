@@ -103,7 +103,7 @@ public class HorarioService implements IHorarioService {
         Timestamp ts = new Timestamp(date.getTime());
         return ts;
     }
-
+    /*El id es del registro*/
     public List<LocalDateTime> obtenerFechasyHorasDisponibles(List<String> diasHoras, int id){
         /*Aqui guardo las fechas generadas, importante para iterar por dias */
         List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
@@ -116,6 +116,7 @@ public class HorarioService implements IHorarioService {
         List<Timestamp> filtro = new ArrayList<>();
         List<Timestamp> horarioTimestamp = new ArrayList<>();
         List<Timestamp> agendadasTimestamp = new ArrayList<>();
+        List<LocalDateTime> fechasFinales = new ArrayList<>();
 
         LocalDateTime inicioDate = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime finDate = inicioDate.plusDays(7).withSecond(0).withNano(0);
@@ -150,7 +151,20 @@ public class HorarioService implements IHorarioService {
         agendadasTimestamp = stringaTimestamp(citasAgendadas);
         filtro = filtrarFechas(horarioTimestamp, agendadasTimestamp);
         fechasFiltradas = timeStampToLocalDateTime(filtro);
-        return fechasFiltradas;
+
+        /*Obtenemos un iterador */
+        Iterator<LocalDateTime> dateTimeIterator = fechasFiltradas.iterator();
+        while(dateTimeIterator.hasNext()){
+            LocalDateTime ldt = dateTimeIterator.next();
+            if(ldt.isBefore(LocalDateTime.now())){
+                dateTimeIterator.remove();
+            }
+        }
+        for(LocalDateTime ldt : fechasFiltradas){
+            fechasFinales.add(ldt);
+        }
+
+        return fechasFinales;
     }
 
 

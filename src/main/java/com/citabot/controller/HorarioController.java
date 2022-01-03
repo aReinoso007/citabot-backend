@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/private/horario")
+@RequestMapping("/api/public/horario")
 @Slf4j
 public class HorarioController {
 

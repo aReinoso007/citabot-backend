@@ -5,6 +5,7 @@ import com.citabot.model.formulario.interfaces.CitaConstl;
 import com.citabot.model.formulario.FCita;
 import org.springframework.data.jpa.repository.Query;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
