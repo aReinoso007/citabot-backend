@@ -2,21 +2,20 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.IHorarioService;
 import com.citabot.model.Horario;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/horario")
+@RequestMapping("/api/private/horario")
+@Slf4j
 public class HorarioController {
 
     @Autowired
@@ -51,7 +50,12 @@ public class HorarioController {
         return service.horariosRegistroOrdenado(id);
     }
 
-    /*Devuelve  */
+    @GetMapping(path = "/horario_ordenado/{id}")
+    public List<Horario> listarOrdenado(@PathVariable("id") int id){
+        return service.horarioOrdenadoObj(id);
+    }
+
+    /*Devuelve  esto es para el paciente*/
     @GetMapping(path = "/fechas/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<LocalDateTime> listarFechasDisponibles(@PathVariable("id") int id){
@@ -67,6 +71,7 @@ public class HorarioController {
     /*Este post se realiza enviando el id del registro por la url */
     @PostMapping(path = "/guardar/{id}")
     public Horario guardarHorario(@PathVariable("id") int id, @RequestBody Horario horario){
+        log.info("horario: ", horario.toString());
         Horario h = new Horario();
         try{
             h = service.save(id, horario);

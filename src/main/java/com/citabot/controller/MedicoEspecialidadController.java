@@ -6,8 +6,11 @@ import com.citabot.interfaceService.IMedicoEspecialidadService;
 import com.citabot.model.Especialidad;
 import com.citabot.model.MedicoEspecialidad;
 
+import com.citabot.model.formulario.FMedicoEspecialidad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/medico_especialidad")
+@RequestMapping("/api/private/medico_especialidad")
 public class MedicoEspecialidadController {
 
     @Autowired
@@ -33,17 +36,14 @@ public class MedicoEspecialidadController {
     }
 
     /*Arreglar aqui, en el front ya se recupera los is por seleccion, esto es solo de prueba */
-    @PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public MedicoEspecialidad guardarRegistro(@RequestParam("medico_id") int medico_id, @RequestParam("especialidad_id") int especialidad_id){
-        MedicoEspecialidad medicoEspecialidad = new MedicoEspecialidad();
-
-        try{
-            medicoEspecialidad = service.save(medico_id, especialidad_id);
-            return medicoEspecialidad;
-        }catch (Error error){
-            System.out.printf("Error saving Medico especialidad: ", error.getMessage());
+    @PostMapping()
+    public ResponseEntity<?> guardarRegistro(@RequestBody FMedicoEspecialidad form){
+        MedicoEspecialidad medicoEspecialidad = service.save(form.getMedicoId(), form.getEspecialidadId());
+        if(medicoEspecialidad!=null){
+            return new ResponseEntity<>("Exito", HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
-        return medicoEspecialidad;
     }
 
 

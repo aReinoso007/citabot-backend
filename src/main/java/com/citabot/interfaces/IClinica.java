@@ -18,4 +18,11 @@ public interface IClinica extends CrudRepository<Clinica, Integer> {
             "registro_clinica.clinica_id=clinica.clinica_id and \n" +
             "medico.usuario_id=?1", nativeQuery = true)
     List<Clinica> listarClinicasPorMedico(int medioId);
+    /*Esta funcion me retorna las clinicas que el medico no tiene registradas */
+    @Query(value = "select * from clinica\n" +
+            "where NOT EXISTS(\n" +
+            "\t\tSELECT clinica_id from registro_clinica\n" +
+            "\t\twhere medico_id=:medicoId and\n" +
+            "\t\tclinica_id = clinica.clinica_id)", nativeQuery = true)
+    List<Clinica> listarClinicasDisponiblesParaMedico(int medicoId);
 }

@@ -94,4 +94,9 @@ public class RegistroClinicaService implements IRegistroClinicaService {
         return data.getRegistroClinicaByClinicaAndMedico(cliId, medId);
     }
 
+    @Override
+    public Integer getByClinicaYMedico(int cliId, int medId) {
+        return data.getbyClinicaByClinicaAndMedico(cliId, medId);
+    }
+
 }
