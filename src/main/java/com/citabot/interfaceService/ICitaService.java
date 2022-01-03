@@ -22,4 +22,5 @@ public interface ICitaService {
     public List<Cita> listarByRegistroId(int id);
     public List<String> citasOrdenadasFechaPorRegistro(int id);
     public List<CitaConstl> Listar_citas_paciente(int idPaciente);
+    public List<CitaConstl> obtenerCitaDetalle(int idCita);
 }

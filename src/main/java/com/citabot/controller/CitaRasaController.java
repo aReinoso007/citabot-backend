@@ -70,8 +70,6 @@ public class CitaRasaController {
         MedicoEspecialidad mesp = new MedicoEspecialidad();
         CitaD citad = new CitaD();
         list =service.Listar_citas_paciente(id);
-
-
         for (CitaConstl cita : list) {
 
             citad.setCitaId(cita.getcitaId());
@@ -87,10 +85,34 @@ public class CitaRasaController {
             citad = new CitaD();
 
         }
-
-
-
         return listC;
+    }
+
+    @GetMapping(path = "/cita_detalle/{id}")
+    public CitaD getCitaDetalle(@PathVariable("id") int id){
+        List<CitaConstl> list = new ArrayList<>();
+        List<CitaD> listC = new ArrayList<>();
+        Clinica clinica = new Clinica();
+        Medico medico = new Medico();
+        MedicoEspecialidad mesp = new MedicoEspecialidad();
+        CitaD citad = new CitaD();
+        list =service.obtenerCitaDetalle(id);
+        for (CitaConstl cita : list) {
+
+            citad.setCitaId(cita.getcitaId());
+            citad.setFechaCita(cita.getfechaCita());
+            citad.setSintomas(cita.getsintomas());
+            //Recupera la clinica
+            clinica = serviceClinica.findById(cita.getclinicaId()).get();
+            medico = serviceMedico.findById(cita.getmedicoId()).get();
+            citad.setClinica(clinica.getNombreClinica());
+            citad.setMedico(medico.getNombre()+' '+medico.getApellido());
+
+            //listC.add(citad);
+           // citad = new CitaD();
+
+        }
+        return citad;
     }
 
     @GetMapping(path = "/query")

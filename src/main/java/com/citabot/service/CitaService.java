@@ -138,6 +138,11 @@ public class CitaService implements ICitaService {
 
     }
 
+    @Override
+    public List<CitaConstl> obtenerCitaDetalle(int idCita) {
+        return data.getCitaById(idCita);
+    }
+
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());

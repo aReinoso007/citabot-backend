@@ -26,9 +26,14 @@ public interface ICita extends CrudRepository<Cita, Integer> {
     List<String> getFechasCitaPorRegistro(int id);
 
     @Query(value = "select cita.cita_id as citaId, cita.fecha_cita as fechaCita, cita.sintomas as sintomas, registro_clinica.clinica_id as clinicaId, registro_clinica.medico_id as medicoId from cita, paciente, registro_clinica where\n" +
-            "cita.registro_clinica_id=registro_clinica.registro_clinica_id and\n" +
-            "cita.paciente_id=paciente.usuario_id and paciente.usuario_id=?1", nativeQuery = true)
+            "            cita.registro_clinica_id=registro_clinica.registro_clinica_id and\n" +
+            "            cita.paciente_id=paciente.usuario_id and paciente.usuario_id=?1 and cita.estado='pendiente' order by cita.created_at desc", nativeQuery = true)
     List<CitaConstl> listarCitaPorPacienteId(int pacienteId);
+
+    @Query(value = "select cita.cita_id as citaId, cita.fecha_cita as fechaCita, cita.sintomas as sintomas, registro_clinica.clinica_id as clinicaId, registro_clinica.medico_id as medicoId from cita, paciente, registro_clinica where\n" +
+            "            cita.registro_clinica_id=registro_clinica.registro_clinica_id and\n" +
+            "            cita.paciente_id=paciente.usuario_id and cita.cita_id=?1 and cita.estado='pendiente'", nativeQuery = true)
+    List<CitaConstl> getCitaById(int citaId);
 
 
 }

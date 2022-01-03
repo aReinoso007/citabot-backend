@@ -85,6 +85,8 @@ public class HorarioService implements IHorarioService {
         return availableDates;
     }
 
+
+
     @Override
     public List<String> horariosRegistroOrdenado(int id) {
         return data.horarioOrdenadoPorRegistro(id);

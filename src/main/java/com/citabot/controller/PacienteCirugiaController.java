@@ -2,6 +2,7 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.IPacienteCirugiaService;
 import com.citabot.model.PacienteCirugia;
+import com.citabot.model.formulario.FCirugia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,12 @@ public class PacienteCirugiaController {
         return service.listarById(id);
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public PacienteCirugia guardarCirugia(@RequestParam("idPaciente") int idPaciente, @RequestParam("idCirugia") int idCirugia, @RequestParam("tipo") String tipo){
+    @PostMapping( )
+    public PacienteCirugia guardarCirugia(@RequestBody FCirugia formulario){
         PacienteCirugia pacienteCirugia = new PacienteCirugia();
-        System.out.printf("idPaciente: "+idPaciente+", idCirugia: "+idCirugia);
+       // System.out.printf("idPaciente: "+idPaciente+", idCirugia: "+idCirugia);
         try{
-            pacienteCirugia = service.save(idPaciente, idCirugia, tipo);
+            pacienteCirugia = service.save( formulario.getIdPaciente(), formulario.getIdCirugia(), formulario.getTipo());
             return pacienteCirugia;
         }catch (Error error){
             System.out.printf("Error posting cirugia de paciente: ", error.getMessage());

@@ -25,4 +25,11 @@ public interface IMedico extends CrudRepository<Medico, Long> {
     Medico findMedicoByUsername(String username);
     Boolean existsByUsername(String username);
     Medico findMedicoByUsernameAndPassword(String username, String password);
+
+    @Query(value = "select * from clinica, registro_clinica, medico where\n" +
+            "clinica.clinica_id=registro_clinica.clinica_id and\n" +
+            "medico.usuario_id=registro_clinica.medico_id and\n" +
+            "clinica.clinica_id=?1", nativeQuery = true)
+    List<Medico> listarPorClinica(int clinicaId);
+
 }
