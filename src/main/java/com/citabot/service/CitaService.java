@@ -128,7 +128,7 @@ public class CitaService implements ICitaService {
     /* */
     @Override
     public List<String> citasOrdenadasFechaPorRegistro(int id) {
-        return data.getFechasCitaPorRegistro(id);
+        return data.getFechasCitaPorRegistro(id, fechaActual());
     }
 
     @Override
@@ -163,6 +163,12 @@ public class CitaService implements ICitaService {
     /* Para transformar la fecha enviada en el registro de cita */
     public Timestamp localDateTimeToTimeStamp(LocalDateTime ldt) {
         return Timestamp.valueOf(ldt);
+    }
+
+    public Timestamp fechaActual(){
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        return ts;
     }
 
 }

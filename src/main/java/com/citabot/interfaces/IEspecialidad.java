@@ -12,10 +12,10 @@ public interface IEspecialidad extends CrudRepository<Especialidad, Integer> {
 
     List<Especialidad> findByNombre(String nombre);
     @Query(value = "select * from especialidad\n" +
-            "WHERE NOT EXISTS (SELECT especialidad_id from medico_especialidad where medico_id=:id)", nativeQuery = true)
+            "WHERE NOT EXISTS (SELECT especialidad_id from medico_especialidad where medico_id=:id and especialidad_id = especialidad.especialidad_id)", nativeQuery = true)
     List<Especialidad> listarEspecialidadesDisponibles(int id);
 
     @Query(value = "select * from especialidad\n" +
-            "where especialidad_id in (SELECT especialidad_id  from medico_especialidad where medico_id=:medId)", nativeQuery = true)
+            "where especialidad_id in (SELECT especialidad_id  from medico_especialidad where medico_id=:medId )", nativeQuery = true)
     List<Especialidad> listarEspecialidadesRegistradasPorMedico(int medId);
 }

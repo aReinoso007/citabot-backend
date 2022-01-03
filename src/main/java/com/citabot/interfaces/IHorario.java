@@ -17,7 +17,7 @@ public interface IHorario extends CrudRepository<Horario, Integer> {
 
     @Query(value = "SELECT DISTINCT dia FROM horario WHERE registro_clinica_registro_clinica_id=:id", nativeQuery = true)
     List<String> buscarDiasEnRegistro(int id);
-
+    /*Esta funcion sirve para generar las fechas en un rango de 7 dias */
     @Query(value = "SELECT dia, inicio, fin FROM horario WHERE registro_clinica_registro_clinica_id=:id order by\n" +
             "case\n" +
             "when dia='MONDAY' then 1\n" +

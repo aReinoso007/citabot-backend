@@ -16,4 +16,5 @@ public interface IEspecialidadService {
     public String delete(int id);
     public Especialidad update(Especialidad especialidad);
     public List<Especialidad> listarDisponiblesParaMedico(int medicoId);
+    public List<Especialidad> listarRegistradasPorMedico(int medId);
 }
