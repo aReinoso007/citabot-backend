@@ -2,6 +2,8 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.IDireccionPacienteService;
 import com.citabot.model.DireccionPaciente;
+import com.citabot.model.formulario.FCirugia;
+import com.citabot.model.formulario.FPDireccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -37,16 +39,17 @@ public class DireccionPacienteController {
         return service.listarById(id);
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> guardarDireccionPaciente(@RequestParam("idPaciente") int idPaciente,@RequestParam("idDireccion") int idDireccion, @RequestParam("tipo") String tipo){
+    @PostMapping( )
+    public DireccionPaciente guardarDireccionPaciente(@RequestBody FPDireccion formulario){
         DireccionPaciente direccionPacienteDB = null;
-        System.out.printf("idPaciente: "+idPaciente+", idDireccion: "+idDireccion+", tipo: "+tipo);
-        direccionPacienteDB = service.save(idDireccion, idPaciente, tipo);
-        if(direccionPacienteDB!=null){
-            return new ResponseEntity<>(direccionPacienteDB, HttpStatus.CREATED);
-        }else {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+       // System.out.printf("idPaciente: "+idPaciente+", idDireccion: "+idDireccion+", tipo: "+tipo);
+        try {
+            direccionPacienteDB = service.save(formulario.getIdDireccion(), formulario.getIdPaciente(), formulario.getTipo());
+            return direccionPacienteDB;
+        }catch (Error error){
+            System.out.printf("Error processing Post: ", error.getMessage());
         }
+        return direccionPacienteDB;
     }
 
     @DeleteMapping(path = "/{id}")

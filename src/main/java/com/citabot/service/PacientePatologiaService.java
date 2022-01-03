@@ -82,4 +82,7 @@ public class PacientePatologiaService implements IPacientePatologiaService {
         }
         return pacPat;
     }
+
+   // @Override
+//    public PacientePatologia update(PacientePatologia pacientePatologia){return data.save(pacientePatologia);}
 }

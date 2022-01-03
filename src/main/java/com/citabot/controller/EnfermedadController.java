@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/enfermedad")
+@RequestMapping("/api/private/enfermedad")
 public class EnfermedadController {
 
     @Autowired
@@ -39,9 +39,10 @@ public class EnfermedadController {
     @PostMapping
     public ResponseEntity<?> guardarEnfermedad(@RequestBody Enfermedad enfermedad){
         Enfermedad enfermedadDB = null;
+        System.out.println("Enfermedad...... "+enfermedad);
         enfermedadDB = service.save(enfermedad);
         if(enfermedadDB!=null){
-            return new ResponseEntity<>(enfermedadDB, HttpStatus.CREATED);
+            return new ResponseEntity<>(enfermedadDB.getEnfermedadId(), HttpStatus.CREATED);
         }else{
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
@@ -72,5 +73,4 @@ public class EnfermedadController {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
     }
-
 }

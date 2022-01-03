@@ -110,6 +110,11 @@ public class MedicoService implements IMedicoService {
     }
 
     @Override
+    public List<Medico> Listar_medicos_clinica(int idClinica) {
+        return data.listarPorClinica(idClinica);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Medico findByEmail(String email) {
         Optional<Medico> medico = data.findMedicoByEmail(email);

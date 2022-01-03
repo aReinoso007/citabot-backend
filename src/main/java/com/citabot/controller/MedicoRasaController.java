@@ -4,6 +4,7 @@ import com.citabot.Constants;
 import com.citabot.interfaceService.IMedicoService;
 import com.citabot.model.Medico;
 import com.citabot.model.Paciente;
+import com.citabot.model.formulario.CitaD;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class MedicoRasaController {
     }
 
 
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Medico medico){
         Medico medicodb = null;
@@ -64,6 +66,11 @@ public class MedicoRasaController {
     @ResponseStatus(HttpStatus.OK)
     public List<Medico> getByMedicoEspecialidad(@RequestParam int idEspecialidad){
         return service.Listar_medicos_especialidad(idEspecialidad);
+    }
+
+    @GetMapping(path = "/clinica/{id}")
+    public List<Medico> listarMedicosPorClinica(@PathVariable("id") int id){
+        return service.Listar_medicos_clinica(id);
     }
 
 
