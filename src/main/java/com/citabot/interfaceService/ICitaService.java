@@ -30,6 +30,8 @@ public interface ICitaService {
 
     public List<String> citasOrdenadasFechaPorRegistro(int id);
 
+    public List<String> citasOrdenadasDiasPorRegistro();
+
     public List<Cita> getHistorial(long id);
 
     public List<Cita> getTodayCitas(long id);

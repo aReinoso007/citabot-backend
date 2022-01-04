@@ -132,6 +132,11 @@ public class CitaService implements ICitaService {
     }
 
     @Override
+    public List<String> citasOrdenadasDiasPorRegistro() {
+        return data.getDiasCitaPorRegistro(fechaActual());
+    }
+
+    @Override
     public List<Cita> getHistorial(long id) {
         return data.getAllCitasByMedicoId(id);
     }
@@ -146,11 +151,11 @@ public class CitaService implements ICitaService {
 
     }
 
-
     @Override
     public List<CitaConstl> obtenerCitaDetalle(int idCita) {
         return data.getCitaById(idCita);
     }
+
     public Timestamp actualizado() {
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
