@@ -5,8 +5,11 @@ import com.citabot.interfaceService.IMedicoSubespecialidadService;
 import com.citabot.model.Especialidad;
 import com.citabot.model.MedicoEspecialidad;
 import com.citabot.model.MedicoSubespecialidad;
+import com.citabot.model.formulario.FSubespecialidad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,19 +31,17 @@ public class MedicoSubespecialidadController {
 
 
     /*Arreglar aqui, en el front ya se recupera los is por seleccion, esto es solo de prueba */
-    @PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public MedicoSubespecialidad guardarRegistro(@RequestParam("medico_id") int medico_id, @RequestParam("subespecialidad_id") int subespecialidad_id){
+    @PostMapping()
+    public ResponseEntity<?> guardarRegistro(@RequestBody FSubespecialidad formulario){
         MedicoSubespecialidad medicosubEspecialidad = new MedicoSubespecialidad();
 
-        try{
-            medicosubEspecialidad = service.save(medico_id, subespecialidad_id);
-            return medicosubEspecialidad;
-        }catch (Error error){
-            System.out.printf("Error saving Medico subespecialidad: ", error.getMessage());
+        medicosubEspecialidad = service.save(formulario.getMedicoId(), formulario.getSubespecialidadId());
+        if(medicosubEspecialidad!=null){
+            return new ResponseEntity<>("Exito", HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-        return medicosubEspecialidad;
+
     }
-
-
 
 }

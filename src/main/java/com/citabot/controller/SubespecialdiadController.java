@@ -34,9 +34,14 @@ public class SubespecialdiadController {
         return service.listarByNombre(nombre);
     }
 
-    @GetMapping("/disponibles")
-    public List<Subespecialidad> listarDisponiblesParaMedicoPorEspecialidad(@RequestParam int medId, @RequestParam int espId){
+    @GetMapping("/disponibles/{medId}/{espId}")
+    public List<Subespecialidad> listarDisponiblesParaMedicoPorEspecialidad(@PathVariable("medId") int medId, @PathVariable("espId") int espId){
         return service.listarDisponiblesParaMedicoPorEspecialidad(medId, espId);
+    }
+
+    @GetMapping("/registradas/{medId}/{espId}")
+    public List<Subespecialidad> listarRegistradasPorMedicoYEspecialidad(@PathVariable("medId") int medId, @PathVariable("espId") int espId){
+        return service.listarRegistradasPorMedicoYEspecialidad(medId, espId);
     }
 
     @GetMapping(path = "/{id}")
@@ -44,7 +49,7 @@ public class SubespecialdiadController {
         return service.findById(id);
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @PostMapping()
     public Subespecialidad guardarSubespecialidad(@RequestParam("nombre") String nombre, @RequestParam("especialidad_id") int especialidad_id){
         Subespecialidad subespecialidad = new Subespecialidad();
 

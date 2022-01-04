@@ -10,11 +10,13 @@ public interface ISubespecialidad extends CrudRepository<Subespecialidad, Intege
 
     List<Subespecialidad> findSubespecialidadByEspecialidad(String especialidad);
     @Query(value = "select * from subespecialidad\n" +
-            "WHERE NOT EXISTS (SELECT subespecialidad_id from medico_subespecialidad where medico_id=:medId)\n" +
-            "and especialidad_id=:espId", nativeQuery = true)
+            "where not exists \n" +
+            "(select subespecialidad_id from medico_subespecialidad \n" +
+            " where medico_id=:medId and subespecialidad_id=subespecialidad.subespecialidad_id)\n" +
+            " and especialidad_id=:espId", nativeQuery = true)
     List<Subespecialidad> listarDisponibles(int medId, int espId);
 
     @Query(value = "select * from subespecialidad\n" +
-            "where subespecialidad_id in (SELECT subespecialidad_id  from medico_subespecialidad where medico_id=:medId)", nativeQuery = true)
-    List<Subespecialidad> listarTodasRegistradasPorMedico(int medId);
+            "where subespecialidad_id in (SELECT subespecialidad_id  from medico_subespecialidad where medico_id=:medId and especialidad_id=:espId)", nativeQuery = true)
+    List<Subespecialidad> listarTodasRegistradasPorMedico(int medId, int espId);
 }
