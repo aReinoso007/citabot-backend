@@ -132,6 +132,11 @@ public class CitaService implements ICitaService {
     }
 
     @Override
+    public List<String> citasOrdenadasDiasPorRegistro() {
+        return data.getDiasCitaPorRegistro(fechaActual());
+    }
+
+    @Override
     public List<Cita> getHistorial(long id) {
         return data.getAllCitasByMedicoId(id);
     }
