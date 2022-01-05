@@ -2,6 +2,7 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.ICirugiaService;
 import com.citabot.model.Cirugia;
+import com.citabot.model.Direccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +43,8 @@ public class CirugiaController {
         }
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable("id") int id){
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> deleteById(@RequestBody int id){
         boolean ok = service.delete(id);
         String message = "SUCCESS";
         if(ok){
@@ -52,6 +53,18 @@ public class CirugiaController {
             message = "FAILED";
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("/update")
+    public Cirugia updateCirugia(@RequestBody Cirugia cirugia ){
+        Cirugia cirugia1 = new Cirugia();
+        try{
+            cirugia1 = service.update(cirugia);
+            return  cirugia1;
+        }catch (Error error){
+            System.out.printf("Error processing Update: ", error.getMessage());
+        }
+        return cirugia1;
     }
 
 }

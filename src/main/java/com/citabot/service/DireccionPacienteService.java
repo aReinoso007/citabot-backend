@@ -7,6 +7,7 @@ import com.citabot.interfaces.IPaciente;
 import com.citabot.model.Direccion;
 import com.citabot.model.DireccionPaciente;
 import com.citabot.model.Paciente;
+import com.citabot.model.formulario.FPDireccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,7 +88,21 @@ public class DireccionPacienteService implements IDireccionPacienteService {
     }
 
     @Override
-    public DireccionPaciente update(DireccionPaciente direccionPaciente) {
+    public DireccionPaciente update(FPDireccion formulario) {
+
+        DireccionPaciente direccionPaciente = new DireccionPaciente();
+        Paciente paciente = new Paciente();
+        Direccion direccion = new Direccion();
+
+        paciente = pacienteData.findPacienteByUsuarioId(formulario.getIdPaciente()).get();
+        direccion = direccionData.findById(formulario.getIdDireccion()).get();
+
+        direccionPaciente.setDireccionPacienteId(formulario.getIdPacienteDireccion());
+        direccionPaciente.setTipo(formulario.getTipo());
+        direccionPaciente.setPaciente(paciente);
+        direccionPaciente.setDireccion(direccion);
+
+
         return data.save(direccionPaciente);
     }
 }

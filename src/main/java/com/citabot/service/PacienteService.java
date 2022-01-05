@@ -130,6 +130,7 @@ public class PacienteService implements IPacienteService {
             pacienteDb.setRecoveryEmail(paciente.getRecoveryEmail());
             pacienteDb.setUpdatedAt(actualizado());
             pacienteDb.setTipoSangre(paciente.getTipoSangre());
+            pacienteDb.setGenero(paciente.getGenero());
             pacienteDb.setNumeroContacto(paciente.getNumeroContacto());
             pacienteDb.setFechaNacimiento(paciente.getFechaNacimiento());
             return data.save(pacienteDb);

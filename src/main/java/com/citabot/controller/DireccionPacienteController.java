@@ -2,6 +2,7 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.IDireccionPacienteService;
 import com.citabot.model.DireccionPaciente;
+import com.citabot.model.PacientePatologia;
 import com.citabot.model.formulario.FCirugia;
 import com.citabot.model.formulario.FPDireccion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,8 @@ public class DireccionPacienteController {
         return direccionPacienteDB;
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> eliminarPorId(@PathVariable("id") int id){
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> eliminarPorId(@RequestBody int id){
         String message = null;
          message = service.delete(id);
          if(message.equals("SUCCESS")){
@@ -61,6 +62,20 @@ public class DireccionPacienteController {
          }else {
              return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
          }
+    }
+
+    @PostMapping("/update")
+    public DireccionPaciente updateDireccionPaciente(@RequestBody FPDireccion formulario){
+
+        DireccionPaciente direccionPaciente = new DireccionPaciente();
+
+        try{
+            direccionPaciente = service.update(formulario);
+            return  direccionPaciente;
+        }catch (Error error){
+            System.out.printf("Error processing Update: ", error.getMessage());
+        }
+        return direccionPaciente;
     }
 
 }

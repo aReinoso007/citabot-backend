@@ -2,6 +2,8 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.IEnfermedadService;
 import com.citabot.model.Enfermedad;
+import com.citabot.model.PacientePatologia;
+import com.citabot.model.formulario.FPatologia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,18 +61,17 @@ public class EnfermedadController {
         }
     }
     /*Para actualizar nombre, tipo y descripcion */
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateEnfermedad(@PathVariable("id") int id, @RequestBody Enfermedad enfermedad){
-        Enfermedad enfermedadDB = null;
-        enfermedadDB = service.findById(id).get();
-        if(enfermedadDB!=null){
-            enfermedadDB.setNombre(enfermedad.getNombre());
-            enfermedadDB.setTipo(enfermedad.getTipo());
-            enfermedadDB.setDescripcion(enfermedad.getDescripcion());
-            service.update(enfermedadDB);
-            return new ResponseEntity<>(enfermedadDB, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+    @PostMapping("/update")
+    public Enfermedad updateEnfermedad(@RequestBody Enfermedad enfermedad){
+        Enfermedad enfermedad1 = new Enfermedad();
+
+        //System.out.printf("id paciente: "+idPaciente +", idEnfermedad: "+idEnfermedad+", Tipo: "+tipo);
+        try{
+            enfermedad1 = service.update(enfermedad);
+            return  enfermedad1;
+        }catch (Error error){
+            System.out.printf("Error processing Update: ", error.getMessage());
         }
+        return enfermedad1;
     }
 }
