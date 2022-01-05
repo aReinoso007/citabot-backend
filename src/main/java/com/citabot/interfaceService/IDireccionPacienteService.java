@@ -1,6 +1,7 @@
 package com.citabot.interfaceService;
 
 import com.citabot.model.DireccionPaciente;
+import com.citabot.model.formulario.FPDireccion;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,6 @@ public interface IDireccionPacienteService {
     public Optional<DireccionPaciente> listarById(int id);
     public String delete(int id);
     public DireccionPaciente save(int direccionId, long pacienteId, String tipo);
-    public DireccionPaciente update(DireccionPaciente direccionPaciente);
+    public DireccionPaciente update(FPDireccion formulario);
 
 }

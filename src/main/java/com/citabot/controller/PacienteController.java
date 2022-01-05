@@ -39,7 +39,7 @@ public class PacienteController {
 
 
     /*Formato de fecha: anio-mes-dia */
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Paciente paciente){
         Paciente pacienteDB = null;
         pacienteDB = service.findById(id);

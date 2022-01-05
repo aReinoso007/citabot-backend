@@ -2,7 +2,9 @@ package com.citabot.controller;
 
 
 import com.citabot.interfaceService.IPacientePatologiaService;
+import com.citabot.interfaces.IPaciente;
 import com.citabot.model.Enfermedad;
+import com.citabot.model.Paciente;
 import com.citabot.model.PacientePatologia;
 import com.citabot.model.formulario.FPatologia;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class PacientePatologiaController {
 
     @Autowired
     IPacientePatologiaService service;
+
+    @Autowired
+    IPaciente servicePaciente;
 
     @GetMapping(produces = "application/json")
     public List<PacientePatologia> listar(){
@@ -56,12 +61,26 @@ public class PacientePatologiaController {
         return pacientePatologia;
     }
 
-    @PutMapping("/update")
+/*    @PostMapping("/update")
     public PacientePatologia updatePatologia(@RequestBody PacientePatologia patologiaPaciente){
         PacientePatologia pacientePatologia = new PacientePatologia();
         //System.out.printf("id paciente: "+idPaciente +", idEnfermedad: "+idEnfermedad+", Tipo: "+tipo);
         try{
-            pacientePatologia = service.save(patologiaPaciente.getTipo(), patologiaPaciente.getPaciente().getUsuarioId(), patologiaPaciente.getEnfermedad().getEnfermedadId());
+            pacientePatologia = service.update(patologiaPaciente);
+            return  pacientePatologia;
+        }catch (Error error){
+            System.out.printf("Error processing Update: ", error.getMessage());
+        }
+        return pacientePatologia;
+    }*/
+
+    @PostMapping("/update")
+    public PacientePatologia updatePatologia(@RequestBody FPatologia formulario){
+        PacientePatologia pacientePatologia = new PacientePatologia();
+
+        //System.out.printf("id paciente: "+idPaciente +", idEnfermedad: "+idEnfermedad+", Tipo: "+tipo);
+        try{
+            pacientePatologia = service.update(formulario);
             return  pacientePatologia;
         }catch (Error error){
             System.out.printf("Error processing Update: ", error.getMessage());

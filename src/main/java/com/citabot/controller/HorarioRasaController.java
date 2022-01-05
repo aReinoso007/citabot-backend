@@ -9,8 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -65,6 +64,18 @@ public class HorarioRasaController {
     @GetMapping(path = "/dias", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<LocalDateTime> listarDiasDisponibles(){
+
+        /*Me va a devolver los dias de las fechas generadas, aqui me va a devolver dias repetidos */
+        List<String> diasDisponibles = new ArrayList<String>();
+        for(int i=0;i<service.listarDiasDisponibles().size();i++) {
+            diasDisponibles.add(service.listarDiasDisponibles().get(i).getDayOfWeek().toString());
+        }
+        /*Utilizo un set para eliminar los repetidos */
+        Set<String> set = new HashSet<String>(diasDisponibles);
+        diasDisponibles.clear();
+        diasDisponibles.addAll(set);
+        System.out.println(set);
+
         return  service.listarDiasDisponibles();
     }
 

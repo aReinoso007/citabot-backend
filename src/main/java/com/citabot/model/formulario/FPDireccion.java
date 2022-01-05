@@ -5,11 +5,13 @@ import java.io.Serializable;
 public class FPDireccion implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private Integer idPacienteDireccion;
     private Integer idPaciente;
     private Integer idDireccion;
     private String tipo;
 
-    public FPDireccion(Integer idPaciente, Integer idDireccion, String tipo) {
+    public FPDireccion(Integer idPacienteDireccion, Integer idPaciente, Integer idDireccion, String tipo) {
+        this.idPacienteDireccion = idPacienteDireccion;
         this.idPaciente = idPaciente;
         this.idDireccion = idDireccion;
         this.tipo = tipo;
@@ -37,5 +39,13 @@ public class FPDireccion implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public Integer getIdPacienteDireccion() {
+        return idPacienteDireccion;
+    }
+
+    public void setIdPacienteDireccion(Integer idPacienteDireccion) {
+        this.idPacienteDireccion = idPacienteDireccion;
     }
 }

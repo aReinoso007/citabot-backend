@@ -8,6 +8,7 @@ import com.citabot.interfaces.IPacienteCirugia;
 import com.citabot.model.Cirugia;
 import com.citabot.model.Paciente;
 import com.citabot.model.PacienteCirugia;
+import com.citabot.model.formulario.FCirugia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,5 +81,22 @@ public class PacienteCirugiaservice implements IPacienteCirugiaService {
             message = "FAILED";
         }
         return message;
+    }
+
+    @Override
+    public PacienteCirugia update(FCirugia formulario) {
+
+        PacienteCirugia pacienteCirugia = new PacienteCirugia();
+        Paciente paciente = new Paciente();
+        Cirugia cirugia = new Cirugia();
+        paciente = pacienteData.findPacienteByUsuarioId(formulario.getIdPaciente()).get();
+        cirugia = cirugiaData.findById(formulario.getIdCirugia()).get();
+
+        pacienteCirugia.setPacienteCirugiaId(formulario.getIdPacienteCirugia());
+        pacienteCirugia.setPaciente(paciente);
+        pacienteCirugia.setCirugia(cirugia);
+        pacienteCirugia.setTipo(formulario.getTipo());
+
+        return data.save(pacienteCirugia);
     }
 }

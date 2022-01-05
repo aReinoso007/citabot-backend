@@ -6,11 +6,13 @@ public class FCirugia implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private Integer idPacienteCirugia;
     private Integer idPaciente;
     private Integer idCirugia;
     private String tipo;
 
-    public FCirugia(Integer idPaciente, Integer idCirugia, String tipo) {
+    public FCirugia(Integer idPacienteCirugia, Integer idPaciente, Integer idCirugia, String tipo) {
+        this.idPacienteCirugia = idPacienteCirugia;
         this.idPaciente = idPaciente;
         this.idCirugia = idCirugia;
         this.tipo = tipo;
@@ -38,5 +40,13 @@ public class FCirugia implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public Integer getIdPacienteCirugia() {
+        return idPacienteCirugia;
+    }
+
+    public void setIdPacienteCirugia(Integer idPacienteCirugia) {
+        this.idPacienteCirugia = idPacienteCirugia;
     }
 }
