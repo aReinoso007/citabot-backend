@@ -1,5 +1,7 @@
 package com.citabot.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ public class Cirugia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cirugiaId;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
     private Date fechaProcedimiento;
     private String descripcion;
 

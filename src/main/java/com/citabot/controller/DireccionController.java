@@ -2,6 +2,7 @@ package com.citabot.controller;
 
 import com.citabot.interfaceService.IDireccionService;
 import com.citabot.model.Direccion;
+import com.citabot.model.Enfermedad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,20 @@ public class DireccionController {
         }
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable("id") int id){
+    @PostMapping("/update")
+    public Direccion updateDireccion(@RequestBody Direccion direccion){
+        Direccion direccion1 = new Direccion();
+        try{
+            direccion1 = service.update(direccion);
+            return  direccion1;
+        }catch (Error error){
+            System.out.printf("Error processing Update: ", error.getMessage());
+        }
+        return direccion1;
+    }
+
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> deleteById(@RequestBody int id){
         String message = null;
         message=service.delete(id);
         if(message.equals("SUCCESS")){
