@@ -88,7 +88,6 @@ public class HorarioController {
 
     @PostMapping(path = "/delete")
     public ResponseEntity<?> borrarPorId(@RequestBody int id){
-        System.out.printf("id: "+id);
         service.deleteHorario(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
