@@ -110,6 +110,11 @@ public class MedicoService implements IMedicoService {
     }
 
     @Override
+    public List<Medico> listar_medicos_especialidadDia(int idEspecialidad, String dia) {
+        return data.listarPorDiaEspecilaidad(idEspecialidad, dia);
+    }
+
+    @Override
     public List<Medico> Listar_medicos_clinica(int idClinica) {
         return data.listarPorClinica(idClinica);
     }

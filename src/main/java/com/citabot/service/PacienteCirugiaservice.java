@@ -68,12 +68,17 @@ public class PacienteCirugiaservice implements IPacienteCirugiaService {
 
     @Override
     public String delete(int id) {
+        PacienteCirugia pc=new PacienteCirugia();
+        Cirugia cirugia = new Cirugia();
         String message = "SUCCESS";
         try {
             if(!data.existsById(id)){
                 message = "RECORD DOES NOT EXIST";
             }else{
+                pc=data.findById(id).get();
+                cirugia=pc.getCirugia();
                 data.deleteById(id);
+                cirugiaData.delete(cirugia);
             }
 
         }catch (Error error){

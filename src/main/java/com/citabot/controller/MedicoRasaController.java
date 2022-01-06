@@ -62,11 +62,19 @@ public class MedicoRasaController {
         }
     }
 
+    @GetMapping("/medicos/especialidad")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Medico> getByMedicoEspecialidadDia(@RequestParam int idEspecialidad, String dia){
+        return service.listar_medicos_especialidadDia(idEspecialidad, dia);
+    }
+
     @GetMapping("/query")
     @ResponseStatus(HttpStatus.OK)
     public List<Medico> getByMedicoEspecialidad(@RequestParam int idEspecialidad){
         return service.Listar_medicos_especialidad(idEspecialidad);
     }
+
+
 
     @GetMapping(path = "/clinica/{id}")
     public List<Medico> listarMedicosPorClinica(@PathVariable("id") int id){

@@ -15,12 +15,12 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/private/clinica")
-public class ClinicaController {
+@RequestMapping("/api/public/clinica")
+public class ClinicaRasaController {
 
     @Autowired
     IClinicaService service;
-    
+
     /* Funciona */
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
@@ -83,5 +83,5 @@ public class ClinicaController {
         return service.listarPorMedico(idMedico);
     }
 
-
 }
+

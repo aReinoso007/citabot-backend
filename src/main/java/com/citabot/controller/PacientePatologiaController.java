@@ -88,5 +88,18 @@ public class PacientePatologiaController {
         return pacientePatologia;
     }
 
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> eliminarPorId(@RequestBody int id){
+        String message = null;
+        message = service.delete(id);
+        if(message.equals("SUCCESS")){
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
 
 }

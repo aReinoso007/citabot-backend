@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/pivate/cita")
+@RequestMapping("/api/private/cita")
 @Slf4j
 public class CitaController {
 
@@ -125,7 +125,7 @@ public class CitaController {
 
     }
 
-    @PutMapping("/update/{id}")
+/*    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestParam("estado") String estado) {
         Cita citaDB = null;
         citaDB = service.listarById(id).get();
@@ -135,5 +135,33 @@ public class CitaController {
         } else {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
+    }*/
+
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestBody Cita cita) {
+        Cita citaDB = null;
+        String message="SUCCESS";
+        citaDB = service.listarById(cita.getCitaId()).get();
+        if (citaDB != null) {
+            citaDB = service.update(cita.getCitaId(), cita.getEstado());
+            return new ResponseEntity<>(message,HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
     }
+
+
+
+/*    @PostMapping(value="/update/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestParam("estado") String estado) {
+        Cita citaDB = null;
+        System.out.println("ESTAD0: "+estado);
+        citaDB = service.listarById(id).get();
+        if (citaDB != null) {
+            citaDB = service.update(id, estado);
+            return new ResponseEntity<>(citaDB, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+    }*/
 }

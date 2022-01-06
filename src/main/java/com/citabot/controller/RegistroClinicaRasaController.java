@@ -15,8 +15,8 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/private/registro_clinica")
-public class RegistroClinicaController {
+@RequestMapping("/api/public/registro_clinica")
+public class RegistroClinicaRasaController {
 
     @Autowired
     IRegistroClinicaService service;

@@ -5,7 +5,9 @@ import com.citabot.model.PacienteCirugia;
 import com.citabot.model.PacientePatologia;
 import com.citabot.model.formulario.FCirugia;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,6 +54,18 @@ public class PacienteCirugiaController {
             System.out.printf("Error processing Update: ", error.getMessage());
         }
         return pacienteCirugia;
-
     }
+
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> eliminarPorId(@RequestBody int id){
+        String message = null;
+        message = service.delete(id);
+        if(message.equals("SUCCESS")){
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }
