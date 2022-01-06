@@ -26,7 +26,8 @@ public class MedicoSubespecialidad implements Serializable {
     public MedicoSubespecialidad() {
     }
 
-    public MedicoSubespecialidad(Timestamp createdAt, Timestamp updatedAt, Medico medico, Subespecialidad subespecialidad) {
+    public MedicoSubespecialidad(Integer medicoSubespecialidadId, Timestamp createdAt, Timestamp updatedAt, Medico medico, Subespecialidad subespecialidad) {
+        this.medicoSubespecialidadId = medicoSubespecialidadId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.medico = medico;
@@ -72,4 +73,5 @@ public class MedicoSubespecialidad implements Serializable {
     public void setSubespecialidad(Subespecialidad subespecialidad) {
         this.subespecialidad = subespecialidad;
     }
+
 }

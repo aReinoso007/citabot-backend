@@ -42,7 +42,6 @@ public class HorarioService implements IHorarioService {
 
     @Override
     public Horario save(int idRegistro, Horario horario) {
-        log.info("id del registro: ", idRegistro);
         Horario h = new Horario();
         RegistroClinica registroClinica = new RegistroClinica();
         RegistroClinica rc = new RegistroClinica();
@@ -58,15 +57,8 @@ public class HorarioService implements IHorarioService {
     }
 
     @Override
-    public String delete(int id) {
-        String message = "SUCCESS";
-        try{
-            data.deleteById(id);
-        }catch (Error e){
-            System.out.printf("Error deleting: ", e.getMessage());
-            message = "FAILED";
-        }
-        return  message;
+    public void deleteHorario(int id) {
+        data.deleteById(id);
     }
 
     @Override

@@ -19,6 +19,10 @@ public class AuthFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
+        httpResponse.setHeader("Access-Control-Allow-Origin", "*");
+        httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
+        httpResponse.setHeader("Access-Control-Max-Age", "3600");
+        httpResponse.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
         String authHeader = httpRequest.getHeader("Authorization");
         if(authHeader != null) {
             String[] authHeaderArr = authHeader.split("Bearer ");
@@ -33,6 +37,7 @@ public class AuthFilter extends GenericFilterBean {
                     return;
                 }
             } else {
+                System.out.printf("Denegado");
                 httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Authorization token must be Bearer [token]");
                 return;
             }

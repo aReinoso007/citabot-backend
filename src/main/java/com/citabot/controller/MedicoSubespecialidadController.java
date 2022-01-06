@@ -6,6 +6,7 @@ import com.citabot.model.Especialidad;
 import com.citabot.model.MedicoEspecialidad;
 import com.citabot.model.MedicoSubespecialidad;
 import com.citabot.model.formulario.FSubespecialidad;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/private/medico_subespecialidad")
+@Slf4j
 public class MedicoSubespecialidadController {
 
     @Autowired
@@ -29,8 +31,11 @@ public class MedicoSubespecialidadController {
         return service.findAll();
     }
 
+    @GetMapping("/registro/{medId}/{subId}")
+    public Integer getRegistroId(@PathVariable("medId") int medId, @PathVariable("subId") int subId){
+        return service.getRegistroId(medId, subId);
+    }
 
-    /*Arreglar aqui, en el front ya se recupera los is por seleccion, esto es solo de prueba */
     @PostMapping()
     public ResponseEntity<?> guardarRegistro(@RequestBody FSubespecialidad formulario){
         MedicoSubespecialidad medicosubEspecialidad = new MedicoSubespecialidad();
@@ -42,6 +47,12 @@ public class MedicoSubespecialidadController {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
 
+    }
+
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> modifyRegistroSubespecialidad(@RequestBody int id){
+        service.deleteRegistroSubespecialdiad(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -14,5 +14,6 @@ public interface IMedicoEspecialidadService {
     public Optional<MedicoEspecialidad> findById(int id);
     public MedicoEspecialidad save(int medico_id, int especialidad_id);
     public MedicoEspecialidad edit(MedicoEspecialidad medicoEspecialidad);
-    public String delete(int id);
+    public void deleteRegistroEspecialidad(int id);
+    public Integer getRegistroId(int medId, int espId);
 }

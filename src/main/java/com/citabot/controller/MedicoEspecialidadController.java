@@ -35,6 +35,11 @@ public class MedicoEspecialidadController {
         return service.findById(id);
     }
 
+    @GetMapping("/registro/{medId}/{espId}")
+    public Integer getRegistroId(@PathVariable("medId") int medId, @PathVariable("espId") int espId){
+        return service.getRegistroId(medId, espId);
+    }
+
     /*Arreglar aqui, en el front ya se recupera los is por seleccion, esto es solo de prueba */
     @PostMapping()
     public ResponseEntity<?> guardarRegistro(@RequestBody FMedicoEspecialidad form){
@@ -46,5 +51,10 @@ public class MedicoEspecialidadController {
         }
     }
 
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> deleteRegistroEspecialidad(@RequestBody int id){
+        service.deleteRegistroEspecialidad(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
