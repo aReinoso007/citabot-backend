@@ -15,4 +15,5 @@ public interface ISubespecialidadService {
     public Subespecialidad save(String nombre, int especialidad_id);
     public String delete(int id);
     public List<Subespecialidad> listarDisponiblesParaMedicoPorEspecialidad(int medId, int espId);
+    public List<Subespecialidad> listarRegistradasPorMedicoYEspecialidad(int medId, int espId);
 }

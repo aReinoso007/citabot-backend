@@ -5,6 +5,7 @@ import com.citabot.interfaceService.IMedicoService;
 import com.citabot.interfaces.IMedico;
 import com.citabot.model.Medico;
 import com.citabot.model.formulario.FMedico;
+import com.citabot.model.formulario.FUpdateMedico;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -64,16 +65,16 @@ public class MedicoService implements IMedicoService {
 
     /*Slogan, descripcion y numero contacto */
     @Override
-    public Medico update(long id, Medico medico) {
+    public Medico update(long id, FUpdateMedico form) {
         Medico medicoDB = null;
 
         if(!data.existsById(id)){
             return null;
         }else{
             medicoDB = data.findById(id).get();
-            medicoDB.setSlogan(medico.getSlogan());
-            medicoDB.setDescripcion(medico.getDescripcion());
-            medicoDB.setNumeroContacto(medico.getNumeroContacto());
+            medicoDB.setSlogan(form.getSlogan());
+            medicoDB.setDescripcion(form.getDescripcion());
+            medicoDB.setNumeroContacto(form.getNumeroContacto());
             medicoDB.setUpdatedAt(actualizado());
             return data.save(medicoDB);
         }

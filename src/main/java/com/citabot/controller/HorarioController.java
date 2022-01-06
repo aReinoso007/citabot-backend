@@ -77,7 +77,6 @@ public class HorarioController {
     /*Este post se realiza enviando el id del registro por la url */
     @PostMapping(path = "/guardar/{id}")
     public Horario guardarHorario(@PathVariable("id") int id, @RequestBody Horario horario){
-        log.info("horario: ", horario.toString());
         Horario h = new Horario();
         try{
             h = service.save(id, horario);
@@ -87,15 +86,10 @@ public class HorarioController {
         return h;
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> borrarPorId(@PathVariable("id") int id){
-        String message = null;
-        message = service.delete(id);
-        if(message.equals("SUCCESS")){
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(message,HttpStatus.NOT_FOUND);
-        }
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> borrarPorId(@RequestBody int id){
+        service.deleteHorario(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

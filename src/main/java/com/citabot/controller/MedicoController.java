@@ -4,6 +4,7 @@ import com.citabot.Constants;
 import com.citabot.interfaceService.IMedicoService;
 import com.citabot.model.Medico;
 import com.citabot.model.Paciente;
+import com.citabot.model.formulario.FUpdateMedico;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +36,12 @@ public class MedicoController {
     }
 
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Medico medico){
+    @PostMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody FUpdateMedico form){
         Medico medicodb = null;
         medicodb = service.findById(id).get();
         if(medicodb!=null){
-            service.update(id, medico);
+            service.update(id, form);
             medicodb = service.findById(id).get();
             return new ResponseEntity<>(medicodb, HttpStatus.OK);
         }else{

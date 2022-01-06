@@ -22,7 +22,7 @@ public interface ICita extends CrudRepository<Cita, Integer> {
     @Query(value = "SELECT * FROM cita WHERE registro_clinica_id=:id ORDER BY fecha_cita ASC", nativeQuery = true)
     List<Cita> getCitasByRegistroId(int id);
 
-    @Query(value = "SELECT DISTINCT fecha_cita from cita where registro_clinica_id=:id and fecha_cita>:ts order by fecha_cita asc", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT fecha_cita from cita where registro_clinica_id=:id and fecha_cita>:ts and estado = 'pendiente' order by fecha_cita asc", nativeQuery = true)
     List<String> getFechasCitaPorRegistro(int id, Timestamp ts);
 
     @Query(value = "SELECT DISTINCT fecha_cita from cita where fecha_cita>:ts order by fecha_cita asc", nativeQuery = true)

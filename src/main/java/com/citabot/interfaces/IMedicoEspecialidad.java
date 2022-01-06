@@ -12,5 +12,7 @@ import java.util.Optional;
 @Repository
 public interface IMedicoEspecialidad extends CrudRepository<MedicoEspecialidad, Integer> {
 
+    @Query(value = "select * from medico_especialidad where medico_id=?1 and especialidad_id=?2", nativeQuery = true)
+    int getRegistroId(int medId, int espId);
 
 }

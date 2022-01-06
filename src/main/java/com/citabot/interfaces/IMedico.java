@@ -32,4 +32,5 @@ public interface IMedico extends CrudRepository<Medico, Long> {
             "clinica.clinica_id=?1", nativeQuery = true)
     List<Medico> listarPorClinica(int clinicaId);
 
+
 }
