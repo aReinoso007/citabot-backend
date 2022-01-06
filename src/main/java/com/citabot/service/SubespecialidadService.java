@@ -81,4 +81,9 @@ public class SubespecialidadService implements ISubespecialidadService {
     public List<Subespecialidad> listarDisponiblesParaMedicoPorEspecialidad(int medId, int espId) {
         return data.listarDisponibles(medId, espId);
     }
+
+    @Override
+    public List<Subespecialidad> listarRegistradasPorMedicoYEspecialidad(int medId, int espId) {
+        return data.listarTodasRegistradasPorMedico(medId, espId);
+    }
 }

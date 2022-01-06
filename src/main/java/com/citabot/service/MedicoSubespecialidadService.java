@@ -10,6 +10,7 @@ import com.citabot.interfaces.IMedicoSubespecialidad;
 import com.citabot.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -70,10 +71,14 @@ public class MedicoSubespecialidadService implements IMedicoSubespecialidadServi
         return null;
     }
 
+    @Override
+    public void deleteRegistroSubespecialdiad(int id) {
+        data.deleteById(id);
+    }
 
     @Override
-    public String delete(int id) {
-        return null;
+    public int getRegistroId(int medid, int subid) {
+        return data.getRegistroId(medid, subid);
     }
 
 }

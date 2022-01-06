@@ -3,6 +3,7 @@ package com.citabot.interfaceService;
 import com.citabot.exceptions.EtAuthException;
 import com.citabot.model.Medico;
 import com.citabot.model.formulario.FMedico;
+import com.citabot.model.formulario.FUpdateMedico;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public interface IMedicoService {
     public Optional<Medico> findById(long id);
     Medico validateMedico(String email, String password) throws EtAuthException;
     public Medico save(FMedico form);
-    public Medico update(long id, Medico medico);
+    public Medico update(long id, FUpdateMedico form);
     public String delete(long id);
     public Medico buscarPorId(long id);
     public List<Medico> Listar_medicos_especialidad(int idEspecialidad);

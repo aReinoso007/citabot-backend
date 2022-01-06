@@ -75,9 +75,15 @@ public class MedicoEspecialidadService implements IMedicoEspecialidadService {
         return null;
     }
 
+
     @Override
-    public String delete(int id) {
-        return null;
+    public void deleteRegistroEspecialidad(int id) {
+        data.deleteById(id);
+    }
+
+    @Override
+    public Integer getRegistroId(int medId, int espId) {
+        return data.getRegistroId(medId, espId);
     }
 
 }
