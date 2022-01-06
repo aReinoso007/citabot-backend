@@ -42,12 +42,18 @@ public class DireccionPacienteService implements IDireccionPacienteService {
 
     @Override
     public String delete(int id) {
+        DireccionPaciente dp=new DireccionPaciente();
+        Direccion direccion= new Direccion();
         String message = "SUCCESS";
         try {
             if(!data.existsById(id)){
                 message = "RECORD DOES NOT EXIST";
             }else{
+                dp=data.findById(id).get();
+                direccion=dp.getDireccion();
+
                 data.deleteById(id);
+                direccionData.delete(direccion);
             }
 
         }catch (Error error){

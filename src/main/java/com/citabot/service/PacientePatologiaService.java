@@ -42,14 +42,18 @@ public class PacientePatologiaService implements IPacientePatologiaService {
 
     @Override
     public String delete(int id) {
+        PacientePatologia pacientePatologia= new PacientePatologia();
+        Enfermedad enfermedad = new Enfermedad();
         String message = "SUCCESS";
         try {
             if(!data.existsById(id)){
                 message = "RECORD DOES NOT EXIST";
             }else{
+                pacientePatologia=data.findById(id).get();
+                enfermedad=pacientePatologia.getEnfermedad();
                 data.deleteById(id);
+                enfermedadData.delete(enfermedad);
             }
-
         }catch (Error error){
             System.out.printf("ERROR DELETING RECORD: ", error.getMessage());
             message = "FAILED";

@@ -18,6 +18,7 @@ public interface IMedicoService {
     public String delete(long id);
     public Medico buscarPorId(long id);
     public List<Medico> Listar_medicos_especialidad(int idEspecialidad);
+    public List<Medico> listar_medicos_especialidadDia(int idEspecialidad, String dia);
     public List<Medico> Listar_medicos_clinica(int idclinica);
     public Medico findByEmail(String email);
     Medico findByEmailAndContrasena(String email, String password);

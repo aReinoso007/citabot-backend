@@ -78,4 +78,9 @@ public class EspecialidadService implements IEspecialidadService {
     public List<Especialidad> listarRegistradasPorMedico(int medId) {
         return data.listarEspecialidadesRegistradasPorMedico(medId);
     }
+
+    @Override
+    public List<Especialidad> listarDisponiblesPorDias(String dia) {
+        return data.listarEspecialidadesPorDia(dia);
+    }
 }

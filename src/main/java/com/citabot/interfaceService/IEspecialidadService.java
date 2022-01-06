@@ -17,4 +17,5 @@ public interface IEspecialidadService {
     public Especialidad update(Especialidad especialidad);
     public List<Especialidad> listarDisponiblesParaMedico(int medicoId);
     public List<Especialidad> listarRegistradasPorMedico(int medId);
+    public List<Especialidad> listarDisponiblesPorDias(String dia);
 }

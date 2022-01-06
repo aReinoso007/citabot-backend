@@ -63,7 +63,7 @@ public class HorarioRasaController {
 
     @GetMapping(path = "/dias", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<LocalDateTime> listarDiasDisponibles(){
+    public List<String> listarDiasDisponibles(){
 
         /*Me va a devolver los dias de las fechas generadas, aqui me va a devolver dias repetidos */
         List<String> diasDisponibles = new ArrayList<String>();
@@ -76,7 +76,7 @@ public class HorarioRasaController {
         diasDisponibles.addAll(set);
         System.out.println(set);
 
-        return  service.listarDiasDisponibles();
+        return  diasDisponibles;
     }
 
     @GetMapping(path = "/query")
