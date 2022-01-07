@@ -19,6 +19,8 @@ public class FPatologia implements Serializable {
         this.tipo = tipo;
     }
 
+    public FPatologia(){}
+
     public Integer getIdPcientePatologia() {
         return idPcientePatologia;
     }

@@ -18,6 +18,9 @@ public class FCirugia implements Serializable {
         this.tipo = tipo;
     }
 
+    public FCirugia() {
+    }
+
     public Integer getIdPaciente() {
         return idPaciente;
     }
