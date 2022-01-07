@@ -22,7 +22,7 @@ public interface IHorarioService {
     /*Devuelve fechas disponibles y hace uso de la funcion
     * horariosRegistroOrdenado para agregar los intervalos de tiempo
     * a las fechas disponibles */
-    public List<LocalDateTime> listarFechasDisponibles(int id);
+    public List<String> listarFechasDisponibles(int id);
 
     /*Me lista los dias e intervalos de tiempo, esta es importantes */
     List<String> horariosRegistroOrdenado(int id);

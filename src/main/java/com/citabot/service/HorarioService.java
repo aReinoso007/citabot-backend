@@ -67,10 +67,10 @@ public class HorarioService implements IHorarioService {
     }
 
     @Override
-    public List<LocalDateTime> listarFechasDisponibles(int id) {
+    public List<String> listarFechasDisponibles(int id) {
         /*Aqui le paso un array que tiene el dia,hora inicio, hora fin */
         List<String> dias = data.horarioOrdenadoPorRegistro(id);
-        List<LocalDateTime> availableDates;
+        List<String> availableDates;
         try{
             availableDates = obtenerFechasyHorasDisponibles(dias, id);
         }catch (Exception e){
@@ -174,8 +174,8 @@ public class HorarioService implements IHorarioService {
     }
 
 
-    /*El id es del registro*/
-    public List<LocalDateTime> obtenerFechasyHorasDisponibles(List<String> diasHoras, int id){
+    /*El id es del registro* y me devuelve las fechas como string*/
+    public List<String> obtenerFechasyHorasDisponibles(List<String> diasHoras, int id){
         /*Aqui guardo las fechas generadas, importante para iterar por dias */
         List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
 
@@ -187,7 +187,7 @@ public class HorarioService implements IHorarioService {
         List<Timestamp> filtro = new ArrayList<>();
         List<Timestamp> horarioTimestamp = new ArrayList<>();
         List<Timestamp> agendadasTimestamp = new ArrayList<>();
-        List<LocalDateTime> fechasFinales = new ArrayList<>();
+        //List<LocalDateTime> fechasFinales = new ArrayList<>();
 
         LocalDateTime inicioDate = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime finDate = inicioDate.plusDays(7).withSecond(0).withNano(0);
@@ -224,6 +224,7 @@ public class HorarioService implements IHorarioService {
         fechasFiltradas = timeStampToLocalDateTime(filtro);
 
         /*Obtenemos un iterador */
+        List<String> fechasFinalesPasables = new ArrayList<>();
         Iterator<LocalDateTime> dateTimeIterator = fechasFiltradas.iterator();
         while(dateTimeIterator.hasNext()){
             LocalDateTime ldt = dateTimeIterator.next();
@@ -232,10 +233,10 @@ public class HorarioService implements IHorarioService {
             }
         }
         for(LocalDateTime ldt : fechasFiltradas){
-            fechasFinales.add(ldt);
+            //fechasFinales.add(ldt);
+            fechasFinalesPasables.add(ldt.toString());
         }
-
-        return fechasFinales;
+        return fechasFinalesPasables;
     }
 
 
