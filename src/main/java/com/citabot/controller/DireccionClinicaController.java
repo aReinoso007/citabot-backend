@@ -36,7 +36,6 @@ public class DireccionClinicaController {
     @PostMapping()
     public ResponseEntity<?>guardarDireccionClinica(@Valid @RequestBody FClinicaDireccion formulario){
         DireccionClinica direccionClinica = null;
-        System.out.printf("idClinica: "+formulario.getClinicaId()+", idDireccion: "+formulario.getDireccionId());
         direccionClinica = service.save(formulario.getClinicaId(), formulario.getDireccionId());
         if(direccionClinica!=null){
             return new ResponseEntity<>("Agregado con exito", HttpStatus.CREATED);

@@ -20,6 +20,9 @@ public class FMedico implements Serializable {
     private String descripcion;
     private String role;
 
+    public FMedico() {
+    }
+
     public FMedico(String nombre, String apellido, String username, String estado, String email, String recoveryEmail, String password, String numeroContacto, String slogan, String profesion, String photoUrl, String descripcion, String role) {
         this.nombre = nombre;
         this.apellido = apellido;

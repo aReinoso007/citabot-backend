@@ -52,15 +52,11 @@ public class RegistroClinicaController {
         }
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> borrarPorId(@PathVariable("id") int id){
-        String message = null;
-        message = service.delete(id);
-        if(message.equals("SUCCESS")){
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-        }
+    @PostMapping(path = "/delete")
+    public ResponseEntity<?> borrarPorId(@RequestBody int id){
+        service.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
 
