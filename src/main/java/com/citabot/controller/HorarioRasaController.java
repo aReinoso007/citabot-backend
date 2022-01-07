@@ -57,7 +57,7 @@ public class HorarioRasaController {
     /*Devuelve  esto es para el paciente*/
     @GetMapping(path = "/fechas/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<LocalDateTime> listarFechasDisponibles(@PathVariable("id") int id){
+    public List<String> listarFechasDisponibles(@PathVariable("id") int id){
         return  service.listarFechasDisponibles(id);
     }
 
