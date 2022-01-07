@@ -68,20 +68,8 @@ public class RegistroClinicaService implements IRegistroClinicaService {
     }
 
     @Override
-    public String delete(int id) {
-        String message = "SUCCESS";
-        try {
-            if(!data.existsById(id)){
-                message = "Registro no existe";
-            }else{
-                data.deleteById(id);
-            }
-
-        }catch (Error error){
-            System.out.printf("Error deleting: ", error.getMessage());
-            message = "FAILED";
-        }
-        return message;
+    public void delete(int id) {
+        data.deleteById(id);
     }
 
     @Override
