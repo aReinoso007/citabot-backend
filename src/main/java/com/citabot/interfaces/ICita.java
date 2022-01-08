@@ -45,7 +45,7 @@ public interface ICita extends CrudRepository<Cita, Integer> {
 
     @Query(value = "select * from cita\n" +
             "where registro_clinica_id in (SELECT registro_clinica_id  from registro_clinica where medico_id=:id)\n" +
-            "and fecha_cita = now()\n" +
+            "and fecha_cita >= current_date\n" +
             "order by fecha_cita asc;", nativeQuery = true)
     List<Cita> getTodayCitas(long id);
 

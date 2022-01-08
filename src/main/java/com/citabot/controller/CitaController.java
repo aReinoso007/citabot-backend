@@ -70,6 +70,7 @@ public class CitaController {
     public List<Cita> getTodayCitas(@PathVariable("id") long id) {
         return service.getTodayCitas(id);
     }
+
     @GetMapping(path = "/citas/{id}")
     public List<CitaD> listarCitasPorPaciente(@PathVariable("id") int id) {
         List<CitaConstl> list = new ArrayList<>();

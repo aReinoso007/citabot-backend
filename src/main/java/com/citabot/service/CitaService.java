@@ -122,7 +122,7 @@ public class CitaService implements ICitaService {
 
     @Override
     public List<Cita> listarByRegistroId(int id) {
-        return (List<Cita>) data.getCitasByRegistroId(id);
+        return  data.getCitasByRegistroId(id);
     }
 
     /* */
@@ -145,6 +145,7 @@ public class CitaService implements ICitaService {
     public List<Cita> getTodayCitas(long id) {
         return data.getTodayCitas(id);
     }
+
     public List<CitaConstl> Listar_citas_paciente(int idPaciente) {
         System.out.printf("Data: " + data.listarCitaPorPacienteId(idPaciente));
         return data.listarCitaPorPacienteId(idPaciente);
