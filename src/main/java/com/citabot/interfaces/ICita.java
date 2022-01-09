@@ -40,8 +40,8 @@ public interface ICita extends CrudRepository<Cita, Integer> {
     List<CitaConstl> getCitaById(int citaId);
 
     @Query(value = "select * from cita\n" +
-            "where registro_clinica_id in (SELECT registro_clinica_id  from registro_clinica where medico_id=:id order by fecha_cita asc", nativeQuery = true)
-    List<Cita> getAllCitasByMedicoId(long id);
+            "where registro_clinica_id in (SELECT registro_clinica_id  from registro_clinica where medico_id=:id) order by fecha_cita asc", nativeQuery = true)
+    List<Cita> getAllCitasByMedicoId(int id);
 
     @Query(value = "select * from cita\n" +
             "where registro_clinica_id in (SELECT registro_clinica_id  from registro_clinica where medico_id=:id)\n" +

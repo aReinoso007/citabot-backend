@@ -32,10 +32,12 @@ public interface ICitaService {
 
     public List<String> citasOrdenadasDiasPorRegistro();
 
-    public List<Cita> getHistorial(long id);
+    public List<Cita> getHistorial(int id);
 
     public List<Cita> getTodayCitas(long id);
 
     public List<CitaConstl> Listar_citas_paciente(int idPaciente);
     public List<CitaConstl> obtenerCitaDetalle(int idCita);
+
+
 }

@@ -62,7 +62,7 @@ public class CitaController {
     }
 
     @GetMapping(path = "historial/{id}")
-    public List<Cita> getHistorialCitasMedico(@PathVariable("id") long id) {
+    public List<Cita> getHistorialCitasMedico(@PathVariable("id") int id) {
         return service.getHistorial(id);
     }
 

@@ -137,7 +137,7 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public List<Cita> getHistorial(long id) {
+    public List<Cita> getHistorial(int id) {
         return data.getAllCitasByMedicoId(id);
     }
 
