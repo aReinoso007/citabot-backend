@@ -105,7 +105,7 @@ public class HorarioService implements IHorarioService {
 
     @Override
     public List<Horario> horarioOrdenadoObj(int id) {
-        return data.horarioOrdenadoOBJ(id);
+        return this.traducirDiasHorario(data.horarioOrdenadoOBJ(id));
     }
 
     public Timestamp actualizado(){
@@ -269,6 +269,19 @@ public class HorarioService implements IHorarioService {
         List<Timestamp> filtro = new ArrayList<>(fechas);
         filtro.removeAll(agendadas);
         return filtro;
+    }
+
+    public List<Horario> traducirDiasHorario(List<Horario> horario){
+        for(int i=0; i<horario.size();i++){
+            if(horario.get(i).getDia().equals("MONDAY")) horario.get(i).setDia("Lunes");
+            if(horario.get(i).getDia().equals("TUESDAY")) horario.get(i).setDia("Martes");
+            if(horario.get(i).getDia().equals("WEDNESDAY")) horario.get(i).setDia("Miercoles");
+            if(horario.get(i).getDia().equals("THURSDAY")) horario.get(i).setDia("Jueves");
+            if(horario.get(i).getDia().equals("FRIDAY")) horario.get(i).setDia("Viernes");
+            if(horario.get(i).getDia().equals("SATURDAY")) horario.get(i).setDia("Sábado");
+            if(horario.get(i).getDia().equals("SUNDAY")) horario.get(i).setDia("Domingo");
+        }
+        return horario;
     }
 
 }
