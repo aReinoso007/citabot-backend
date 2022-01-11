@@ -17,6 +17,9 @@ public class FPDireccion implements Serializable {
         this.tipo = tipo;
     }
 
+    public FPDireccion() {
+    }
+
     public Integer getIdPaciente() {
         return idPaciente;
     }

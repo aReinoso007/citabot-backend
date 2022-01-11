@@ -40,6 +40,9 @@ public class FPaciente implements Serializable {
         this.role = role;
     }
 
+    public FPaciente() {
+    }
+
     public String getNombre() {
         return nombre;
     }
