@@ -80,6 +80,45 @@ public class HorarioService implements IHorarioService {
         return availableDates;
     }
 
+    @Override
+    public List<String> listarFechasDisponiblesRegistro(int idRegistroClinica, String dia) {
+        List<String> dias = data.horarioOrdenadoPorDia(idRegistroClinica, dia);
+        List<String> availableDates;
+        try{
+            availableDates = obtenerFechasyHorasDisponibles(dias, idRegistroClinica);
+        }catch (Exception e){
+            System.out.printf("excepcion listando fechas: "+ e.getMessage());
+            return null;
+        }
+        return availableDates;
+    }
+
+    @Override
+    public List<String> fechasDisponiblesMedico(int idEspecialidad, int idMedico, String dia) {
+        List<String> dias = data.diasOrdenadosPorDiaMedico(idEspecialidad, idMedico, dia);
+        List<String> availableDates;
+        try{
+            availableDates = obtenerFechasDisponiblesMedico(dias, idMedico);
+        }catch (Exception e){
+            System.out.printf("excepcion listando fechas: "+ e.getMessage());
+            return null;
+        }
+        return availableDates;
+
+    }
+
+    @Override
+    public List<String> fechasDisponiblesClinica(int idClinica, int idMedico, String dia) {
+        List<String> dias = data.diasOrdenadosPorDiaClinica(idClinica,idMedico, dia);
+        List<String> availableDates;
+        try{
+            availableDates = obtenerFechasDisponiblesClinica(dias, idClinica, idMedico);
+        }catch (Exception e){
+            System.out.printf("excepcion listando fechas: "+ e.getMessage());
+            return null;
+        }
+        return availableDates;
+    }
 
 
     @Override
@@ -108,13 +147,14 @@ public class HorarioService implements IHorarioService {
         return data.horarioOrdenadoOBJ(id);
     }
 
+
     public Timestamp actualizado(){
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
         return ts;
     }
 
-    /*Se obtienen los dias disponibles para agendar las citas */
+
     public List<LocalDateTime> ObtenerDiasDisponibles(List<String> diasHoras){
         List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
         List<String> citasAgendadas = citaData.citasOrdenadasDiasPorRegistro();
@@ -181,6 +221,135 @@ public class HorarioService implements IHorarioService {
 
         /*Tiene las citas agendadas */
         List<String> citasAgendadas = citaData.citasOrdenadasFechaPorRegistro(id);
+
+        /*Para guardar las fechas que no se repiten */
+        List<LocalDateTime> fechasFiltradas = new ArrayList<>();
+        List<Timestamp> filtro = new ArrayList<>();
+        List<Timestamp> horarioTimestamp = new ArrayList<>();
+        List<Timestamp> agendadasTimestamp = new ArrayList<>();
+        //List<LocalDateTime> fechasFinales = new ArrayList<>();
+
+        LocalDateTime inicioDate = LocalDateTime.now().withSecond(0).withNano(0);
+        LocalDateTime finDate = inicioDate.plusDays(7).withSecond(0).withNano(0);
+        for(LocalDateTime id1 = inicioDate; id1.isBefore(finDate); id1 = id1.plusDays(1)) {
+            for(int i=0; i< diasHoras.size(); i++) {
+                String diaHora = diasHoras.get(i);
+                String[] arrOfDia = diaHora.split(",", 4);
+                String ldt = id1.getDayOfWeek().toString();
+                if(ldt.equals(arrOfDia[0].toUpperCase())) {
+
+                    String horIn = arrOfDia[1].substring(0,2);
+                    String minIn = arrOfDia[1].substring(3,5);
+
+                    String horFin = arrOfDia[2].substring(0,2);
+                    String minFin = arrOfDia[2].substring(3,5);
+
+                    int horaStart = Integer.parseInt(horIn);
+                    int minStart = Integer.parseInt(minIn);
+                    int horaEnd = Integer.parseInt(horFin);
+                    int minEnd = Integer.parseInt(minFin);
+                    LocalDateTime nldt = id1.withHour(horaStart).withMinute(minStart).withSecond(0).withNano(0);
+                    LocalDateTime nldtFin = id1.withHour(horaEnd).withMinute(minEnd).withSecond(0).withNano(0);
+
+                    for(LocalDateTime id2 = nldt; id2.isBefore(nldtFin); id2 = id2.plusMinutes(30)) {
+                        availableDates.add(id2);
+                    }
+                }
+            }
+        }
+        /*Pasar de LocalDateTime horario a TimeStamp */
+        horarioTimestamp = localDateTimeATimestamp(availableDates);
+        agendadasTimestamp = stringaTimestamp(citasAgendadas);
+        filtro = filtrarFechas(horarioTimestamp, agendadasTimestamp);
+        fechasFiltradas = timeStampToLocalDateTime(filtro);
+
+        /*Obtenemos un iterador */
+        List<String> fechasFinalesPasables = new ArrayList<>();
+        Iterator<LocalDateTime> dateTimeIterator = fechasFiltradas.iterator();
+        while(dateTimeIterator.hasNext()){
+            LocalDateTime ldt = dateTimeIterator.next();
+            if(ldt.isBefore(LocalDateTime.now())){
+                dateTimeIterator.remove();
+            }
+        }
+        for(LocalDateTime ldt : fechasFiltradas){
+            //fechasFinales.add(ldt);
+            fechasFinalesPasables.add(ldt.toString());
+        }
+        return fechasFinalesPasables;
+    }
+
+
+    public List<String> obtenerFechasDisponiblesMedico(List<String> diasHoras, int id){
+        /*Aqui guardo las fechas generadas, importante para iterar por dias */
+        List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
+
+        /*Tiene las citas agendadas */
+        List<String> citasAgendadas = citaData.citasOrdenadasFechaPorMedico(id);
+
+        /*Para guardar las fechas que no se repiten */
+        List<LocalDateTime> fechasFiltradas = new ArrayList<>();
+        List<Timestamp> filtro = new ArrayList<>();
+        List<Timestamp> horarioTimestamp = new ArrayList<>();
+        List<Timestamp> agendadasTimestamp = new ArrayList<>();
+        //List<LocalDateTime> fechasFinales = new ArrayList<>();
+
+        LocalDateTime inicioDate = LocalDateTime.now().withSecond(0).withNano(0);
+        LocalDateTime finDate = inicioDate.plusDays(7).withSecond(0).withNano(0);
+        for(LocalDateTime id1 = inicioDate; id1.isBefore(finDate); id1 = id1.plusDays(1)) {
+            for(int i=0; i< diasHoras.size(); i++) {
+                String diaHora = diasHoras.get(i);
+                String[] arrOfDia = diaHora.split(",", 4);
+                String ldt = id1.getDayOfWeek().toString();
+                if(ldt.equals(arrOfDia[0].toUpperCase())) {
+
+                    String horIn = arrOfDia[1].substring(0,2);
+                    String minIn = arrOfDia[1].substring(3,5);
+
+                    String horFin = arrOfDia[2].substring(0,2);
+                    String minFin = arrOfDia[2].substring(3,5);
+
+                    int horaStart = Integer.parseInt(horIn);
+                    int minStart = Integer.parseInt(minIn);
+                    int horaEnd = Integer.parseInt(horFin);
+                    int minEnd = Integer.parseInt(minFin);
+                    LocalDateTime nldt = id1.withHour(horaStart).withMinute(minStart).withSecond(0).withNano(0);
+                    LocalDateTime nldtFin = id1.withHour(horaEnd).withMinute(minEnd).withSecond(0).withNano(0);
+
+                    for(LocalDateTime id2 = nldt; id2.isBefore(nldtFin); id2 = id2.plusMinutes(30)) {
+                        availableDates.add(id2);
+                    }
+                }
+            }
+        }
+        /*Pasar de LocalDateTime horario a TimeStamp */
+        horarioTimestamp = localDateTimeATimestamp(availableDates);
+        agendadasTimestamp = stringaTimestamp(citasAgendadas);
+        filtro = filtrarFechas(horarioTimestamp, agendadasTimestamp);
+        fechasFiltradas = timeStampToLocalDateTime(filtro);
+
+        /*Obtenemos un iterador */
+        List<String> fechasFinalesPasables = new ArrayList<>();
+        Iterator<LocalDateTime> dateTimeIterator = fechasFiltradas.iterator();
+        while(dateTimeIterator.hasNext()){
+            LocalDateTime ldt = dateTimeIterator.next();
+            if(ldt.isBefore(LocalDateTime.now())){
+                dateTimeIterator.remove();
+            }
+        }
+        for(LocalDateTime ldt : fechasFiltradas){
+            //fechasFinales.add(ldt);
+            fechasFinalesPasables.add(ldt.toString());
+        }
+        return fechasFinalesPasables;
+    }
+
+    public List<String> obtenerFechasDisponiblesClinica(List<String> diasHoras, int idClinica, int idMedico){
+        /*Aqui guardo las fechas generadas, importante para iterar por dias */
+        List<LocalDateTime> availableDates = new ArrayList<LocalDateTime>();
+
+        /*Tiene las citas agendadas */
+        List<String> citasAgendadas = citaData.citasOrdenadasFechaPorClinica(idClinica, idMedico);
 
         /*Para guardar las fechas que no se repiten */
         List<LocalDateTime> fechasFiltradas = new ArrayList<>();

@@ -5,9 +5,11 @@ import com.citabot.interfaceService.IHorarioService;
 import com.citabot.interfaceService.IPacienteService;
 import com.citabot.interfaceService.IRegistroClinicaService;
 import com.citabot.interfaces.ICita;
+import com.citabot.interfaces.MailService;
 import com.citabot.model.Cita;
 import com.citabot.model.Paciente;
 import com.citabot.model.RegistroClinica;
+import com.citabot.model.clases.Mail;
 import com.citabot.model.formulario.interfaces.CitaConstl;
 import com.citabot.model.formulario.FCita;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class CitaService implements ICitaService {
     @Autowired
     private IHorarioService horarioService;
 
+    @Autowired
+    MailService serviceMail;
+
     @Override
     public List<Cita> listar() {
         return (List<Cita>) data.findAll();
@@ -51,6 +56,7 @@ public class CitaService implements ICitaService {
     public Cita save(FCita formularioCita, int paId, int regId) {
         Cita citaDb = new Cita();
         Cita cita = new Cita();
+        Mail mail = new Mail();
         Paciente pacienteDB = new Paciente();
         RegistroClinica registroClinicaDB = new RegistroClinica();
         System.out.printf("fecha obtenida: " + formularioCita.getFechaCita());
@@ -67,11 +73,46 @@ public class CitaService implements ICitaService {
             cita.setPaciente(pacienteDB);
             cita.setClinicaMedico(registroClinicaDB);
             citaDb = data.save(cita);
+
+            /*Se crean correos electronicos para notificar al paciente y al doctor sobre la nueva cita agendada*/
+            String content="Usted ha agendado una cita médica con los siguientes datos:"+"\n" +
+                    "\n" +" Doctor/a: "+registroClinicaDB.getMedico().getNombre()+" "+registroClinicaDB.getMedico().getApellido() +"\n"+ " Clínica: "+
+                    registroClinicaDB.getClinica().getNombreClinica()+"\n" +"Fecha: "+cita.getFechaCita().toString();
+            mail.setMailContent(content);
+            enviarCorreo("informarAgendamiento","paciente",pacienteDB.getEmail(),mail);
+            mail=new Mail();
+            content="Se ha agendado una cita médica con los siguientes datos:"+"\n" +
+                    "\n" +" Paciente: "+pacienteDB.getNombre()+" "+pacienteDB.getApellido() +"\n"+ " Clínica: "+
+                    registroClinicaDB.getClinica().getNombreClinica()+"\n" +"Fecha: "+cita.getFechaCita().toString();
+            mail.setMailContent(content);
+            enviarCorreo("informarAgendamiento","doctor",registroClinicaDB.getMedico().getEmail(),mail);
+
             return citaDb;
         } catch (Error error) {
             System.out.printf("error saving cita: ", error.getMessage());
         }
         return citaDb;
+    }
+
+    /*Este metodo crea y envia un correo tomando en cuenta el tipo de correo (cancelar cita, informar agendamiento)
+    * el usuario hace referencia al paciente o medico y finalmente la direccion de correo de destino */
+    public void enviarCorreo(String tipoCorreo, String usuario, String correo, Mail mail){
+        //Mail mail = new Mail();
+        mail.setMailFrom("citadoc@gmail.com");
+        if(tipoCorreo.equals("informarAgendamiento")&&usuario.equals("paciente")){
+            mail.setMailTo(correo);
+            mail.setMailSubject("Agendamiento de cita médica");
+        }else if(tipoCorreo.equals("informarAgendamiento")&&usuario.equals("doctor")){
+            mail.setMailTo(correo);
+            mail.setMailSubject("Agendamiento de cita médica");
+        }else if(tipoCorreo.equals("cancelar")&&usuario.equals("paciente")){
+            mail.setMailTo(correo);
+            mail.setMailSubject("Cancelación de cita médica");
+        }else if(tipoCorreo.equals("cancelar")&&usuario.equals("doctor")){
+            mail.setMailTo(correo);
+            mail.setMailSubject("Cancelación de cita médica");
+        }
+        serviceMail.sendEmail(mail);
     }
 
     @Override
@@ -98,6 +139,9 @@ public class CitaService implements ICitaService {
     @Override
     public Cita update(int citaId, String estado) {
         Cita c = new Cita();
+        Mail mail = new Mail();
+        Paciente pacienteDB = new Paciente();
+        RegistroClinica registroClinicaDB = new RegistroClinica();
         try {
             if (data.existsById(citaId)) {
                 c = data.findById(citaId).get();
@@ -105,6 +149,22 @@ public class CitaService implements ICitaService {
                 c.setUpdateAt(actualizado());
                 c.setEstado(estado);
                 data.save(c);
+
+                pacienteDB = pacienteData.findById(c.getPaciente().getUsuarioId());
+                registroClinicaDB = registroData.findById(c.getClinicaMedico().getRegistroClinicaId()).get();
+                /*Se crean correos electronicos para notificar al paciente y al doctor sobre la nueva cita agendada*/
+                String content="Usted ha cancelado la cita médica con los siguientes datos:"+"\n" +
+                        "\n" +" Doctor/a: "+registroClinicaDB.getMedico().getNombre()+" "+registroClinicaDB.getMedico().getApellido() +"\n"+ " Clínica: "+
+                        registroClinicaDB.getClinica().getNombreClinica()+"\n" +"Fecha: "+c.getFechaCita().toString();
+                mail.setMailContent(content);
+                enviarCorreo("cancelar","paciente",pacienteDB.getEmail(),mail);
+                mail=new Mail();
+                content="Se ha cancelado la cita médica con los siguientes datos:"+"\n" +
+                        "\n" +" Paciente: "+pacienteDB.getNombre()+" "+pacienteDB.getApellido() +"\n"+ " Clínica: "+
+                        registroClinicaDB.getClinica().getNombreClinica()+"\n" +"Fecha: "+c.getFechaCita().toString();
+                mail.setMailContent(content);
+                enviarCorreo("cancelar","doctor",registroClinicaDB.getMedico().getEmail(),mail);
+
                 return c;
             } else {
                 return null;
@@ -129,6 +189,16 @@ public class CitaService implements ICitaService {
     @Override
     public List<String> citasOrdenadasFechaPorRegistro(int id) {
         return data.getFechasCitaPorRegistro(id, fechaActual());
+    }
+
+    @Override
+    public List<String> citasOrdenadasFechaPorMedico(int id) {
+        return data.getDiasCitaPorMedico(fechaActual(),id);
+    }
+
+    @Override
+    public List<String> citasOrdenadasFechaPorClinica(int idClinica, int idMedico) {
+        return data.getDiasCitaPorClinica(fechaActual(),idClinica, idMedico);
     }
 
     @Override
