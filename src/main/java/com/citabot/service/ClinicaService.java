@@ -2,6 +2,7 @@ package com.citabot.service;
 
 import com.citabot.interfaceService.IClinicaService;
 
+import com.citabot.interfaceService.IHorarioService;
 import com.citabot.interfaces.IClinica;
 import com.citabot.interfaces.IDireccion;
 import com.citabot.model.Clinica;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,10 @@ import java.util.Optional;
 public class ClinicaService implements IClinicaService {
     @Autowired
     private IClinica data;
+
+    @Autowired
+    private IHorarioService dataHorario;
+
     @Autowired
     private IDireccion direccionData;
 
@@ -73,6 +79,26 @@ public class ClinicaService implements IClinicaService {
     @Override
     public List<Clinica> listarClinicasDisponiblesParaMedico(int medicoId) {
         return data.listarClinicasDisponiblesParaMedico(medicoId);
+    }
+
+
+    @Override
+    public List<Clinica> listarClinicasDisponiblesDiaMedico(int medioId, String dia) {
+        List<Clinica> clinicas = data.listarClinicasPorDiaMedico(medioId, dia);
+        return validarClinicasDisponibles(clinicas, dia, medioId);
+    }
+
+    public List<Clinica> validarClinicasDisponibles(List<Clinica> clinicas, String dia, int medioId){
+        List<Clinica> clinicasDisponibles = new ArrayList<>();
+
+        for(Clinica clinica:clinicas){
+            if(dataHorario.fechasDisponiblesClinica(clinica.getClinicaId().intValue(),medioId, dia).size()>0){
+                clinicasDisponibles.add(clinica);
+            }
+
+        }
+
+        return clinicasDisponibles;
     }
 
 }

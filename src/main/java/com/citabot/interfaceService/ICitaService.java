@@ -30,6 +30,10 @@ public interface ICitaService {
 
     public List<String> citasOrdenadasFechaPorRegistro(int id);
 
+    public List<String> citasOrdenadasFechaPorMedico(int id);
+
+    public List<String> citasOrdenadasFechaPorClinica(int idClinica, int idMedico);
+
     public List<String> citasOrdenadasDiasPorRegistro();
 
     public List<Cita> getHistorial(long id);

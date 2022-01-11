@@ -66,6 +66,10 @@ public class MedicoRasaController {
     @GetMapping("/medicos/especialidad")
     @ResponseStatus(HttpStatus.OK)
     public List<Medico> getByMedicoEspecialidadDia(@RequestParam int idEspecialidad, String dia){
+        //Recupera la lista de medico segun la especialidad y el dia
+        //
+
+
         return service.listar_medicos_especialidadDia(idEspecialidad, dia);
     }
 

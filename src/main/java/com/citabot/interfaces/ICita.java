@@ -28,6 +28,22 @@ public interface ICita extends CrudRepository<Cita, Integer> {
     @Query(value = "SELECT DISTINCT fecha_cita from cita where fecha_cita>:ts order by fecha_cita asc", nativeQuery = true)
     List<String> getDiasCitaPorRegistro(Timestamp ts);
 
+    @Query(value = "SELECT DISTINCT fecha_cita from cita, registro_clinica where \n" +
+            "registro_clinica.registro_clinica_id=cita.registro_clinica_id and \n" +
+            "cita.fecha_cita>:ts and\n" +
+            "registro_clinica.medico_id=:idMedico and \n" +
+            "cita.estado = 'pendiente' \n" +
+            "order by fecha_cita asc", nativeQuery = true)
+    List<String> getDiasCitaPorMedico(Timestamp ts, int idMedico );
+
+    @Query(value = "SELECT DISTINCT fecha_cita from cita, registro_clinica where\n" +
+            "            registro_clinica.registro_clinica_id=cita.registro_clinica_id and \n" +
+            "            cita.fecha_cita>:ts and\n" +
+            "            registro_clinica.clinica_id=:idClinica and \n" +
+            "\t\t\tregistro_clinica.medico_id=:idMedico and\n" +
+            "            cita.estado = 'pendiente' \n" +
+            "            order by fecha_cita asc", nativeQuery = true)
+    List<String> getDiasCitaPorClinica (Timestamp ts, int idClinica, int idMedico);
 
     @Query(value = "select cita.cita_id as citaId, cita.fecha_cita as fechaCita, cita.sintomas as sintomas, registro_clinica.clinica_id as clinicaId, registro_clinica.medico_id as medicoId from cita, paciente, registro_clinica where\n" +
             "            cita.registro_clinica_id=registro_clinica.registro_clinica_id and\n" +

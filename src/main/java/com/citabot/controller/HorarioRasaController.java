@@ -55,10 +55,15 @@ public class HorarioRasaController {
     }
 
     /*Devuelve  esto es para el paciente*/
-    @GetMapping(path = "/fechas/{id}", produces = "application/json")
+/*    @GetMapping(path = "/fechas/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<String> listarFechasDisponibles(@PathVariable("id") int id){
         return  service.listarFechasDisponibles(id);
+    }*/
+    @GetMapping(path = "/fechas", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public List<String> listarFechasDisponibles(@RequestParam int idRegistroClinica, String dia){
+        return  service.listarFechasDisponiblesRegistro(idRegistroClinica, dia);
     }
 
     @GetMapping(path = "/dias", produces = "application/json")
@@ -68,6 +73,7 @@ public class HorarioRasaController {
         /*Me va a devolver los dias de las fechas generadas, aqui me va a devolver dias repetidos */
         List<String> diasDisponibles = new ArrayList<String>();
         for(int i=0;i<service.listarDiasDisponibles().size();i++) {
+            //System.out.println("FECHAS DIAS: "+service.listarDiasDisponibles().get(i));
             diasDisponibles.add(service.listarDiasDisponibles().get(i).getDayOfWeek().toString());
         }
         /*Utilizo un set para eliminar los repetidos */

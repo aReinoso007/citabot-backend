@@ -19,10 +19,13 @@ public interface IClinica extends CrudRepository<Clinica, Integer> {
             "medico.usuario_id=?1", nativeQuery = true)
     List<Clinica> listarClinicasPorMedico(int medioId);
 
-    @Query(value = "select * from medico, clinica, registro_clinica\n" +
-            "where medico.usuario_id = registro_clinica.medico_id and\n" +
-            "registro_clinica.clinica_id=clinica.clinica_id and \n" +
-            "medico.usuario_id=?1", nativeQuery = true)
+    @Query(value = "select distinct on(clinica.clinica_id) * from horario, medico, clinica, registro_clinica\n" +
+            "\twhere \n" +
+            "\thorario.dia=:dia and\n" +
+            "\thorario.registro_clinica_registro_clinica_id=registro_clinica.registro_clinica_id and\n" +
+            "\tmedico.usuario_id = registro_clinica.medico_id and\n" +
+            "    registro_clinica.clinica_id=clinica.clinica_id and \n" +
+            "    medico.usuario_id=:medioId", nativeQuery = true)
     List<Clinica> listarClinicasPorDiaMedico(int medioId, String dia);
 
 

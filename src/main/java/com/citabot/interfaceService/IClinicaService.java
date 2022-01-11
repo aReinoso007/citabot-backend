@@ -15,4 +15,5 @@ public interface IClinicaService {
     public Clinica update(Clinica clinica);
     public List<Clinica> listarPorMedico(int idMedico);
     public List<Clinica> listarClinicasDisponiblesParaMedico(int medicoId);
+    public List<Clinica> listarClinicasDisponiblesDiaMedico (int medioId, String dia);
 }
