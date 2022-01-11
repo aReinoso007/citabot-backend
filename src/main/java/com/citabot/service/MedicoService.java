@@ -1,7 +1,9 @@
 package com.citabot.service;
 
 import com.citabot.exceptions.EtAuthException;
+import com.citabot.interfaceService.IHorarioService;
 import com.citabot.interfaceService.IMedicoService;
+import com.citabot.interfaces.IHorario;
 import com.citabot.interfaces.IMedico;
 import com.citabot.model.Medico;
 import com.citabot.model.formulario.FMedico;
@@ -22,6 +24,9 @@ public class MedicoService implements IMedicoService {
 
     @Autowired
     private IMedico data;
+
+    @Autowired
+    private IHorarioService dataHorario;
 
     @Override
     @Transactional(readOnly = true)
@@ -112,7 +117,23 @@ public class MedicoService implements IMedicoService {
 
     @Override
     public List<Medico> listar_medicos_especialidadDia(int idEspecialidad, String dia) {
-        return data.listarPorDiaEspecilaidad(idEspecialidad, dia);
+       // return data.listarPorDiaEspecilaidad(idEspecialidad, dia);
+        List<Medico> medicos = data.listarPorDiaEspecilaidad(idEspecialidad, dia);
+        return validarMedicosDisponibles(medicos, dia, idEspecialidad);
+    }
+
+    public List<Medico> validarMedicosDisponibles(List<Medico> medicos, String dia, int idEspecialidad){
+        List<Medico> medicoDisponibles=new ArrayList<>();
+
+      //  dataHorario.asdkjcbsadkjfbhaklsdjhvbfa;sikdujfvbalekisdfujvberiaqfu
+        for (Medico medico: medicos) {
+
+            if(dataHorario.fechasDisponiblesMedico(idEspecialidad, medico.getUsuarioId().intValue(), dia).size()>0){
+                medicoDisponibles.add(medico);
+            }
+        }
+
+        return  medicoDisponibles;
     }
 
     @Override

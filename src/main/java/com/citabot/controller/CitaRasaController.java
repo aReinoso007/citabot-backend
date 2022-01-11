@@ -4,10 +4,12 @@ import com.citabot.interfaceService.ICitaService;
 import com.citabot.interfaceService.IClinicaService;
 import com.citabot.interfaceService.IMedicoService;
 import com.citabot.interfaceService.IMedicoEspecialidadService;
+import com.citabot.interfaces.MailService;
 import com.citabot.model.Cita;
 import com.citabot.model.Clinica;
 import com.citabot.model.Medico;
 import com.citabot.model.MedicoEspecialidad;
+import com.citabot.model.clases.Mail;
 import com.citabot.model.formulario.CitaD;
 import com.citabot.model.formulario.interfaces.CitaConstl;
 import com.citabot.model.formulario.FCita;
@@ -43,6 +45,9 @@ public class CitaRasaController {
     @Autowired
     IMedicoService serviceMedico;
 
+    @Autowired
+    MailService serviceMail;
+
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Cita> listar(){
@@ -54,6 +59,29 @@ public class CitaRasaController {
     public Optional<Cita> listarById(@PathVariable("id") int id){
         return service.listarById(id);
     }
+
+
+
+/*    @GetMapping(path = "/email")
+    @ResponseStatus(HttpStatus.OK)
+    public String enviaremail(){
+        Mail mail = new Mail();
+        mail.setMailFrom("citadoc@gmail.com");
+        mail.setMailTo("zhirzhancris12@hotmail.com");
+        mail.setMailSubject("Agendamiento de cita médica");
+
+        String content="Usted ha agendado la cita médica con los siguientes datos:"+"\n" +
+                "Especialidad: "+"Odontología "+"\n" +" Doctor/a: "+"Luis Felipe "+"\n"+ " Clínica: "+
+                "Humanitaria "+"\n" +"Fecha: "+"2022-01-13 13:00:00";
+        mail.setMailContent(content);
+
+*//*        ApplicationContext ctx = SpringApplication.run(Application.class, args);
+        MailService mailService = (MailService) ctx.getBean("mailService");*//*
+        serviceMail.sendEmail(mail);
+
+        return "email";
+    }*/
+
 
     /*Devuelve las fechas de las citas agendadas en orden por fecha */
     @GetMapping(path = "/fechas/{id}")

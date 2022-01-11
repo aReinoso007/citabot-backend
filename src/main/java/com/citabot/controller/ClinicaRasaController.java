@@ -79,8 +79,9 @@ public class ClinicaRasaController {
 
     @GetMapping("/medico_clinica")
     @ResponseStatus(HttpStatus.OK)
-    public List<Clinica> listarClinicasMedico(@RequestParam int idMedico){
-        return service.listarPorMedico(idMedico);
+    public List<Clinica> listarClinicasMedico(@RequestParam int idMedico, String dia){
+       // return service.listarPorMedico(idMedico);
+        return  service.listarClinicasDisponiblesDiaMedico(idMedico, dia);
     }
 
 }

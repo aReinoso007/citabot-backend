@@ -23,12 +23,12 @@ public interface IMedico extends CrudRepository<Medico, Long> {
             "medico_especialidad.especialidad_id=?1", nativeQuery = true)
     List<Medico> listarPorEspecialidadId(int especialidadId);
 
-    @Query(value = "select * from horario, registro_clinica, medico, medico_especialidad\n" +
-            "where horario.dia=:dia and\n" +
-            "horario.registro_clinica_registro_clinica_id=registro_clinica.registro_clinica_id and \n" +
-            "registro_clinica.medico_id=medico.usuario_id and\n" +
-            "medico_especialidad.medico_id = medico.usuario_id and\n" +
-            "medico_especialidad.especialidad_id=:especialidadId", nativeQuery = true)
+    @Query(value = "select distinct on(medico.usuario_id) * from horario, registro_clinica, medico, medico_especialidad\n" +
+            "            where horario.dia=:dia and\n" +
+            "            horario.registro_clinica_registro_clinica_id=registro_clinica.registro_clinica_id and\n" +
+            "            registro_clinica.medico_id=medico.usuario_id and\n" +
+            "            medico_especialidad.medico_id = medico.usuario_id and\n" +
+            "            medico_especialidad.especialidad_id=:especialidadId", nativeQuery = true)
     List<Medico> listarPorDiaEspecilaidad(int especialidadId, String dia);
 
     Medico findMedicoByUsername(String username);

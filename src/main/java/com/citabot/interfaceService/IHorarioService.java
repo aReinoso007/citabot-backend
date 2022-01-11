@@ -24,6 +24,8 @@ public interface IHorarioService {
     * a las fechas disponibles */
     public List<String> listarFechasDisponibles(int id);
 
+    public List<String> listarFechasDisponiblesRegistro(int idRegistroClinica, String dia );
+
     /*Me lista los dias e intervalos de tiempo, esta es importantes */
     List<String> horariosRegistroOrdenado(int id);
 
@@ -31,4 +33,9 @@ public interface IHorarioService {
 
     /*Esto es para poder mostrar de mejor manera en el front */
     List<Horario> horarioOrdenadoObj(int id);
+
+    List<String> fechasDisponiblesMedico(int idEspecialidad, int idMedico ,String dia);
+
+    List<String> fechasDisponiblesClinica(int idClinica, int idMedico, String dia);
+
 }
