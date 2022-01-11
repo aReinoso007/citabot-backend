@@ -62,7 +62,7 @@ public class CitaController {
     }
 
     @GetMapping(path = "historial/{id}")
-    public List<Cita> getHistorialCitasMedico(@PathVariable("id") long id) {
+    public List<Cita> getHistorialCitasMedico(@PathVariable("id") int id) {
         return service.getHistorial(id);
     }
 
@@ -70,6 +70,7 @@ public class CitaController {
     public List<Cita> getTodayCitas(@PathVariable("id") long id) {
         return service.getTodayCitas(id);
     }
+
     @GetMapping(path = "/citas/{id}")
     public List<CitaD> listarCitasPorPaciente(@PathVariable("id") int id) {
         List<CitaConstl> list = new ArrayList<>();

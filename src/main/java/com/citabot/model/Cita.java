@@ -17,7 +17,7 @@ public class Cita implements Serializable {
     private Integer citaId;
     private Timestamp createdAt;
     private Timestamp updateAt;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.s", timezone = "America/Guayaquil")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "America/Guayaquil")
     private Timestamp fechaCita;
     private String sintomas;
     private BigDecimal precioConsulta;
