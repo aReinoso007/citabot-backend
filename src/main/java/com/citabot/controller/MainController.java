@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class MainController {
-    @RequestMapping("/")
+    @RequestMapping("/welcome")
     public String getInit(){
         return "Hola";
     }
