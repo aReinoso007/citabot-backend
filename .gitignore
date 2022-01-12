@@ -17,7 +17,7 @@ src/main/resources/application-dev.properties
 .idea/artifacts/citabot_backend_war.xml
 src/main/resources/application-dev.properties
 src/main/resources/application-dev.properties
-*.properties
+#*.properties
 citabot-backend.iml
 .idea/*
 .idea/artifacts
@@ -29,7 +29,7 @@ citabot-backend.iml
 *.iml
 *.ipr
 *.iml
-*.properties
+#*.properties
 *.xml
 .idea/artifacts/citabot_backend_war_exploded.xml
 .idea/artifacts/citabot_backend_war.xml
@@ -39,3 +39,4 @@ src/main/resources/application-dev.properties
 src/main/resources/application-dev.properties
 .idea/artifacts/citabot_backend_war_exploded.xml
 .idea/artifacts/citabot_backend_war.xml
+#*.properties
