@@ -11,7 +11,7 @@
 	<groupId>com.citabot</groupId>
 	<artifactId>citabot-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>citabot-backend</name>
 	<description>Backend de citabot</description>
 	<properties>
