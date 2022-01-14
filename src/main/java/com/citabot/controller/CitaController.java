@@ -83,7 +83,7 @@ public class CitaController {
         for (CitaConstl cita : list) {
 
             citad.setCitaId(cita.getcitaId());
-            citad.setFechaCita(cita.getfechaCita());
+            citad.setFechaCita(cita.getfechaCita().toString());
             citad.setSintomas(cita.getsintomas());
             // Recupera la clinica
             clinica = serviceClinica.findById(cita.getclinicaId()).get();

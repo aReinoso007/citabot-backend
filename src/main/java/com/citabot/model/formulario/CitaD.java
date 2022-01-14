@@ -9,8 +9,9 @@ public class CitaD implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer citaId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.s", timezone = "America/Guayaquil")
-    private Timestamp fechaCita;
+ /*   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.s", timezone = "America/Guayaquil")
+    private Timestamp fechaCita;*/
+    private String fechaCita;
     private String sintomas;
     private String clinica;
     private String medico;
@@ -19,7 +20,7 @@ public class CitaD implements Serializable {
     public CitaD() {
     }
 
-    public CitaD(Integer citaId, Timestamp fechaCita, String sintomas, String clinica, String medico, String especialidad) {
+    public CitaD(Integer citaId, String fechaCita, String sintomas, String clinica, String medico, String especialidad) {
         this.citaId = citaId;
         this.fechaCita = fechaCita;
         this.sintomas = sintomas;
@@ -36,11 +37,11 @@ public class CitaD implements Serializable {
         this.citaId = citaId;
     }
 
-    public Timestamp getFechaCita() {
+    public String getFechaCita() {
         return fechaCita;
     }
 
-    public void setFechaCita(Timestamp fechaCita) {
+    public void setFechaCita(String fechaCita) {
         this.fechaCita = fechaCita;
     }
 
