@@ -10,8 +10,10 @@ import com.citabot.model.Cita;
 import com.citabot.model.Paciente;
 import com.citabot.model.RegistroClinica;
 import com.citabot.model.clases.Mail;
+import com.citabot.model.formulario.FCitaDMedico;
 import com.citabot.model.formulario.interfaces.CitaConstl;
 import com.citabot.model.formulario.FCita;
+import com.citabot.model.formulario.interfaces.CitaDets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -212,8 +214,18 @@ public class CitaService implements ICitaService {
     }
 
     @Override
+    public List<CitaDets> getHistorialCitasDeMedico(int medId) {
+        return data.getHistorialMedicoFechaString(medId);
+    }
+
+    @Override
     public List<Cita> getTodayCitas(long id) {
         return data.getTodayCitas(id);
+    }
+
+    @Override
+    public List<CitaDets> getCitasDeHoy(int medId) {
+        return data.getCitasHoyDateComoString(medId);
     }
 
     public List<CitaConstl> Listar_citas_paciente(int idPaciente) {
