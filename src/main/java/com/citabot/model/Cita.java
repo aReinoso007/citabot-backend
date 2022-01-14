@@ -15,7 +15,9 @@ public class Cita implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer citaId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "America/Guayaquil")
     private Timestamp createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "America/Guayaquil")
     private Timestamp updateAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "America/Guayaquil")
     private Timestamp fechaCita;

@@ -137,7 +137,7 @@ public class CitaRasaController {
             citad.setMedico(medico.getNombre()+' '+medico.getApellido());
 
             //listC.add(citad);
-           // citad = new CitaD();
+           //citad = new CitaD();
 
         }
         return citad;
