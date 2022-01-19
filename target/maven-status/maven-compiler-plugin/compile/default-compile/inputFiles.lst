@@ -37,6 +37,7 @@ C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-back
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\model\DireccionClinica.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\model\DireccionPaciente.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\controller\MedicoEspecialidadController.java
+C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\model\formulario\FCitaDMedico.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\service\PacientePatologiaService.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\interfaceService\IHorarioService.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\model\Especialidad.java
@@ -79,6 +80,7 @@ C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-back
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\controller\DireccionPacienteController.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\model\formulario\FPatologia.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\interfaceService\IDireccionClinicaService.java
+C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\model\formulario\interfaces\CitaDets.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\model\formulario\FPaciente.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\interfaces\IEnfermedad.java
 C:\Users\Alex Reinoso\Documents\10mo\Proyecto titulacion\Desarrollo\citabot-backend\src\main\java\com\citabot\model\formulario\CitaD.java
