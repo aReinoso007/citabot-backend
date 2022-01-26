@@ -1,16 +1,12 @@
 package com.citabot.controller;
 
-import com.citabot.interfaceService.ICitaService;
-import com.citabot.interfaceService.IClinicaService;
-import com.citabot.interfaceService.IMedicoService;
-import com.citabot.interfaceService.IMedicoEspecialidadService;
-import com.citabot.model.Cita;
-import com.citabot.model.Clinica;
-import com.citabot.model.Medico;
-import com.citabot.model.MedicoEspecialidad;
+import com.citabot.interfaceService.*;
+import com.citabot.model.*;
 import com.citabot.model.formulario.CitaD;
+import com.citabot.model.formulario.FCitaDMedico;
 import com.citabot.model.formulario.interfaces.CitaConstl;
 import com.citabot.model.formulario.FCita;
+import com.citabot.model.formulario.interfaces.CitaDets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,6 +32,8 @@ public class CitaController {
 
     @Autowired
     IClinicaService serviceClinica;
+    @Autowired
+    IPacienteService pacienteService;
 
     @Autowired
     IMedicoEspecialidadService serviceMedEsp;
@@ -62,13 +60,47 @@ public class CitaController {
     }
 
     @GetMapping(path = "historial/{id}")
-    public List<Cita> getHistorialCitasMedico(@PathVariable("id") int id) {
-        return service.getHistorial(id);
+    public List<FCitaDMedico> getHistorialCitasMedico(@PathVariable("id") int id) {
+        List<CitaDets> list = service.getHistorialCitasDeMedico(id);
+        List<FCitaDMedico> listaFinal = new ArrayList<>();
+        Clinica clinica = new Clinica();
+        Paciente paciente = new Paciente();
+        FCitaDMedico citaD = new FCitaDMedico();
+        for(CitaDets cita: list){
+            citaD.setCitaId(cita.getCitaId());
+            citaD.setFechaCita(cita.getfechaCita().toString());
+            citaD.setSintomas(cita.getsintomas());
+            citaD.setEstado(cita.getEstado());
+            clinica = serviceClinica.findById(cita.getclinicaId()).get();
+            paciente = pacienteService.findById(cita.getpacienteId());
+            citaD.setClinica(clinica.getNombreClinica());
+            citaD.setPaciente(paciente.getNombre()+" "+paciente.getApellido());
+            listaFinal.add(citaD);
+            citaD = new FCitaDMedico();
+        }
+        return listaFinal;
     }
 
     @GetMapping(path = "/hoy/{id}")
-    public List<Cita> getTodayCitas(@PathVariable("id") long id) {
-        return service.getTodayCitas(id);
+    public List<FCitaDMedico> getTodayCitas(@PathVariable("id") int id) {
+        List<CitaDets> list = service.getCitasDeHoy(id);
+        List<FCitaDMedico> listaFinal = new ArrayList<>();
+        Clinica clinica = new Clinica();
+        Paciente paciente = new Paciente();
+        FCitaDMedico citaD = new FCitaDMedico();
+        for(CitaDets cita: list){
+            citaD.setCitaId(cita.getCitaId());
+            citaD.setFechaCita(cita.getfechaCita().toString());
+            citaD.setSintomas(cita.getsintomas());
+            citaD.setEstado(cita.getEstado());
+            clinica = serviceClinica.findById(cita.getclinicaId()).get();
+            paciente = pacienteService.findById(cita.getpacienteId());
+            citaD.setClinica(clinica.getNombreClinica());
+            citaD.setPaciente(paciente.getNombre()+" "+paciente.getApellido());
+            listaFinal.add(citaD);
+            citaD = new FCitaDMedico();
+        }
+        return listaFinal;
     }
 
     @GetMapping(path = "/citas/{id}")

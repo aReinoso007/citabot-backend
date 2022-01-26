@@ -1,8 +1,10 @@
 package com.citabot.interfaceService;
 
 import com.citabot.model.Cita;
+import com.citabot.model.formulario.FCitaDMedico;
 import com.citabot.model.formulario.interfaces.CitaConstl;
 import com.citabot.model.formulario.FCita;
+import com.citabot.model.formulario.interfaces.CitaDets;
 import org.springframework.data.jpa.repository.Query;
 
 import java.sql.Timestamp;
@@ -36,9 +38,10 @@ public interface ICitaService {
 
     public List<String> citasOrdenadasDiasPorRegistro();
 
-    public List<Cita> getHistorial(int id);
-
-    public List<Cita> getTodayCitas(long id);
+    List<Cita> getHistorial(int id);
+    List<CitaDets> getHistorialCitasDeMedico(int medId);
+    List<Cita> getTodayCitas(long id);
+    List<CitaDets> getCitasDeHoy(int medId);
 
     public List<CitaConstl> Listar_citas_paciente(int idPaciente);
     public List<CitaConstl> obtenerCitaDetalle(int idCita);

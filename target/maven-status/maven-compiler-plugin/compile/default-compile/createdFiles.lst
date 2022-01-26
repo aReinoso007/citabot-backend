@@ -24,6 +24,7 @@ com\citabot\model\formulario\FRegistroClinica.class
 com\citabot\service\PacienteCirugiaservice.class
 com\citabot\controller\HorarioRasaController.class
 com\citabot\interfaceService\IEnfermedadService.class
+com\citabot\model\formulario\interfaces\CitaDets.class
 com\citabot\model\formulario\FMedico.class
 com\citabot\Constants.class
 com\citabot\service\MedicoEspecialidadService.class
@@ -56,6 +57,7 @@ com\citabot\model\formulario\FUpdateMedico.class
 com\citabot\interfaces\IDireccionPaciente.class
 com\citabot\model\formulario\FCirugia.class
 com\citabot\model\Horario.class
+com\citabot\model\formulario\FCitaDMedico.class
 com\citabot\service\RegistroClinicaService.class
 com\citabot\interfaceService\IPacienteCirugiaService.class
 com\citabot\interfaceService\IPacienteService.class

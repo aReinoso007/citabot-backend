@@ -2,6 +2,7 @@ package com.citabot.interfaces;
 
 import com.citabot.model.Cita;
 import com.citabot.model.formulario.interfaces.CitaConstl;
+import com.citabot.model.formulario.interfaces.CitaDets;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -64,5 +65,20 @@ public interface ICita extends CrudRepository<Cita, Integer> {
             "and fecha_cita >= current_date\n" +
             "order by fecha_cita asc;", nativeQuery = true)
     List<Cita> getTodayCitas(long id);
+
+    @Query(value = "select cita.cita_id as citaId, cita.fecha_cita as fechaCita, cita.sintomas as sintomas, \n" +
+            "registro_clinica.clinica_id as clinicaId, cita.paciente_id as pacienteId, cita.estado as estado from cita, paciente, registro_clinica \n" +
+            "where\n" +
+            "registro_clinica.registro_clinica_id=cita.registro_clinica_id and paciente.usuario_id = cita.paciente_id and registro_clinica.medico_id=?1\n" +
+            "and cita.fecha_cita >= current_date\n" +
+            "order by cita.fecha_cita asc", nativeQuery = true)
+    List<CitaDets> getCitasHoyDateComoString(int medId);
+
+    @Query(value = "select cita.cita_id as citaId, cita.fecha_cita as fechaCita, cita.sintomas as sintomas, \n" +
+            "registro_clinica.clinica_id as clinicaId, cita.paciente_id as pacienteId, cita.estado as estado from cita, paciente, registro_clinica \n" +
+            "where\n" +
+            "registro_clinica.registro_clinica_id=cita.registro_clinica_id and paciente.usuario_id = cita.paciente_id and registro_clinica.medico_id=?1\n" +
+            "order by cita.fecha_cita asc", nativeQuery = true)
+    List<CitaDets> getHistorialMedicoFechaString(int medId);
 
 }
